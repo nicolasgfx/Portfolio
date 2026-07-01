@@ -7,45 +7,24 @@ as a small gallery site.
 
 ## Renders
 
-### Bistro — Café
-![Bistro — Café](images/bistro_cafe.png)
-
-### Bistro — Le Chevalier
-![Bistro — Le Chevalier](images/bistro_le_chevalier.png)
-
-### Bistro — Vespa
-![Bistro — Vespa](images/bistro_vespa.png)
-
-### Classroom
-![Classroom](images/classroom.png)
-
-### Hornet — fan art
-![Hornet](images/hornet.png)
-
-### Monster Under the Bed
-![Monster Under the Bed](images/monster_under_bed.png)
-
-### Staircase
-![Staircase](images/staicase.png)
-
-### Zero-Day
-![Zero-Day](images/zeroday.png)
-
-> **Kroken** — coming soon (see the [NoDerivatives note](#kroken--noderivatives-caution) below).
-
----
-
-## Built with my own renderer
-
-Every image here is produced by a path tracer I wrote from scratch — scene
-management, physically based materials, importance sampling and light transport,
-all my own code. Below is its editor: scene tree, layered material inspector,
-live viewport, and progressive render output.
-
-![My path-tracer editor](images/editor.png)
-
-> Scene shown in the render output: *Kroken* by Angelo Ferretti / Lucy Dreams,
-> licensed [CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0/).
+<table>
+  <tr>
+    <td width="50%"><img src="images/bistro_cafe.png" width="100%" alt="Bistro — Café"><br><sub><b>Bistro — Café</b></sub></td>
+    <td width="50%"><img src="images/bistro_le_chevalier.png" width="100%" alt="Bistro — Le Chevalier"><br><sub><b>Bistro — Le Chevalier</b></sub></td>
+  </tr>
+  <tr>
+    <td width="50%"><img src="images/bistro_vespa.png" width="100%" alt="Bistro — Vespa"><br><sub><b>Bistro — Vespa</b></sub></td>
+    <td width="50%"><img src="images/classroom.png" width="100%" alt="Classroom"><br><sub><b>Classroom</b></sub></td>
+  </tr>
+  <tr>
+    <td width="50%"><img src="images/hornet.png" width="100%" alt="Hornet"><br><sub><b>Hornet — fan art</b></sub></td>
+    <td width="50%"><img src="images/monster_under_bed.png" width="100%" alt="Monster Under the Bed"><br><sub><b>Monster Under the Bed</b></sub></td>
+  </tr>
+  <tr>
+    <td width="50%"><img src="images/staicase.png" width="100%" alt="Staircase"><br><sub><b>Staircase</b></sub></td>
+    <td width="50%"><img src="images/zeroday.png" width="100%" alt="Zero-Day"><br><sub><b>Zero-Day</b></sub></td>
+  </tr>
+</table>
 
 ---
 
