@@ -7,20 +7,20 @@ as a small gallery site.
 
 ## Renders
 
-### Bistro — Vespa
-![Bistro — Vespa](images/bistro_vespa.png)
-
-### Zero-Day
-![Zero-Day](images/zeroday.png)
-
-### Hornet — fan art
-![Hornet](images/hornet.png)
-
 ### Bistro — Café
 ![Bistro — Café](images/bistro_cafe.png)
 
+### Bistro — Le Chevalier
+![Bistro — Le Chevalier](images/bistro_le_chevalier.png)
+
+### Bistro — Vespa
+![Bistro — Vespa](images/bistro_vespa.png)
+
 ### Classroom
 ![Classroom](images/classroom.png)
+
+### Hornet — fan art
+![Hornet](images/hornet.png)
 
 ### Monster Under the Bed
 ![Monster Under the Bed](images/monster_under_bed.png)
@@ -28,8 +28,8 @@ as a small gallery site.
 ### Staircase
 ![Staircase](images/staicase.png)
 
-### Bistro — Le Chevalier
-![Bistro — Le Chevalier](images/bistro_le_chevalier.png)
+### Zero-Day
+![Zero-Day](images/zeroday.png)
 
 > **Kroken** — coming soon (see the [NoDerivatives note](#kroken--noderivatives-caution) below).
 

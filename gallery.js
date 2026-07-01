@@ -12,10 +12,9 @@
 
 const RENDERS = [
   {
-    file: "images/bistro_vespa.png",
-    title: "Bistro — Vespa",
-    scene:
-      "A vintage Vespa parked on a cobblestone street outside a Parisian café at night.",
+    file: "images/bistro_cafe.png",
+    title: "Bistro — Café",
+    scene: "The café terrace of the Lumberyard Bistro, awnings and warm interior light.",
     author: "Amazon Lumberyard",
     source: "NVIDIA ORCA",
     sourceUrl: "https://developer.nvidia.com/orca/amazon-lumberyard-bistro",
@@ -25,37 +24,22 @@ const RENDERS = [
       'Scene "Amazon Lumberyard Bistro", pbrt-v4 port via github.com/mmp/pbrt-v4-scenes.',
   },
   {
-    file: "images/zeroday.png",
-    title: "Zero-Day",
-    scene:
-      "Neon-lit sci-fi corridor from Beeple's short film, a classic global-illumination stress test.",
-    author: "Mike Winkelmann (Beeple)",
-    source: "beeple-crap.com/resources",
-    sourceUrl: "https://www.beeple-crap.com/resources",
-    license: "Free for any use (no attribution required)",
-    licenseUrl: "https://www.beeple-crap.com/resources",
-    notes:
-      "Released by the author for any commercial or non-commercial use; credited here voluntarily. Also available via NVIDIA ORCA under CC BY 4.0.",
-  },
-  {
-    file: "images/hornet.png",
-    title: "Hornet — fan art",
-    scene:
-      "Character study lit with a single warm key and a looping light-trail, rendered from a fan-made 3D model.",
-    author: "dark_igorek",
-    source: "Sketchfab",
-    sourceUrl:
-      "https://sketchfab.com/3d-models/silksong-hornet-fanart-57d431b977c841ef8c117af82f109890",
+    file: "images/bistro_le_chevalier.png",
+    title: "Bistro — Le Chevalier",
+    scene: "A shopfront corner of the Lumberyard Bistro under evening light.",
+    author: "Amazon Lumberyard",
+    source: "NVIDIA ORCA",
+    sourceUrl: "https://developer.nvidia.com/orca/amazon-lumberyard-bistro",
     license: "CC BY 4.0",
     licenseUrl: "https://creativecommons.org/licenses/by/4.0/",
-    fanart: true,
     notes:
-      'Unofficial fan art. Model "Silksong || Hornet Fanart" by dark_igorek. The character Hornet and Hollow Knight: Silksong are trademarks / © Team Cherry — see disclaimer below.',
+      'Scene "Amazon Lumberyard Bistro", pbrt-v4 port via github.com/mmp/pbrt-v4-scenes.',
   },
   {
-    file: "images/bistro_cafe.png",
-    title: "Bistro — Café",
-    scene: "The café terrace of the Lumberyard Bistro, awnings and warm interior light.",
+    file: "images/bistro_vespa.png",
+    title: "Bistro — Vespa",
+    scene:
+      "A vintage Vespa parked on a cobblestone street outside a Parisian café at night.",
     author: "Amazon Lumberyard",
     source: "NVIDIA ORCA",
     sourceUrl: "https://developer.nvidia.com/orca/amazon-lumberyard-bistro",
@@ -74,6 +58,21 @@ const RENDERS = [
     license: "CC0 1.0 (Public Domain)",
     licenseUrl: "https://creativecommons.org/publicdomain/zero/1.0/",
     notes: "No attribution required under CC0; credited here voluntarily.",
+  },
+  {
+    file: "images/hornet.png",
+    title: "Hornet — fan art",
+    scene:
+      "Character study lit with a single warm key and a looping light-trail, rendered from a fan-made 3D model.",
+    author: "dark_igorek",
+    source: "Sketchfab",
+    sourceUrl:
+      "https://sketchfab.com/3d-models/silksong-hornet-fanart-57d431b977c841ef8c117af82f109890",
+    license: "CC BY 4.0",
+    licenseUrl: "https://creativecommons.org/licenses/by/4.0/",
+    fanart: true,
+    notes:
+      'Unofficial fan art. Model "Silksong || Hornet Fanart" by dark_igorek. The character Hornet and Hollow Knight: Silksong are trademarks / © Team Cherry — see disclaimer below.',
   },
   {
     file: "images/monster_under_bed.png",
@@ -100,16 +99,17 @@ const RENDERS = [
       'Scene "The Wooden Staircase" by Wig42. Confirm the exact CC-BY version shown on the Blend Swap page.',
   },
   {
-    file: "images/bistro_le_chevalier.png",
-    title: "Bistro — Le Chevalier",
-    scene: "A shopfront corner of the Lumberyard Bistro under evening light.",
-    author: "Amazon Lumberyard",
-    source: "NVIDIA ORCA",
-    sourceUrl: "https://developer.nvidia.com/orca/amazon-lumberyard-bistro",
-    license: "CC BY 4.0",
-    licenseUrl: "https://creativecommons.org/licenses/by/4.0/",
+    file: "images/zeroday.png",
+    title: "Zero-Day",
+    scene:
+      "Neon-lit sci-fi corridor from Beeple's short film, a classic global-illumination stress test.",
+    author: "Mike Winkelmann (Beeple)",
+    source: "beeple-crap.com/resources",
+    sourceUrl: "https://www.beeple-crap.com/resources",
+    license: "Free for any use (no attribution required)",
+    licenseUrl: "https://www.beeple-crap.com/resources",
     notes:
-      'Scene "Amazon Lumberyard Bistro", pbrt-v4 port via github.com/mmp/pbrt-v4-scenes.',
+      "Released by the author for any commercial or non-commercial use; credited here voluntarily. Also available via NVIDIA ORCA under CC BY 4.0.",
   },
   {
     file: "images/kroken.png",
