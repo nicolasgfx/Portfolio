@@ -3,11 +3,35 @@
 Hero renders produced with my own, self-written path tracers. This repo doubles
 as a small gallery site.
 
-**▶ Live gallery:** open `index.html`, or (once GitHub Pages is enabled) visit
-`https://<your-username>.github.io/portfolio/`.
+---
 
+## Renders
+
+### Bistro — Vespa
 ![Bistro — Vespa](images/bistro_vespa.png)
+
+### Zero-Day
 ![Zero-Day](images/zeroday.png)
+
+### Hornet — fan art
+![Hornet](images/hornet.png)
+
+### Bistro — Café
+![Bistro — Café](images/bistro_cafe.png)
+
+### Classroom
+![Classroom](images/classroom.png)
+
+### Monster Under the Bed
+![Monster Under the Bed](images/monster_under_bed.png)
+
+### Staircase
+![Staircase](images/staicase.png)
+
+### Bistro — Le Chevalier
+![Bistro — Le Chevalier](images/bistro_le_chevalier.png)
+
+> **Kroken** — coming soon (see the [NoDerivatives note](#kroken--noderivatives-caution) below).
 
 ---
 
