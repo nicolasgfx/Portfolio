@@ -18,6 +18,7 @@
       <p class="hero__tagline">Hero renders from my self-written path tracers.</p>
       <nav class="hero__nav">
         <a href="#gallery">Gallery</a>
+        <a href="#renderer">The renderer</a>
         <a href="#credits">Credits &amp; licenses</a>
         <a href="mailto:drnicolasmenzel@gmail.com">Contact</a>
       </nav>
@@ -26,6 +27,50 @@
     <main>
       <section id="gallery-section" aria-label="Render gallery">
         <div id="gallery" class="gallery"></div>
+      </section>
+
+      <section id="renderer" class="renderer" aria-label="The renderer">
+        <div class="renderer__inner">
+          <div class="renderer__text">
+            <h2 class="renderer__heading">Built with my own renderer</h2>
+            <p>
+              Every image here is produced by a path tracer I wrote from scratch —
+              scene management, physically based materials, importance sampling and
+              light transport, all my own code. Below is its editor: scene tree,
+              layered material inspector, live viewport, and the progressive render
+              output.
+            </p>
+            <p class="renderer__note">
+              Scene shown in the render output:
+              <a
+                href="https://www.lucydreams.it/kroken/"
+                target="_blank"
+                rel="noopener"
+                >“Kroken” by Angelo Ferretti / Lucy Dreams</a
+              >, licensed
+              <a
+                href="https://creativecommons.org/licenses/by-nd/4.0/"
+                target="_blank"
+                rel="noopener"
+                >CC BY-ND 4.0</a
+              >.
+            </p>
+          </div>
+          <a
+            class="renderer__shot"
+            href="images/editor.png"
+            target="_blank"
+            rel="noopener"
+            aria-label="Open the full-size editor screenshot"
+          >
+            <img
+              src="images/editor.png"
+              alt="Screenshot of my path-tracer editor: scene tree on the left, 3D viewport and live render output in the center, layered material inspector on the right."
+              loading="lazy"
+              decoding="async"
+            />
+          </a>
+        </div>
       </section>
 
       <section id="credits" class="credits" aria-label="Credits and licenses">

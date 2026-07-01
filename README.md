@@ -11,6 +11,20 @@ as a small gallery site.
 
 ---
 
+## Built with my own renderer
+
+Every image here is produced by a path tracer I wrote from scratch — scene
+management, physically based materials, importance sampling and light transport,
+all my own code. Below is its editor: scene tree, layered material inspector,
+live viewport, and progressive render output.
+
+![My path-tracer editor](images/editor.png)
+
+> Scene shown in the render output: *Kroken* by Angelo Ferretti / Lucy Dreams,
+> licensed [CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0/).
+
+---
+
 ## Credits & licenses
 
 All images here are renders I produced with my own path tracer. The underlying
