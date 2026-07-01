@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nicolas Menzel — Path-Traced Renders</title>
+    <meta
+      name="description"
+      content="Hero renders produced with a self-written path tracer by Nicolas Menzel."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <p class="hero__eyebrow">Physically based rendering</p>
+      <h1 class="hero__name">Nicolas Menzel</h1>
+      <p class="hero__tagline">Hero renders from my self-written path tracers.</p>
+      <nav class="hero__nav">
+        <a href="#gallery">Gallery</a>
+        <a href="#credits">Credits &amp; licenses</a>
+        <a href="mailto:drnicolasmenzel@gmail.com">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section id="gallery-section" aria-label="Render gallery">
+        <div id="gallery" class="gallery"></div>
+      </section>
+
+      <section id="credits" class="credits" aria-label="Credits and licenses">
+        <h2 class="credits__heading">Credits &amp; licenses</h2>
+        <p id="credits-intro" class="credits__intro"></p>
+        <ul id="credits-list" class="credits__list"></ul>
+
+        <div class="disclaimer">
+          <h3>Fan-art notice (Hornet)</h3>
+          <p>
+            The “Hornet” render is <strong>unofficial fan art</strong>. The character
+            Hornet and <em>Hollow Knight: Silksong</em> are trademarks and/or
+            copyright of <strong>Team Cherry</strong>. This non-commercial render is
+            not affiliated with, authorized, sponsored, or endorsed by Team Cherry.
+            The underlying 3D model, “Silksong || Hornet Fanart” by dark_igorek, is
+            used under
+            <a
+              href="https://creativecommons.org/licenses/by/4.0/"
+              target="_blank"
+              rel="noopener"
+              >CC BY 4.0</a
+            >.
+          </p>
+        </div>
+
+        <div class="disclaimer">
+          <h3>Kroken — NoDerivatives caution</h3>
+          <p>
+            The Kroken scene is licensed <strong>CC BY-ND 4.0</strong>. Because a
+            rendered image may constitute a derivative work, that render is not yet
+            published here; it will only be added after confirming the license
+            permits it or obtaining the author's permission.
+          </p>
+        </div>
+
+        <div class="disclaimer disclaimer--contact">
+          <h3>Rights holders</h3>
+          <p>
+            Attribution and licenses above are provided in good faith. If you are a
+            rights holder and have a concern about any asset used here, contact
+            <a href="mailto:drnicolasmenzel@gmail.com">drnicolasmenzel@gmail.com</a>
+            and I will promptly address it.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© <span id="year"></span> Nicolas Menzel — renders by my own path tracer.</p>
+    </footer>
+
+    <!-- Lightbox -->
+    <div
+      id="lightbox"
+      class="lightbox"
+      role="dialog"
+      aria-modal="true"
+      aria-hidden="true"
+      aria-label="Full-size render viewer"
+    >
+      <button id="lb-close" class="lb-btn lb-close" aria-label="Close">×</button>
+      <button id="lb-prev" class="lb-btn lb-prev" aria-label="Previous render">‹</button>
+      <button id="lb-next" class="lb-btn lb-next" aria-label="Next render">›</button>
+      <figure class="lb-figure">
+        <img id="lb-img" alt="" />
+        <figcaption class="lb-caption">
+          <h3 id="lb-title"></h3>
+          <p id="lb-scene"></p>
+          <p id="lb-credit" class="lb-credit"></p>
+        </figcaption>
+      </figure>
+    </div>
+
+    <script src="gallery.js"></script>
+  </body>
+</html>
