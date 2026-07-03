@@ -14,6 +14,10 @@ as a small gallery site.
   </tr>
   <tr>
     <td width="50%"><img src="images/bistro_vespa.png" width="100%" alt="Bistro — Vespa"><br><sub><b>Bistro — Vespa</b></sub></td>
+    <td width="50%"><img src="images/bathroom.png" width="100%" alt="Bathroom"><br><sub><b>Bathroom</b></sub></td>
+  </tr>
+  <tr>
+    <td width="50%"><img src="images/zeroday.png" width="100%" alt="Zero-Day"><br><sub><b>Zero-Day</b></sub></td>
     <td width="50%"><img src="images/classroom.png" width="100%" alt="Classroom"><br><sub><b>Classroom</b></sub></td>
   </tr>
   <tr>
@@ -22,7 +26,7 @@ as a small gallery site.
   </tr>
   <tr>
     <td width="50%"><img src="images/staicase.png" width="100%" alt="Staircase"><br><sub><b>Staircase</b></sub></td>
-    <td width="50%"><img src="images/zeroday.png" width="100%" alt="Zero-Day"><br><sub><b>Zero-Day</b></sub></td>
+    <td width="50%"></td>
   </tr>
 </table>
 
@@ -43,6 +47,7 @@ Trademarks and characters are the property of their respective owners.
 | Classroom | *Class room* — Christophe Seux | [Blender Demo Files](https://www.blender.org/download/demo-files/) | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) (public domain; credited voluntarily) |
 | Monster Under the Bed | Metin Seven, based on 2D concept art by Blake Stevenson | [Blender Demo Files](https://www.blender.org/download/demo-files/) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
 | Staircase | *The Wooden Staircase* — Wig42 | [Blend Swap #14449](https://blendswap.com/blend/14449) | [CC BY](https://creativecommons.org/licenses/by/3.0/) |
+| Bathroom | *Bathroom Scene 15* — PHI Archviz | [Fab](https://www.fab.com/listings/0a045566-e87c-4c54-927b-b40173523681) | [Fab Standard License](https://www.fab.com/eula) (Personal/Professional; no attribution required, credited voluntarily) |
 | Kroken *(not yet published — see note)* | Angelo Ferretti / Lucy Dreams | [lucydreams.it](https://www.lucydreams.it/kroken/) · [pbrt-v4-scenes](https://github.com/mmp/pbrt-v4-scenes) | [CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0/) |
 
 ### Fan-art notice (Hornet)
@@ -59,6 +64,17 @@ The Kroken scene is licensed **CC BY-ND 4.0**. Because a rendered image may
 constitute a derivative work, that render is **not published here yet**. It will
 be added only after confirming the license permits it or obtaining the author's
 permission.
+
+### Bathroom — Fab Standard License
+
+The *Bathroom Scene 15* asset by **PHI Archviz** was purchased on
+[Fab](https://www.fab.com/listings/0a045566-e87c-4c54-927b-b40173523681) under the
+[Fab Standard License](https://www.fab.com/eula). That license grants the right to
+use and modify the asset to produce final rendered images ("linear" end products
+such as the still shown here) and to display it publicly. It does **not**
+require attribution — the author is credited here voluntarily — and it does **not**
+permit redistributing the underlying 3D asset files themselves. Only rendered
+images are published in this repository, so the license terms are respected.
 
 ### Rights holders
 
