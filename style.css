@@ -184,6 +184,94 @@ a:hover {
   text-align: center;
 }
 
+/* ---------- architecture ---------- */
+
+.architecture {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: clamp(2rem, 6vw, 4rem) clamp(1.25rem, 5vw, 4rem);
+  border-top: 1px solid var(--line);
+}
+.architecture__heading {
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  margin: 0 0 1rem;
+}
+.architecture__intro {
+  color: var(--fg-dim);
+  margin: 0 0 1rem;
+  max-width: 75ch;
+}
+.architecture code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.88em;
+  color: var(--fg);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+  padding: 0.08em 0.35em;
+}
+.architecture strong {
+  color: var(--fg);
+}
+
+.arch-block {
+  margin-top: clamp(2rem, 5vw, 3.25rem);
+}
+.arch-block h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+.arch-block p {
+  color: var(--fg-dim);
+  margin: 0 0 1.25rem;
+  font-size: 0.92rem;
+  max-width: 75ch;
+}
+
+/* A diagram scrolls inside its own frame; the page never scrolls sideways. */
+.diagram {
+  margin: 0 0 1.25rem;
+  padding: clamp(0.75rem, 2vw, 1.25rem);
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow-x: auto;
+}
+.diagram__src {
+  margin: 0;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--fg-faint);
+}
+.diagram--ready .diagram__src,
+.diagram--fallback .diagram__src {
+  opacity: 1;
+}
+/* Once rendered the <pre> holds an SVG, so drop the source-text whitespace
+   rules that would otherwise leak into mermaid's foreignObject labels. */
+.diagram--ready .diagram__src {
+  white-space: normal;
+}
+.diagram--ready .diagram__src svg {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+}
+/* CDN unreachable: show the source, labelled, instead of an empty frame. */
+.diagram--fallback::before {
+  content: "Diagram source — renderer unavailable";
+  display: block;
+  margin-bottom: 0.6rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-faint);
+}
+
 /* ---------- credits ---------- */
 
 .credits {

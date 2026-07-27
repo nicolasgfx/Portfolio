@@ -19,6 +19,7 @@
       <nav class="hero__nav">
         <a href="#overview">Gallery</a>
         <a href="#project-editor">The editor</a>
+        <a href="#architecture">Architecture</a>
         <a href="#credits">Credits &amp; licenses</a>
         <a href="mailto:drnicolasmenzel@gmail.com">Contact</a>
       </nav>
@@ -34,6 +35,260 @@
       </section>
 
       <div id="sections"></div>
+
+      <!-- Architecture. The diagram sources below are mirrored verbatim from
+           README.md; `<br/>` is entity-escaped so the browser hands mermaid the
+           literal text instead of parsing it as markup. -->
+      <section id="architecture" class="architecture" aria-label="Renderer architecture">
+        <h2 class="architecture__heading">Architecture</h2>
+        <p class="architecture__intro">
+          The project is one binary with two faces: an interactive scene editor and a
+          GPU path tracer, both reading and writing the <strong>same</strong> runtime
+          <code>Scene</code>. There is no editor scene graph, no exporter, and no
+          translation layer between the two — the editor's undo stack and the
+          renderer's device buffers are both derived from a single authored file.
+        </p>
+        <p class="architecture__intro">
+          The five diagrams below are the top-down map: the system, the
+          synchronization system, dirtiness, the file system, and the inside of the
+          renderer.
+        </p>
+
+        <article class="arch-block">
+          <h3>System map</h3>
+          <p>
+            One runtime <code>Scene</code> is the hub. Two derived views hang off it and
+            they are orthogonal — neither consumes the other: an authoring index for the
+            editor, a compiled cache for the renderer. Everything that crosses to the GPU
+            crosses as a sealed, immutable snapshot.
+          </p>
+          <figure class="diagram">
+<pre class="mermaid diagram__src">
+flowchart TD
+  subgraph DISK["Disk"]
+    SJ["scene.json&lt;br/&gt;the ONE authored file"]
+    AJ["asset.json + meshes/*.ply&lt;br/&gt;*.meshbin"]
+    MJ["*.mat.json"]
+  end
+
+  SJ --&gt; LOAD["scene_loader.cpp&lt;br/&gt;asset_loader.cpp"]
+  AJ --&gt; LOAD
+  MJ --&gt; LOAD
+  LOAD --&gt; SCENE["Scene — src/scene/scene.h&lt;br/&gt;SOLE SOURCE OF TRUTH"]
+
+  SCENE --&gt; HIER["hierarchy::Snapshot + derive/ views&lt;br/&gt;editor infrastructure"]
+  SCENE --&gt; COMPILE["scene::compile()&lt;br/&gt;then derive_lighting()"]
+
+  HIER --&gt; UI["Scene Tree · Inspector&lt;br/&gt;Gizmo · Tools · Physics"]
+  COMPILE --&gt; RC["RenderCache&lt;br/&gt;flat instances + GeometryPool&lt;br/&gt;+ light distributions"]
+
+  UI --&gt;|"EditOp"| SCENE
+  RC --&gt; REQ["RenderRequest&lt;br/&gt;sealed Scene clone + RenderCache snapshot&lt;br/&gt;+ RenderSceneEpoch"]
+  REQ --&gt; JOB["RenderJobInProc&lt;br/&gt;worker thread · last-wins mailbox"]
+  JOB --&gt; DEV["RenderDevice::sync()&lt;br/&gt;reuse vs re-init"]
+  DEV --&gt; SESS["RenderSession&lt;br/&gt;accel · framebuffers · env"]
+  SESS --&gt; GPU["OptiX 9 / CUDA 12"]
+  GPU --&gt;|"snapshot double-buffer"| UI
+  SCENE --&gt;|"save"| SJ
+
+  classDef disk fill:#4a6fa5,stroke:#8fb0d8,color:#fff
+  classDef truth fill:#b73a3a,stroke:#e07a7a,color:#fff
+  classDef gpu fill:#2f7d3c,stroke:#7acb85,color:#fff
+  class SJ,AJ,MJ disk
+  class SCENE truth
+  class SESS,GPU gpu
+</pre>
+          </figure>
+        </article>
+
+        <article class="arch-block">
+          <h3>The synchronization system — epochs and the three channels</h3>
+          <p>
+            Every edit is an <code>EditOp</code>, and each op declares which render
+            domains it touched. Nine monotonic counters live in one struct on the editor
+            side; the renderer keeps its own mirror and diffs the two. Only
+            <strong>three</strong> channels reach the GPU; anything else is an
+            architecture violation.
+          </p>
+          <figure class="diagram">
+<pre class="mermaid diagram__src">
+flowchart TD
+  OP["EditOp::apply / revert"] --&gt; DOMAINS["touched_domains()&lt;br/&gt;returns RenderSceneDelta"]
+  DOMAINS --&gt; BUMP["EditState::bump_domains_()&lt;br/&gt;THE ONE WRITER"]
+  BUMP --&gt; DV["domain_versions_ : RenderSceneEpoch&lt;br/&gt;geometry · geometry_verts · material · material_ids&lt;br/&gt;transform · instance_set · lighting · environment · render"]
+
+  DV --&gt; BR["build_request_()"]
+  BR --&gt; CLONE["deep Scene clone, throwaway&lt;br/&gt;doctored: isolation · clay · lookdev · beam portals"]
+  BR --&gt; SNAP["RenderCache snapshot&lt;br/&gt;immutable, refcounted"]
+  CLONE --&gt; MAIL
+  SNAP --&gt; MAIL
+  DV --&gt; MAIL["RenderRequest mailbox&lt;br/&gt;last-wins, single slot"]
+
+  MAIL --&gt;|"channel 1 · epoch"| SYNC["RenderDevice::sync()"]
+  CAM["update_camera()&lt;br/&gt;pose + fov only"] --&gt;|"channel 2 · camera fast path"| SYNC
+  PFX["update_postfx()&lt;br/&gt;display fields only"] --&gt;|"channel 3 · post-FX live push"| SYNC
+
+  SYNC --&gt; DIFF["epoch.diff(cached_epoch_)"]
+  DIFF --&gt;|"geometry moved,&lt;br/&gt;or LOD / texture cap changed"| INIT["drop_session()&lt;br/&gt;RenderSession::init — rebuild accel"]
+  DIFF --&gt;|"otherwise"| REUSE["reuse session&lt;br/&gt;update_settings + reconcile_residency&lt;br/&gt;UNCONDITIONAL"]
+  INIT --&gt; DRAW["render_frame · apply_postfx · download"]
+  REUSE --&gt; DRAW
+
+  classDef truth fill:#b73a3a,stroke:#e07a7a,color:#fff
+  classDef gpu fill:#2f7d3c,stroke:#7acb85,color:#fff
+  class DV truth
+  class INIT,REUSE,DRAW gpu
+</pre>
+          </figure>
+          <p>
+            GPU state is split by <strong>lifetime</strong>, which is the whole
+            explanation of why a scene change is cheap: device-lifetime state
+            (<code>OptixEngine</code>, the texture pool) survives it; session-lifetime
+            state (accel structures, framebuffers, environment) dies with the geometry.
+            The worker that delivers frames owns no GPU state at all.
+          </p>
+        </article>
+
+        <article class="arch-block">
+          <h3>Dirtiness — revisions and their consumers</h3>
+          <p>
+            A scene-scale fact that two or more subsystems display is derived
+            <strong>once</strong>, by the model, behind the narrowest revision that can
+            invalidate it — never by each view, per frame. Setting
+            <code>PPT_VALIDATE_DERIVED=1</code> re-derives on every access, so a missed
+            bump surfaces as a named error instead of a panel that silently stops
+            updating.
+          </p>
+          <figure class="diagram">
+<pre class="mermaid diagram__src">
+flowchart TD
+  EDIT["structural / material / lighting edit"] --&gt; RV["EditState revision counters"]
+
+  RV --&gt; R1["edit_serial_"]
+  RV --&gt; R2["material_revision_"]
+  RV --&gt; R3["lighting_revision_"]
+  RV --&gt; R4["asset_data_cache_.revision()"]
+  RV --&gt; R5["transform_revision_ · topology_revision_"]
+
+  R1 --&gt; V1["hierarchy::Snapshot"]
+  R2 --&gt; V2["derive::MaterialUsage&lt;br/&gt;derive::TextureUsage"]
+  R3 --&gt; V3["derive::Emitters"]
+  R4 --&gt; V4["derive::InstanceParts"]
+
+  V1 --&gt; PANEL["Scene Tree · Inspector&lt;br/&gt;Materials · Textures panels"]
+  V2 --&gt; PANEL
+  V3 --&gt; PANEL
+  V4 --&gt; PANEL
+
+  R3 --&gt; HOST["sync_host_render_cache()&lt;br/&gt;the render boundary"]
+  HOST --&gt; DL["scene::derive_lighting()&lt;br/&gt;emissive · fog · beam distributions"]
+  R5 --&gt; STRUCT["incremental RenderCache mutators&lt;br/&gt;tombstone · material-id patch · vertex splice"]
+  STRUCT --&gt; PARITY["parity gate&lt;br/&gt;mutated cache must equal a fresh compile()"]
+  DL --&gt; RCOUT["RenderCache ready for upload"]
+  PARITY --&gt; RCOUT
+
+  classDef truth fill:#b73a3a,stroke:#e07a7a,color:#fff
+  class PARITY truth
+</pre>
+          </figure>
+          <p>
+            The compiled cache is mutated in place rather than recompiled on every edit
+            <strong>only</strong> because a check proves the mutated cache equals a fresh
+            <code>compile()</code>. A mutator that cannot satisfy that check must
+            recompile.
+          </p>
+        </article>
+
+        <article class="arch-block">
+          <h3>The file system — library, project, codecs</h3>
+          <p>
+            An asset <strong>is</strong> the directory holding its
+            <code>asset.json</code> — no UUID, no registry, no index. A ref resolves
+            against the project directory or it is absolute, which makes a project
+            self-contained by construction. The app-level <code>assets/</code> tree is a
+            library you <em>instantiate from</em>, never a base you resolve against.
+            Every document is a codec: one writer, one reader, a round-trip test.
+          </p>
+          <figure class="diagram">
+<pre class="mermaid diagram__src">
+flowchart TD
+  subgraph LIB["assets/ — the LIBRARY, instantiate from"]
+    L1["geometry/ID/asset.json&lt;br/&gt;procedural primitives"]
+    L2["materials/CATEGORY/*.mat.json"]
+    L3["material_db/ — generated, gitignored"]
+    L4["ASSET/asset.json + meshes/ + textures/"]
+  end
+
+  subgraph PRJ["projects/NAME/ — self-contained"]
+    P1["scene.json — the ONE authored file&lt;br/&gt;geometry · groups · physics · cameras"]
+    P2["assets/SLUG/asset.json"]
+    P3["meshes/*.ply"]
+    P4["proxy/*.meshbin — cache, keyed by source hash"]
+    P5["textures/"]
+    P6["editor_state.json — sidecar, publish target"]
+    P7["renders/*.exr · *.png"]
+  end
+
+  L4 --&gt;|"INSTANTIATE — mirror, ref UNCHANGED"| P2
+  P1 --&gt; RD["scene_loader.cpp"]
+  P2 --&gt; RD2["load_asset — asset_loader.cpp"]
+  RD --&gt; SCENE["Scene"]
+  RD2 --&gt; SCENE
+  SCENE --&gt; WR["write_scene_json / write_asset_json&lt;br/&gt;asset_json.cpp · editor/scene_io.cpp"]
+  WR --&gt; P1
+  WR --&gt; P2
+  SCENE --&gt; P7
+
+  RESOLVE["resolve_asset_ref(ref, project_dir)&lt;br/&gt;THE ONLY RESOLVER — ONE BASE"]
+  RESOLVE -.-&gt; P2
+  PATHS["paths: ABSOLUTE in memory&lt;br/&gt;document-RELATIVE on disk"]
+  PATHS -.-&gt; WR
+
+  classDef disk fill:#4a6fa5,stroke:#8fb0d8,color:#fff
+  classDef truth fill:#b73a3a,stroke:#e07a7a,color:#fff
+  class P1,P2,P3,P4,P5,P6,P7,L1,L2,L3,L4 disk
+  class SCENE,RESOLVE truth
+</pre>
+          </figure>
+        </article>
+
+        <article class="arch-block">
+          <h3>Inside the renderer — four layers, four buffers</h3>
+          <p>
+            Dependencies point one way only, and the direction <em>is</em> the
+            architecture: the Renderer layer chooses <em>what</em> to compute, each layer
+            below chooses <em>how</em> to run it on this hardware. CUDA never drives
+            renderer architecture. Four raygen entry points own four distinct buffers,
+            and only the camera pass is bit-reproducible at a fixed seed — the caustic
+            splat uses <code>atomicAdd</code>, so it has a measurement floor of about
+            5e-7 by construction.
+          </p>
+          <figure class="diagram">
+<pre class="mermaid diagram__src">
+flowchart TD
+  R["Renderer&lt;br/&gt;integrator · BSDFs · NEE · caustics · post-FX&lt;br/&gt;knows the rendering equation"]
+  B["GPU Backend&lt;br/&gt;accel · launch params · device buffers · SBT"]
+  O["OptiX&lt;br/&gt;traversal · program groups · pipeline"]
+  C["CUDA&lt;br/&gt;memory · kernels · atomics"]
+  R --&gt; B --&gt; O --&gt; C
+
+  subgraph PASSES["Passes, and the buffer each owns"]
+    P1["__raygen__render&lt;br/&gt;camera path tracing"] --&gt; A1["raw accumulator&lt;br/&gt;bit-identical at a fixed seed"]
+    P2["__raygen__caustic&lt;br/&gt;light tracing through specular chains"] --&gt; A2["caustic splat buffers&lt;br/&gt;atomicAdd — not bit-reproducible"]
+    P3["__raygen__test_*&lt;br/&gt;normal / NEE diagnostics"] --&gt; A1
+    A1 --&gt; PF["post-FX kernels&lt;br/&gt;firefly → denoise → bloom → ACES → sRGB"]
+    A2 --&gt; PF
+    PF --&gt; HDR["HDR buffer → EXR / PNG / viewport"]
+  end
+
+  R -.-&gt; PASSES
+
+  classDef gpu fill:#2f7d3c,stroke:#7acb85,color:#fff
+  class R,B,O,C gpu
+</pre>
+          </figure>
+        </article>
+      </section>
 
       <section id="credits" class="credits" aria-label="Credits and licenses">
         <h2 class="credits__heading">Credits &amp; licenses</h2>
@@ -115,5 +370,54 @@
     </div>
 
     <script src="gallery.js"></script>
+
+    <!--
+      Mermaid is the only third-party dependency on this page, and it is confined
+      to the architecture diagrams. If the CDN is unreachable the figures fall
+      back to their own source text rather than collapsing to blank boxes.
+    -->
+    <script type="module">
+      const figures = document.querySelectorAll(".diagram");
+      try {
+        const { default: mermaid } = await import(
+          "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs"
+        );
+        mermaid.initialize({
+          startOnLoad: false,
+          theme: "base",
+          themeVariables: {
+            darkMode: true,
+            background: "#141416",
+            primaryColor: "#1c1c20",
+            primaryTextColor: "#ededf0",
+            primaryBorderColor: "#3a3a42",
+            secondaryColor: "#1c1c20",
+            tertiaryColor: "#141416",
+            lineColor: "#7a7a84",
+            textColor: "#ededf0",
+            clusterBkg: "#101012",
+            clusterBorder: "#2f2f36",
+            edgeLabelBackground: "#141416",
+            fontFamily:
+              'ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace',
+            fontSize: "14px",
+          },
+          flowchart: { useMaxWidth: true, curve: "basis", padding: 12 },
+        });
+        // Rendered one at a time so a single bad diagram cannot take the
+        // other four down with it.
+        for (const fig of figures) {
+          const node = fig.querySelector(".mermaid");
+          try {
+            await mermaid.run({ nodes: [node] });
+            fig.classList.add("diagram--ready");
+          } catch (err) {
+            fig.classList.add("diagram--fallback");
+          }
+        }
+      } catch (err) {
+        figures.forEach((f) => f.classList.add("diagram--fallback"));
+      }
+    </script>
   </body>
 </html>
