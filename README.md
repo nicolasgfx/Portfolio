@@ -10,18 +10,23 @@ as a small gallery site.
 <table>
   <tr>
     <td width="33%" align="center"><a href="#editor"><img src="images/00_editor/2_editor.png" width="100%" alt="The editor"></a><br><sub><b>The editor</b></sub></td>
+    <td width="33%" align="center"><a href="#poolhouse"><img src="images/05_poolhouse/01_Hero_Shot_Grass.png" width="100%" alt="Poolhouse"></a><br><sub><b>Poolhouse</b></sub></td>
     <td width="33%" align="center"><a href="#kroken"><img src="images/06_kroken/01_Camera_01_Main.png" width="100%" alt="Kroken"></a><br><sub><b>Kroken</b></sub></td>
-    <td width="33%" align="center"><a href="#bistro"><img src="images/07_bistro/02_bistro_cafe.png" width="100%" alt="Bistro"></a><br><sub><b>Bistro</b></sub></td>
   </tr>
   <tr>
+    <td width="33%" align="center"><a href="#bistro"><img src="images/07_bistro/02_bistro_cafe.png" width="100%" alt="Bistro"></a><br><sub><b>Bistro</b></sub></td>
     <td width="33%" align="center"><a href="#bathroom"><img src="images/08_bathroom/bathroom.png" width="100%" alt="Bathroom"></a><br><sub><b>Bathroom</b></sub></td>
     <td width="33%" align="center"><a href="#zero-day"><img src="images/09_zeroday/zeroday.png" width="100%" alt="Zero-Day"></a><br><sub><b>Zero-Day</b></sub></td>
-    <td width="33%" align="center"><a href="#monster-under-the-bed"><img src="images/10_monster_under_bed/monster_under_bed.png" width="100%" alt="Monster Under the Bed"></a><br><sub><b>Monster Under the Bed</b></sub></td>
   </tr>
   <tr>
+    <td width="33%" align="center"><a href="#monster-under-the-bed"><img src="images/10_monster_under_bed/monster_under_bed.png" width="100%" alt="Monster Under the Bed"></a><br><sub><b>Monster Under the Bed</b></sub></td>
     <td width="33%" align="center"><a href="#classroom"><img src="images/11_classroom/classroom.png" width="100%" alt="Classroom"></a><br><sub><b>Classroom</b></sub></td>
     <td width="33%" align="center"><a href="#hornet"><img src="images/12_hornet/hornet.png" width="100%" alt="Hornet"></a><br><sub><b>Hornet</b></sub></td>
+  </tr>
+  <tr>
     <td width="33%" align="center"><a href="#staircase"><img src="images/other/staicase.png" width="100%" alt="Staircase"></a><br><sub><b>Staircase</b></sub></td>
+    <td width="33%"></td>
+    <td width="33%"></td>
   </tr>
 </table>
 
@@ -39,6 +44,24 @@ inspector, live viewport, and progressive render output.
 <p align="center"><img src="images/00_editor/4_editor.png" width="100%" alt="Editor"></p>
 <p align="center"><img src="images/00_editor/5_editor.png" width="100%" alt="Editor"></p>
 <p align="center"><img src="images/00_editor/6_editor.png" width="100%" alt="Editor"></p>
+
+---
+
+## Poolhouse
+
+A modern villa and pool — **heavily reworked by me** from a Sketchfab base model,
+relit and re-dressed for a set of cinematic hero shots.
+
+<p align="center"><img src="images/05_poolhouse/01_Hero_Shot_Grass.png" width="100%" alt="Poolhouse — hero, grass"><br><sub><b>Hero — grass</b></sub></p>
+<p align="center"><img src="images/05_poolhouse/02_Hero_Shot_Terrace.png" width="100%" alt="Poolhouse — hero, terrace"><br><sub><b>Hero — terrace</b></sub></p>
+<p align="center"><img src="images/05_poolhouse/03_Hero_Shot_Inside.png" width="100%" alt="Poolhouse — hero, interior"><br><sub><b>Hero — interior</b></sub></p>
+<p align="center"><img src="images/05_poolhouse/04_grade_cinematic.png" width="100%" alt="Poolhouse — cinematic grade"><br><sub><b>Cinematic grade</b></sub></p>
+
+> Base model: *Modern luxury villa house building with pool* by zigurat
+> architecture studio, licensed
+> [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) and heavily modified
+> here (geometry, materials, lighting, staging). CC BY permits modification with
+> attribution and an indication of changes.
 
 ---
 
@@ -132,6 +155,7 @@ Trademarks and characters are the property of their respective owners.
 
 | Render | Scene / model — author | Source | License |
 | --- | --- | --- | --- |
+| Poolhouse *(heavily modified)* | *Modern luxury villa house building with pool* — zigurat architecture studio | [Sketchfab](https://sketchfab.com/3d-models/modern-luxury-villa-house-building-with-pool-0e858284939343cb994233d40a48a20a) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
 | Bistro (Café, Vespa, Le Chevalier) | *Amazon Lumberyard Bistro* — Amazon Lumberyard | [NVIDIA ORCA](https://developer.nvidia.com/orca/amazon-lumberyard-bistro) · [pbrt-v4-scenes](https://github.com/mmp/pbrt-v4-scenes) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
 | Zero-Day | *Zero-Day* — Mike Winkelmann (Beeple) | [beeple-crap.com/resources](https://www.beeple-crap.com/resources) | Free for any use, no attribution required (credited voluntarily) |
 | Hornet | *Silksong \|\| Hornet Fanart* — dark_igorek | [Sketchfab](https://sketchfab.com/3d-models/silksong-hornet-fanart-57d431b977c841ef8c117af82f109890) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |

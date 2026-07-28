@@ -28,6 +28,26 @@ const PROJECTS = [
     ],
   },
   {
+    id: "poolhouse",
+    title: "Poolhouse",
+    blurb:
+      "A modern villa and pool — heavily reworked from a Sketchfab base model, relit and re-dressed for a set of cinematic hero shots.",
+    author: "zigurat architecture studio",
+    source: "Sketchfab",
+    sourceUrl:
+      "https://sketchfab.com/3d-models/modern-luxury-villa-house-building-with-pool-0e858284939343cb994233d40a48a20a",
+    license: "CC BY 4.0",
+    licenseUrl: "https://creativecommons.org/licenses/by/4.0/",
+    notes:
+      'Base model "Modern luxury villa house building with pool" by zigurat architecture studio, heavily modified by Nicolas Menzel (geometry, materials, lighting, and staging). CC BY 4.0 permits modification with attribution and an indication of changes.',
+    images: [
+      { file: "images/05_poolhouse/01_Hero_Shot_Grass.png", caption: "Hero — grass" },
+      { file: "images/05_poolhouse/02_Hero_Shot_Terrace.png", caption: "Hero — terrace" },
+      { file: "images/05_poolhouse/03_Hero_Shot_Inside.png", caption: "Hero — interior" },
+      { file: "images/05_poolhouse/04_grade_cinematic.png", caption: "Cinematic grade" },
+    ],
+  },
+  {
     id: "kroken",
     title: "Kroken",
     blurb:
