@@ -205,25 +205,23 @@ flowchart TD
   subgraph DISK["Disk"]
     SJ["scene.json<br/>the ONE authored file"]
     AJ["asset.json + meshes/*.ply<br/>*.meshbin"]
-    MJ["*.mat.json"]
   end
 
   SJ --> LOAD["scene_loader.cpp<br/>asset_loader.cpp"]
   AJ --> LOAD
-  MJ --> LOAD
   LOAD --> SCENE["Scene — src/scene/scene.h<br/>SOLE SOURCE OF TRUTH"]
 
   SCENE --> HIER["hierarchy::Snapshot + derive/ views<br/>editor infrastructure"]
-  SCENE --> COMPILE["scene::compile()<br/>then derive_lighting()"]
+  SCENE --> COMPILE["scene::compile()"]
 
   HIER --> UI["Scene Tree · Inspector<br/>Gizmo · Tools · Physics"]
   COMPILE --> RC["RenderCache<br/>flat instances + GeometryPool<br/>+ light distributions"]
 
   UI -->|"EditOp"| SCENE
   RC --> REQ["RenderRequest<br/>sealed Scene clone + RenderCache snapshot<br/>+ RenderSceneEpoch"]
-  REQ --> JOB["RenderJobInProc<br/>worker thread · last-wins mailbox"]
-  JOB --> DEV["RenderDevice::sync()<br/>reuse vs re-init"]
-  DEV --> SESS["RenderSession<br/>accel · framebuffers · env"]
+  REQ --> JOB["RenderJobInProc<br/>worker thread"]
+  JOB --> DEV["RenderDevice::sync()"]
+  DEV --> SESS["RenderSession"]
   SESS --> GPU["OptiX 9 / CUDA 12"]
   GPU -->|"snapshot double-buffer"| UI
   SCENE -->|"save"| SJ
