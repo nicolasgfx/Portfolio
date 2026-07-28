@@ -212,15 +212,15 @@ flowchart TD
   LOAD --> SCENE["Scene — src/scene/scene.h<br/>SOLE SOURCE OF TRUTH"]
 
   SCENE --> HIER["hierarchy::Snapshot + derive/ views<br/>editor infrastructure"]
-  SCENE --> COMPILE["scene::compile()"]
+  SCENE --> COMPILE["compile — the render derivation"]
 
   HIER --> UI["Scene Tree · Inspector<br/>Gizmo · Tools · Physics"]
   COMPILE --> RC["RenderCache<br/>flat instances + GeometryPool<br/>+ light distributions"]
 
   UI -->|"EditOp"| SCENE
   RC --> REQ["RenderRequest<br/>sealed Scene clone + RenderCache snapshot<br/>+ RenderSceneEpoch"]
-  REQ --> JOB["RenderJobInProc<br/>worker thread"]
-  JOB --> DEV["RenderDevice::sync()"]
+  REQ --> JOB["RenderJobInProc — UI thread<br/>owns the device, drives a worker"]
+  JOB --> DEV["RenderDevice"]
   DEV --> SESS["RenderSession"]
   SESS --> GPU["OptiX 9 / CUDA 12"]
   GPU -->|"snapshot double-buffer"| UI
@@ -229,38 +229,39 @@ flowchart TD
   classDef disk fill:#4a6fa5,stroke:#8fb0d8,color:#fff
   classDef truth fill:#b73a3a,stroke:#e07a7a,color:#fff
   classDef gpu fill:#2f7d3c,stroke:#7acb85,color:#fff
-  class SJ,AJ,MJ disk
+  class SJ,AJ disk
   class SCENE truth
   class SESS,GPU gpu
 ```
 
-### The synchronization system — epochs and the three channels
+### The synchronization system — epochs and the three state channels
 
 Every edit is an `EditOp`, and each op declares which render domains it touched. Nine monotonic
 counters live in one struct on the editor side; the renderer keeps its own mirror and diffs the
-two. Only **three** channels reach the GPU; anything else is an architecture violation.
+two. Three **state** channels reach the GPU — the scene request, the camera pose, and the display
+settings — and a fourth push exists only for a debug material-ID view.
 
 ```mermaid
 flowchart TD
-  OP["EditOp::apply / revert"] --> DOMAINS["touched_domains()<br/>returns RenderSceneDelta"]
-  DOMAINS --> BUMP["EditState::bump_domains_()<br/>THE ONE WRITER"]
-  BUMP --> DV["domain_versions_ : RenderSceneEpoch<br/>geometry · geometry_verts · material · material_ids<br/>transform · instance_set · lighting · environment · render"]
+  OP["EditOp — apply / revert"] --> DOMAINS["each op declares<br/>the domains it touched"]
+  DOMAINS --> BUMP["EditState — THE ONE WRITER<br/>of the domain counters"]
+  BUMP --> DV["RenderSceneEpoch — nine counters<br/>geometry · geometry_verts · material · material_ids<br/>transform · instance_set · lighting · environment · render"]
 
-  DV --> BR["build_request_()"]
-  BR --> CLONE["deep Scene clone, throwaway<br/>doctored: isolation · clay · lookdev · beam portals"]
+  DV --> BR["request builder"]
+  BR --> CLONE["deep Scene clone, throwaway<br/>doctored: isolation · preview layers<br/>clay · lookdev · beam portals"]
   BR --> SNAP["RenderCache snapshot<br/>immutable, refcounted"]
   CLONE --> MAIL
   SNAP --> MAIL
   DV --> MAIL["RenderRequest mailbox<br/>last-wins, single slot"]
 
-  MAIL -->|"channel 1 · epoch"| SYNC["RenderDevice::sync()"]
-  CAM["update_camera()<br/>pose + fov only"] -->|"channel 2 · camera fast path"| SYNC
-  PFX["update_postfx()<br/>display fields only"] -->|"channel 3 · post-FX live push"| SYNC
+  MAIL -->|"channel 1 · scene + epoch"| SYNC["RenderDevice — sync"]
+  CAM["camera push<br/>pose · fov · accumulation reset"] -->|"channel 2 · fast path"| SYNC
+  PFX["display push<br/>exposure · bloom · tonemap · look"] -->|"channel 3 · live"| SYNC
 
-  SYNC --> DIFF["epoch.diff(cached_epoch_)"]
-  DIFF -->|"geometry moved,<br/>or LOD / texture cap changed"| INIT["drop_session()<br/>RenderSession::init — rebuild accel"]
-  DIFF -->|"otherwise"| REUSE["reuse session<br/>update_settings + reconcile_residency<br/>UNCONDITIONAL"]
-  INIT --> DRAW["render_frame · apply_postfx · download"]
+  SYNC --> DIFF["epoch diff"]
+  DIFF -->|"cold start, geometry changed,<br/>LOD or texture cap changed"| INIT["rebuild RenderSession<br/>accel · framebuffers · environment"]
+  DIFF -->|"otherwise"| REUSE["reuse session<br/>settings applied and residency<br/>reconciled every frame"]
+  INIT --> DRAW["render · post-FX · download"]
   REUSE --> DRAW
 
   classDef truth fill:#b73a3a,stroke:#e07a7a,color:#fff
@@ -269,42 +270,69 @@ flowchart TD
   class INIT,REUSE,DRAW gpu
 ```
 
+Resolution is deliberately **not** part of the reuse key — a resize keeps the session and resizes
+its buffers. The camera fast path carries pose, field of view and an accumulation reset; the lens
+is the one camera field it does not carry, so a depth-of-field change rides the request instead.
+
 GPU state is split by **lifetime**, which is the whole explanation of why a scene change is cheap:
-device-lifetime state (`OptixEngine`, the texture pool) survives it; session-lifetime state
-(accel structures, framebuffers, environment) dies with the geometry. The worker that delivers
-frames owns no GPU state at all.
+device-lifetime state (`OptixEngine`, the texture pool) survives it and is lent into each fresh
+session; session-lifetime state (accel structures, framebuffers, environment) dies with the
+geometry. The worker thread that delivers frames holds no GPU handles of its own.
 
 ### Dirtiness — revisions and their consumers
 
 A scene-scale fact that two or more subsystems display is derived **once**, by the model, behind
-the narrowest revision that can invalidate it — never by each view, per frame. Setting
-`PPT_VALIDATE_DERIVED=1` re-derives on every access, so a missed bump surfaces as a named error
-instead of a panel that silently stops updating.
+the revisions that can invalidate it — never by each view, per frame. No view has a single key:
+each memo is keyed on **every** counter that can make it wrong, and the interesting failure is a
+missing edge, not a missing counter. Setting `PPT_VALIDATE_DERIVED` re-derives on every access and
+compares, so a missed bump surfaces as a named error instead of a panel that silently stops
+updating.
 
 ```mermaid
 flowchart TD
-  EDIT["structural / material / lighting edit"] --> RV["EditState revision counters"]
+  EDIT["structural · material · lighting edit"] --> RV["EditState revision counters"]
 
-  RV --> R1["edit_serial_"]
-  RV --> R2["material_revision_"]
-  RV --> R3["lighting_revision_"]
-  RV --> R4["asset_data_cache_.revision()"]
-  RV --> R5["transform_revision_ · topology_revision_"]
+  RV --> C1["edit serial"]
+  RV --> C2["topology"]
+  RV --> C3["material"]
+  RV --> C4["lighting"]
+  RV --> C5["asset data cache"]
+  RV --> C6["transform"]
+  RV --> C7["scene texture count"]
 
-  R1 --> V1["hierarchy::Snapshot"]
-  R2 --> V2["derive::MaterialUsage<br/>derive::TextureUsage"]
-  R3 --> V3["derive::Emitters"]
-  R4 --> V4["derive::InstanceParts"]
+  V0["hierarchy::Snapshot"]
+  V1["derive::MaterialUsage"]
+  V2["derive::InstanceParts"]
+  V3["derive::Emitters"]
+  V4["derive::TextureUsage"]
 
-  V1 --> PANEL["Scene Tree · Inspector<br/>Materials · Textures panels"]
+  C1 --> V0
+  C1 --> V1
+  C2 --> V1
+  C3 --> V1
+  C1 --> V2
+  C2 --> V2
+  C5 --> V2
+  C1 --> V3
+  C2 --> V3
+  C3 --> V3
+  C4 --> V3
+  C3 --> V4
+  C7 --> V4
+
+  V0 --> PANEL["Scene Tree · Inspector<br/>Materials · Textures panels"]
+  V1 --> PANEL
   V2 --> PANEL
   V3 --> PANEL
   V4 --> PANEL
 
-  R3 --> HOST["sync_host_render_cache()<br/>the render boundary"]
-  HOST --> DL["scene::derive_lighting()<br/>emissive · fog · beam distributions"]
-  R5 --> STRUCT["incremental RenderCache mutators<br/>tombstone · material-id patch · vertex splice"]
-  STRUCT --> PARITY["parity gate<br/>mutated cache must equal a fresh compile()"]
+  C6 --> SEL["selection world bounds<br/>gates NO derive/ view"]
+
+  C4 --> EP["lighting epoch"]
+  EP --> HOST["host render-cache sync<br/>the render boundary"]
+  HOST --> DL["lighting derivation<br/>emissive · fog · beam distributions"]
+  C2 --> STRUCT["incremental RenderCache mutators<br/>tombstone · material-id patch · vertex splice"]
+  STRUCT --> PARITY["parity check — SAMPLED<br/>mutated cache must equal a fresh compile"]
   DL --> RCOUT["RenderCache ready for upload"]
   PARITY --> RCOUT
 
@@ -313,30 +341,33 @@ flowchart TD
 ```
 
 The compiled cache is mutated in place rather than recompiled on every edit **only** because a
-check proves the mutated cache equals a fresh `compile()`. A mutator that cannot satisfy that
-check must recompile.
+check can prove the mutated cache equals a fresh compile. A mutator that cannot satisfy that check
+must recompile. The check is expensive, so it is sampled rather than always on: it runs every Nth
+commit under `PPT_FULL_REBUILD_VALIDATION`, exhaustively in CI, and is compiled into release
+builds as well as debug ones.
 
 ### The file system — library, project, codecs
 
 An asset **is** the directory holding its `asset.json` — no UUID, no registry, no index. A ref
 resolves against the project directory or it is absolute, which makes a project self-contained by
 construction. The app-level `assets/` tree is a library you *instantiate from*, never a base you
-resolve against. Every document is a codec: one writer, one reader, a round-trip test.
+resolve against — instantiation mirrors the ref, so the same relative path names the asset in both
+trees. Every document is a codec: one writer, one reader, a round-trip test.
 
 ```mermaid
 flowchart TD
   subgraph LIB["assets/ — the LIBRARY, instantiate from"]
     L1["geometry/ID/asset.json<br/>procedural primitives"]
-    L2["materials/CATEGORY/*.mat.json"]
+    L2["materials/CATEGORY/*.mat.json<br/>the built-in material library"]
     L3["material_db/ — generated, gitignored"]
     L4["ASSET/asset.json + meshes/ + textures/"]
   end
 
   subgraph PRJ["projects/NAME/ — self-contained"]
     P1["scene.json — the ONE authored file<br/>geometry · groups · physics · cameras"]
-    P2["assets/SLUG/asset.json"]
-    P3["meshes/*.ply"]
-    P4["proxy/*.meshbin — cache, keyed by source hash"]
+    P2["assets/CATEGORY/ID/asset.json<br/>mirrors the library ref"]
+    P3["meshes/ — *.meshbin, *.ply interchange"]
+    P4["proxy/*.meshbin — mirrors the source path<br/>a hash INSIDE the block rejects a stale one"]
     P5["textures/"]
     P6["editor_state.json — sidecar, publish target"]
     P7["renders/*.exr · *.png"]
@@ -344,15 +375,16 @@ flowchart TD
 
   L4 -->|"INSTANTIATE — mirror, ref UNCHANGED"| P2
   P1 --> RD["scene_loader.cpp"]
-  P2 --> RD2["load_asset — asset_loader.cpp"]
+  P2 --> RD2["asset_loader.cpp"]
   RD --> SCENE["Scene"]
   RD2 --> SCENE
-  SCENE --> WR["write_scene_json / write_asset_json<br/>asset_json.cpp · editor/scene_io.cpp"]
+  SCENE --> WR["ONE writer — src/scene/asset_json.cpp<br/>the editor save calls it,<br/>then appends the sidecar"]
   WR --> P1
   WR --> P2
+  WR --> P6
   SCENE --> P7
 
-  RESOLVE["resolve_asset_ref(ref, project_dir)<br/>THE ONLY RESOLVER — ONE BASE"]
+  RESOLVE["asset-ref resolution<br/>ONE BASE — project dir, or absolute"]
   RESOLVE -.-> P2
   PATHS["paths: ABSOLUTE in memory<br/>document-RELATIVE on disk"]
   PATHS -.-> WR
@@ -363,33 +395,52 @@ flowchart TD
   class SCENE,RESOLVE truth
 ```
 
-### Inside the renderer — four layers, four buffers
+The library's `.mat.json` tree is live — it is scanned at startup and written back by "Save To
+Library" — it is simply not on the scene-load path: a scene carries its materials inline in
+`scene.json`, so nothing about opening a project reads a `.mat.json`.
+
+### Inside the renderer — the layers, five passes, three buffer sets
 
 Dependencies point one way only, and the direction *is* the architecture: the Renderer layer
 chooses *what* to compute, each layer below chooses *how* to run it on this hardware. CUDA never
-drives renderer architecture. Four raygen entry points own four distinct buffers, and only the
-camera pass is bit-reproducible at a fixed seed — the caustic splat uses `atomicAdd`, so it has a
-measurement floor of about 5e-7 by construction.
+drives renderer architecture. Five raygen entry points write into three buffer sets, and only the
+camera pass accumulates progressively — the two light-tracing passes splat with `atomicAdd`, and
+the two diagnostic passes overwrite the accumulator rather than adding to it.
 
 ```mermaid
 flowchart TD
+  A["App / Session<br/>orchestration · reuse-vs-rebuild · residency"]
   R["Renderer<br/>integrator · BSDFs · NEE · caustics · post-FX<br/>knows the rendering equation"]
   B["GPU Backend<br/>accel · launch params · device buffers · SBT"]
   O["OptiX<br/>traversal · program groups · pipeline"]
   C["CUDA<br/>memory · kernels · atomics"]
-  R --> B --> O --> C
+  A --> R --> B --> O --> C
 
-  subgraph PASSES["Passes, and the buffer each owns"]
-    P1["__raygen__render<br/>camera path tracing"] --> A1["raw accumulator<br/>bit-identical at a fixed seed"]
-    P2["__raygen__caustic<br/>light tracing through specular chains"] --> A2["caustic splat buffers<br/>atomicAdd — not bit-reproducible"]
-    P3["__raygen__test_*<br/>normal / NEE diagnostics"] --> A1
-    A1 --> PF["post-FX kernels<br/>firefly → denoise → bloom → ACES → sRGB"]
-    A2 --> PF
-    PF --> HDR["HDR buffer → EXR / PNG / viewport"]
+  subgraph PASSES["Five raygen passes, three buffer sets"]
+    P1["camera path tracing"] --> A1["accumulator<br/>progressive · bit-identical at a fixed seed"]
+    P2["caustic light tracing<br/>through specular chains"] --> A2["caustic splat<br/>atomicAdd — not bit-reproducible"]
+    P3["beam light tracing<br/>volumetric shafts"] --> A3["beam splat<br/>atomicAdd — not bit-reproducible"]
+    P4["normals · NEE diagnostics"] -->|"OVERWRITES, does not accumulate"| A1
   end
+
+  A1 --> COMP["composite → HDR"]
+  A2 --> COMP
+  A3 --> COMP
+  COMP --> FF["firefly filter"]
+  FF -.->|"two-phase path only"| DN["OptiX denoiser<br/>session-level, NOT a post-FX stage"]
+  DN --> BL
+  FF --> BL["bloom"]
+  BL --> TM["tonemap — ACES and sRGB, ONE kernel"]
+  TM --> OUT["sRGB buffer → PNG · viewport"]
+  COMP --> EXR["HDR floats → EXR"]
 
   R -.-> PASSES
 
   classDef gpu fill:#2f7d3c,stroke:#7acb85,color:#fff
-  class R,B,O,C gpu
+  class A,R,B,O,C gpu
 ```
+
+Two notes the diagram flattens. The GPU Backend and OptiX layers share one directory — the
+separation is a dependency rule, not a folder boundary. And the ~5e-7 agreement floor often quoted
+for the splat passes is a single measurement on one scene at one resolution, recorded in a source
+comment; no test asserts it, and it applies to the beam pass as much as the caustic one.
