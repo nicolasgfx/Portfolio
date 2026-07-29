@@ -60,10 +60,14 @@ const PROJECTS = [
     notes:
       "The CC BY-ND 4.0 license excludes derivatives like renders, but Angelo Ferretti (Lucy Dreams, the scene's author) granted written permission by email on 2026-07-03 to publish rendered images in this context, subject to the shop's EULA (lucydreams.it/shop/eula-license). pbrt-v4 scene via github.com/mmp/pbrt-v4-scenes.",
     images: [
-      { file: "images/06_kroken/01_Camera_01_Main.png", caption: "Main" },
-      { file: "images/06_kroken/02_Camera_01_Main_bw.png", caption: "Main — black & white" },
-      { file: "images/06_kroken/03_Camera_04_Shelf_Detail.png", caption: "Shelf detail" },
-      { file: "images/06_kroken/04_Camera_07_Moka_Detail.png", caption: "Moka detail" },
+      { file: "images/06_kroken/Camera_01_Main.png", caption: "Main" },
+      { file: "images/06_kroken/Camera_02_Chaise_Longue.png", caption: "Chaise longue" },
+      { file: "images/06_kroken/Camera_03_Shelf.png", caption: "Shelf" },
+      { file: "images/06_kroken/Camera_04_Shelf_Detail.png", caption: "Shelf detail" },
+      { file: "images/06_kroken/Camera_05_Blanket_Detail_Top.png", caption: "Blanket detail — top" },
+      { file: "images/06_kroken/Camera_06_Blanket_Detail_Front.png", caption: "Blanket detail — front" },
+      { file: "images/06_kroken/Camera_07_Moka_Detail.png", caption: "Moka detail" },
+      { file: "images/06_kroken/Camera_08_Outside.png", caption: "Outside" },
     ],
   },
   {

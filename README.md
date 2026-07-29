@@ -11,7 +11,7 @@ as a small gallery site.
   <tr>
     <td width="33%" align="center"><a href="#editor"><img src="images/00_editor/2_editor.png" width="100%" alt="The editor"></a><br><sub><b>The editor</b></sub></td>
     <td width="33%" align="center"><a href="#poolhouse"><img src="images/05_poolhouse/01_Hero_Shot_Grass.png" width="100%" alt="Poolhouse"></a><br><sub><b>Poolhouse</b></sub></td>
-    <td width="33%" align="center"><a href="#kroken"><img src="images/06_kroken/01_Camera_01_Main.png" width="100%" alt="Kroken"></a><br><sub><b>Kroken</b></sub></td>
+    <td width="33%" align="center"><a href="#kroken"><img src="images/06_kroken/Camera_01_Main.png" width="100%" alt="Kroken"></a><br><sub><b>Kroken</b></sub></td>
   </tr>
   <tr>
     <td width="33%" align="center"><a href="#bistro"><img src="images/07_bistro/02_bistro_cafe.png" width="100%" alt="Bistro"></a><br><sub><b>Bistro</b></sub></td>
@@ -70,10 +70,14 @@ relit and re-dressed for a set of cinematic hero shots.
 A modern interior-design scene — a Kroken easy chair and chaise longue beside a
 styled shelving wall.
 
-<p align="center"><img src="images/06_kroken/01_Camera_01_Main.png" width="100%" alt="Kroken — Main"><br><sub><b>Main</b></sub></p>
-<p align="center"><img src="images/06_kroken/02_Camera_01_Main_bw.png" width="100%" alt="Kroken — Main, black &amp; white"><br><sub><b>Main — black &amp; white</b></sub></p>
-<p align="center"><img src="images/06_kroken/03_Camera_04_Shelf_Detail.png" width="100%" alt="Kroken — Shelf detail"><br><sub><b>Shelf detail</b></sub></p>
-<p align="center"><img src="images/06_kroken/04_Camera_07_Moka_Detail.png" width="100%" alt="Kroken — Moka detail"><br><sub><b>Moka detail</b></sub></p>
+<p align="center"><img src="images/06_kroken/Camera_01_Main.png" width="100%" alt="Kroken — Main"><br><sub><b>Main</b></sub></p>
+<p align="center"><img src="images/06_kroken/Camera_02_Chaise_Longue.png" width="100%" alt="Kroken — Chaise longue"><br><sub><b>Chaise longue</b></sub></p>
+<p align="center"><img src="images/06_kroken/Camera_03_Shelf.png" width="100%" alt="Kroken — Shelf"><br><sub><b>Shelf</b></sub></p>
+<p align="center"><img src="images/06_kroken/Camera_04_Shelf_Detail.png" width="100%" alt="Kroken — Shelf detail"><br><sub><b>Shelf detail</b></sub></p>
+<p align="center"><img src="images/06_kroken/Camera_05_Blanket_Detail_Top.png" width="100%" alt="Kroken — Blanket detail, top"><br><sub><b>Blanket detail — top</b></sub></p>
+<p align="center"><img src="images/06_kroken/Camera_06_Blanket_Detail_Front.png" width="100%" alt="Kroken — Blanket detail, front"><br><sub><b>Blanket detail — front</b></sub></p>
+<p align="center"><img src="images/06_kroken/Camera_07_Moka_Detail.png" width="100%" alt="Kroken — Moka detail"><br><sub><b>Moka detail</b></sub></p>
+<p align="center"><img src="images/06_kroken/Camera_08_Outside.png" width="100%" alt="Kroken — Outside"><br><sub><b>Outside</b></sub></p>
 
 > Scene: *Kroken* by Angelo Ferretti / Lucy Dreams, licensed
 > [CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0/) — published with
