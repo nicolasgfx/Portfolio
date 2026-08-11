@@ -214,417 +214,139 @@ holder and have a concern about any asset used here, contact
 
 ## Architecture
 
-The project consists of two tightly coupled but clearly separated
-systems:
+The project is deliberately small: **one mutable scene, one edit path, one renderer crossing**.
 
--   **The Editor** owns authoring.
--   **The Renderer** owns rendering.
+- `editor/document` owns the single mutable `Scene`.
+- UI and viewport emit `EditOp`s; they never mutate the scene directly.
+- `Views` are derived, read-only projections.
+- `editor/bridge` is the only renderer crossing.
+- The renderer is `compile → RenderInput → DeviceScene + Integrator + Film`.
 
-The editor never owns compiled rendering state, GPU resources or
-rendering algorithms. The renderer never owns authoring concepts.
+---
 
-Everything begins with a single **Document**, which is the only
-authoritative representation of the scene. Everything else is derived.
-
-The diagrams below share one colour code:
-**🟥 source of truth** · **🟦 on disk** · **🟪 derived, read-only** ·
-**🟧 renderer boundary** · **🟩 renderer / GPU**
-
-------------------------------------------------------------------------
-
-## System Overview
-
-The full round trip: a file becomes the Document, the Document fans out into
-derived views, one of those views crosses the bridge into the renderer, and the
-image comes back to the viewport the user edits from.
+### System
 
 ```mermaid
-flowchart TD
-    subgraph DISK["On disk"]
-        SceneFile["scene.json"]
-        Assets["assets/*"]
-    end
+flowchart LR
+    User(["User"]) --> UI["UI / Viewport"]
+    UI -->|"EditQueue"| App["editor/app"]
+    App -->|"apply(EditOp)"| Doc["Document<br/>ONE mutable Scene"]
+    Doc --> Views["Views<br/>derived, read-only"]
 
-    SceneFile --> Document["Document<br/>ONE source of truth"]
-    Assets --> Content["Content"]
-    Content --> Document
-
-    Document --> Views["Derived Views"]
-    Views --> Viewport["Viewport<br/>interaction + overlays"]
-    Views --> Bridge["Renderer Bridge"]
-
+    Views --> UI
+    Views -->|"render_scene()"| Bridge["Renderer Bridge"]
     Bridge --> Renderer["Renderer"]
-    Renderer --> GPU["OptiX / CUDA"]
-    GPU --> Image["Progressive Image"]
-    Image --> Viewport
+    Renderer --> Frame["Frame"]
+    Frame --> UI
 
-    Viewport --> User(["User"])
-    User -->|"edit"| Edit["Edit"]
-    Edit --> WriteSet["WriteSet"]
-    WriteSet --> Document
-    Document -->|"save"| SceneFile
-
-    classDef disk fill:#4a6fa5,stroke:#8fb0d8,stroke-width:1.5px,color:#fff
-    classDef truth fill:#b73a3a,stroke:#e07a7a,stroke-width:1.5px,color:#fff
-    classDef view fill:#5a4a86,stroke:#9d8ad0,stroke-width:1.5px,color:#fff
-    classDef bridge fill:#8a5a2b,stroke:#d8a05a,stroke-width:1.5px,color:#fff
-    classDef gpu fill:#2f7d3c,stroke:#7acb85,stroke-width:1.5px,color:#fff
-    class SceneFile,Assets disk
-    class Document truth
-    class Views,Content view
-    class Bridge bridge
-    class Renderer,GPU gpu
+    classDef truth fill:#b73a3a,stroke:#e07a7a,color:#fff
+    classDef view fill:#5a4a86,stroke:#9d8ad0,color:#fff
+    classDef bridge fill:#8a5a2b,stroke:#d8a05a,color:#fff
+    classDef gpu fill:#2f7d3c,stroke:#7acb85,color:#fff
+    class Doc truth
+    class UI,Views view
+    class App,Bridge bridge
+    class Renderer,Frame gpu
 ```
 
-------------------------------------------------------------------------
+### Change propagation
 
-## Ownership
-
-Who owns what. Nothing flows backwards into the Document except through an
-edit, and nothing reaches the renderer except through the bridge.
+Changing a control follows one deterministic path. `WriteSet` tells the derived views what became
+stale; `SceneEpoch` tells consumers when the scene changed. Rendering sees only the derived scene,
+never the mutable `Document`.
 
 ```mermaid
 flowchart LR
-    Document["Document<br/>authored state"]
-    Content["Content"]
-    Session["Session"]
-    Views["Derived Views"]
-    Bridge["Renderer Bridge"]
-    Renderer["Renderer"]
-    Viewport["Viewport"]
-
-    Document --> Views
-    Content --> Views
-    Views --> Bridge
-    Bridge --> Renderer
-
-    Session --> Viewport
-    Views --> Viewport
-    Renderer --> Viewport
-
-    classDef truth fill:#b73a3a,stroke:#e07a7a,stroke-width:1.5px,color:#fff
-    classDef view fill:#5a4a86,stroke:#9d8ad0,stroke-width:1.5px,color:#fff
-    classDef bridge fill:#8a5a2b,stroke:#d8a05a,stroke-width:1.5px,color:#fff
-    classDef gpu fill:#2f7d3c,stroke:#7acb85,stroke-width:1.5px,color:#fff
-    class Document truth
-    class Views,Content view
-    class Bridge bridge
-    class Renderer gpu
-```
-
-------------------------------------------------------------------------
-
-## Edit Pipeline
-
-One edit, one path. The epoch bump is what tells the derived views they are
-stale — no view polls the Document.
-
-```mermaid
-flowchart LR
-    User(["User"]) --> Edit["Edit"] --> WriteSet["WriteSet"] --> Document["Document"]
-    Document --> SceneEpoch["SceneEpoch"] --> Views["Derived Views"]
-
-    Views --> Viewport["Viewport"]
-    Views --> Bridge["Renderer Bridge"] --> Renderer["Renderer"]
-    Renderer --> Image["Progressive Image"] --> Viewport
-
-    classDef truth fill:#b73a3a,stroke:#e07a7a,stroke-width:1.5px,color:#fff
-    classDef view fill:#5a4a86,stroke:#9d8ad0,stroke-width:1.5px,color:#fff
-    classDef bridge fill:#8a5a2b,stroke:#d8a05a,stroke-width:1.5px,color:#fff
-    classDef gpu fill:#2f7d3c,stroke:#7acb85,stroke-width:1.5px,color:#fff
-    class Document,SceneEpoch truth
-    class Views view
-    class Bridge bridge
-    class Renderer,Image gpu
-```
-
-------------------------------------------------------------------------
-
-## Derived Views
-
-Every view derives from the Document — they are siblings, not a chain, and none
-of them feeds another. Five drive the UI, one drives the viewport, and exactly
-one crosses into the renderer.
-
-```mermaid
-flowchart TD
+    Control["Control changed"]
+    Edit["EditOp"]
     Document["Document"]
+    WriteSet["WriteSet"]
+    Epoch["SceneEpoch"]
+    Views["Affected Views"]
+    RenderScene["render_scene()"]
+    Bridge["Bridge"]
+    Compile["compile()"]
+    Input["RenderInput"]
+    Device["DeviceScene"]
+    Integrator["Integrator"]
+    Film["Film"]
+    Frame["Frame"]
 
-    Document --> HierarchyView["HierarchyView"]
-    Document --> GeometryView["GeometryView"]
-    Document --> MaterialUsage["MaterialUsage"]
-    Document --> TextureUsage["TextureUsage"]
-    Document --> ScatterView["ScatterView"]
-    Document --> DrawPlan["DrawPlan"]
-    Document --> RenderScene["RenderScene"]
+    Control --> Edit --> Document
+    Edit --> WriteSet --> Views
+    Document --> Epoch --> Views
+    Views --> RenderScene --> Bridge --> Compile --> Input
+    Input --> Device --> Integrator --> Film --> Frame
 
-    HierarchyView --> UI["UI panels"]
-    GeometryView --> UI
-    MaterialUsage --> UI
-    TextureUsage --> UI
-    ScatterView --> UI
-
-    DrawPlan --> Viewport["Viewport"]
-    RenderScene --> Bridge["Renderer Bridge"]
-
-    classDef truth fill:#b73a3a,stroke:#e07a7a,stroke-width:1.5px,color:#fff
-    classDef view fill:#5a4a86,stroke:#9d8ad0,stroke-width:1.5px,color:#fff
-    classDef bridge fill:#8a5a2b,stroke:#d8a05a,stroke-width:1.5px,color:#fff
-    class Document truth
-    class HierarchyView,GeometryView,MaterialUsage,TextureUsage,ScatterView,DrawPlan,RenderScene view
-    class Bridge bridge
+    classDef truth fill:#b73a3a,stroke:#e07a7a,color:#fff
+    classDef view fill:#5a4a86,stroke:#9d8ad0,color:#fff
+    classDef bridge fill:#8a5a2b,stroke:#d8a05a,color:#fff
+    classDef gpu fill:#2f7d3c,stroke:#7acb85,color:#fff
+    class Document,Epoch truth
+    class Views,RenderScene view
+    class Edit,WriteSet,Bridge,Compile bridge
+    class Input,Device,Integrator,Film,Frame gpu
 ```
 
-------------------------------------------------------------------------
+> GitHub renders Mermaid statically, so this cannot be a true interactive simulation inside the README.
+> The diagram shows the exact control-change path instead.
 
-## Renderer Boundary
+### Renderer
 
-The bridge is the only door. Left of it everything is authoring; right of it
-nothing knows what a Document is.
-
-```mermaid
-flowchart TD
-    RenderScene["RenderScene<br/>derived view"]
-    Bridge["Renderer Bridge<br/>the boundary"]
-
-    subgraph RENDER["Renderer — owns no authoring concepts"]
-        Compile["compile()"]
-        ExecutionScene["ExecutionScene"]
-        RenderSession["RenderSession"]
-        GPU["OptiX / CUDA"]
-    end
-
-    RenderScene --> Bridge --> Compile --> ExecutionScene
-    ExecutionScene --> RenderSession --> GPU
-    GPU --> ProgressiveImage["Progressive Image"]
-
-    classDef view fill:#5a4a86,stroke:#9d8ad0,stroke-width:1.5px,color:#fff
-    classDef bridge fill:#8a5a2b,stroke:#d8a05a,stroke-width:1.5px,color:#fff
-    classDef gpu fill:#2f7d3c,stroke:#7acb85,stroke-width:1.5px,color:#fff
-    class RenderScene view
-    class Bridge bridge
-    class Compile,ExecutionScene,RenderSession,GPU,ProgressiveImage gpu
-```
-
-------------------------------------------------------------------------
-
-## Viewport
-
-Two sources composite into one image: realtime OpenGL for everything you
-interact with, and the path-traced result underneath it.
-
-```mermaid
-flowchart TD
-    subgraph GL["OpenGL — realtime"]
-        Geometry["Geometry"]
-        Wireframe["Wireframe"]
-        Gizmos["Gizmos"]
-        Picking["Picking"]
-        Overlays["Overlays"]
-        BoundingBoxes["Bounding boxes"]
-    end
-
-    subgraph RT["Renderer — path traced"]
-        ProgressiveImage["Progressive Image"]
-    end
-
-    Geometry --> Composite["Composite"]
-    Wireframe --> Composite
-    Gizmos --> Composite
-    Picking --> Composite
-    Overlays --> Composite
-    BoundingBoxes --> Composite
-    ProgressiveImage --> Composite
-
-    Composite --> Screen(["Screen"])
-
-    classDef gpu fill:#2f7d3c,stroke:#7acb85,stroke-width:1.5px,color:#fff
-    classDef view fill:#5a4a86,stroke:#9d8ad0,stroke-width:1.5px,color:#fff
-    class ProgressiveImage gpu
-    class Composite view
-```
-
-------------------------------------------------------------------------
-
-## Filesystem
-
-A project is a directory and nothing else — no registry, no index. `scene.json`
-is the authored file; everything else beside it is either input or output.
-
-```mermaid
-flowchart TD
-    Project["Project directory"]
-
-    Project --> SceneJson["scene.json<br/>the authored file"]
-    Project --> AssetsDir["assets/"]
-    Project --> EditorState["editor_state.json<br/>sidecar"]
-    Project --> RendersDir["renders/"]
-
-    SceneJson --> Document["Document"]
-    AssetsDir --> Content["Content"]
-    Document --> Views["Derived Views"]
-    Content --> Views
-    Views --> Renderer["Renderer"]
-    Renderer --> RendersDir
-
-    classDef disk fill:#4a6fa5,stroke:#8fb0d8,stroke-width:1.5px,color:#fff
-    classDef truth fill:#b73a3a,stroke:#e07a7a,stroke-width:1.5px,color:#fff
-    classDef view fill:#5a4a86,stroke:#9d8ad0,stroke-width:1.5px,color:#fff
-    classDef gpu fill:#2f7d3c,stroke:#7acb85,stroke-width:1.5px,color:#fff
-    class Project,SceneJson,AssetsDir,EditorState,RendersDir disk
-    class Document truth
-    class Views,Content view
-    class Renderer gpu
-```
-
-------------------------------------------------------------------------
-
-## Layering
-
-Dependencies point one way only, and the direction *is* the architecture: each
-layer chooses *what*, the layer below chooses *how*. Nothing below reaches up.
-
-```mermaid
-flowchart TD
-    App["App"] --> Editor["Editor"]
-    Editor --> Document["Document"]
-    Document --> Views["Derived Views"]
-    Views --> RendererBridge["Renderer Bridge"]
-    RendererBridge --> Renderer["Renderer"]
-    Renderer --> Backend["Backend"]
-    Backend --> GPU["OptiX / CUDA"]
-
-    classDef truth fill:#b73a3a,stroke:#e07a7a,stroke-width:1.5px,color:#fff
-    classDef view fill:#5a4a86,stroke:#9d8ad0,stroke-width:1.5px,color:#fff
-    classDef bridge fill:#8a5a2b,stroke:#d8a05a,stroke-width:1.5px,color:#fff
-    classDef gpu fill:#2f7d3c,stroke:#7acb85,stroke-width:1.5px,color:#fff
-    class Document truth
-    class Views view
-    class RendererBridge bridge
-    class Renderer,Backend,GPU gpu
-```
-
-------------------------------------------------------------------------
-
-## Renderer Target Architecture
-
-One line, one direction. Each stage owns exactly one thing, and the two stages
-that own memory own *all* of it.
+The renderer has one immutable input and exactly two persistent GPU-memory owners:
+`DeviceScene` owns scene GPU memory; `Film` owns pixel memory.
 
 ```mermaid
 flowchart LR
-    Document["SceneDocument"]
+    Scene["Scene + Content"]
     Compile["compile()"]
-    RenderInput["RenderInput<br/>immutable<br/>4 versioned blocks"]
-    DeviceScene["DeviceScene<br/>sole owner of<br/>scene GPU memory"]
-    Integrator["Integrator<br/>pure rendering algorithms"]
-    Film["Film<br/>sole owner of pixel memory"]
-    Resolve["resolve()"]
+    Input["RenderInput<br/>immutable"]
+    Device["DeviceScene<br/>scene GPU memory"]
+    Integrator["Integrator<br/>OptiX / CUDA"]
+    Film["Film<br/>pixel memory"]
     Image["Image"]
 
-    Document --> Compile --> RenderInput --> DeviceScene
-    DeviceScene --> Integrator --> Film --> Resolve --> Image
+    Scene --> Compile --> Input
+    Input --> Device
+    Input --> Integrator
+    Device --> Integrator
+    Integrator --> Film --> Image
 
-    classDef truth fill:#b73a3a,stroke:#e07a7a,stroke-width:1.5px,color:#fff
-    classDef bridge fill:#8a5a2b,stroke:#d8a05a,stroke-width:1.5px,color:#fff
-    classDef gpu fill:#2f7d3c,stroke:#7acb85,stroke-width:1.5px,color:#fff
-    class Document truth
-    class Compile,Resolve bridge
-    class RenderInput,DeviceScene,Integrator,Film gpu
+    classDef truth fill:#b73a3a,stroke:#e07a7a,color:#fff
+    classDef bridge fill:#8a5a2b,stroke:#d8a05a,color:#fff
+    classDef gpu fill:#2f7d3c,stroke:#7acb85,color:#fff
+    class Scene truth
+    class Compile bridge
+    class Input,Device,Integrator,Film,Image gpu
 ```
 
-------------------------------------------------------------------------
-
-## Renderer Ownership & Lifetime
-
-The edge labels are the whole contract: everything crossing into the renderer
-crosses as an immutable snapshot, and the integrator only ever reads.
+### Source boundaries
 
 ```mermaid
 flowchart TD
-    subgraph EDITOR["Editor — authoring"]
-        Document["SceneDocument"]
-    end
+    SRC["src/"]
 
-    subgraph RENDERER["Renderer — rendering"]
-        RenderInput["RenderInput<br/>immutable"]
-        DeviceScene["DeviceScene"]
-        Integrator["Integrator"]
-        Film["Film"]
-    end
+    SRC --> Shared["Shared<br/>core · document · authoring"]
+    SRC --> Compile["compile"]
+    SRC --> Renderer["renderer<br/>input · device_scene · integrator · film"]
+    SRC --> App["app<br/>renderer application"]
+    SRC --> Editor["editor"]
+    SRC --> Testing["testing"]
 
-    Document -->|"compile()"| RenderInput
-    RenderInput -->|"sync()"| DeviceScene
-    DeviceScene -->|"read-only"| Integrator
-    Integrator -->|"accumulate radiance"| Film
-    Film -->|"resolve()"| Image["Final Image"]
+    Editor --> Edit["edit"]
+    Editor --> Content["content"]
+    Editor --> Document["document"]
+    Editor --> Views["views"]
+    Editor --> Session["session"]
+    Editor --> Bridge["bridge"]
+    Editor --> Viewport["viewport"]
+    Editor --> UI["ui"]
+    Editor --> EApp["app<br/>composition root"]
 
-    classDef truth fill:#b73a3a,stroke:#e07a7a,stroke-width:1.5px,color:#fff
-    classDef gpu fill:#2f7d3c,stroke:#7acb85,stroke-width:1.5px,color:#fff
-    class Document truth
-    class RenderInput,DeviceScene,Integrator,Film gpu
-```
-
-------------------------------------------------------------------------
-
-## Renderer Data Flow
-
-The same data, narrowing at every step: an authored scene becomes a compiled
-block, a GPU mirror, then per-ray state a few registers wide.
-
-```mermaid
-flowchart LR
-    A["Authored Scene"]
-    B["Compile"]
-    C["Compiled RenderInput"]
-    D["GPU Mirror<br/>DeviceScene"]
-    E["LaunchParams"]
-    F["Thin Payload"]
-    G["TransportState"]
-    H["Film"]
-    I["Resolved Image"]
-
-    A --> B --> C --> D --> E
-    E --> F --> G --> H --> I
-
-    classDef truth fill:#b73a3a,stroke:#e07a7a,stroke-width:1.5px,color:#fff
-    classDef bridge fill:#8a5a2b,stroke:#d8a05a,stroke-width:1.5px,color:#fff
-    classDef gpu fill:#2f7d3c,stroke:#7acb85,stroke-width:1.5px,color:#fff
-    class A truth
-    class B bridge
-    class C,D,E,F,G,H gpu
-```
-
-------------------------------------------------------------------------
-
-## Memory Ownership
-
-Red marks the two allocations that are actually owned; everything between them
-is scratch that exists only for the length of a launch.
-
-```mermaid
-flowchart TD
-    RenderInput["Immutable RenderInput"]
-
-    subgraph OWNED["Owned allocations"]
-        DeviceScene["GPU Scene Memory"]
-        Film["GPU Film Memory"]
-    end
-
-    subgraph BORROWED["Per-launch, borrowed"]
-        Scratch["Launch Scratch"]
-        Payload["Shader Payload"]
-        Transport["TransportState"]
-    end
-
-    RenderInput --> DeviceScene
-    DeviceScene --> Scratch
-    Scratch --> Payload
-    Payload --> Transport
-    Transport --> Film
-
-    classDef truth fill:#b73a3a,stroke:#e07a7a,stroke-width:1.5px,color:#fff
-    classDef gpu fill:#2f7d3c,stroke:#7acb85,stroke-width:1.5px,color:#fff
-    class DeviceScene,Film truth
-    class RenderInput,Scratch,Payload,Transport gpu
+    classDef view fill:#5a4a86,stroke:#9d8ad0,color:#fff
+    classDef bridge fill:#8a5a2b,stroke:#d8a05a,color:#fff
+    classDef gpu fill:#2f7d3c,stroke:#7acb85,color:#fff
+    class Shared,Edit,Content,Document,Views,Session,Viewport,UI,Testing view
+    class Compile,App,Bridge,EApp bridge
+    class Renderer gpu
 ```
