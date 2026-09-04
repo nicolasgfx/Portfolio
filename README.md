@@ -16,7 +16,7 @@ as a small gallery site.
   <tr>
     <td width="33%" align="center"><a href="#bistro"><img src="images/07_bistro/02_bistro_cafe.png" width="100%" alt="Bistro"></a><br><sub><b>Bistro</b></sub></td>
     <td width="33%" align="center"><a href="#bathroom"><img src="images/08_bathroom/bathroom.png" width="100%" alt="Bathroom"></a><br><sub><b>Bathroom</b></sub></td>
-    <td width="33%" align="center"><a href="#zero-day"><img src="images/09_zeroday/zeroday.png" width="100%" alt="Zero-Day"></a><br><sub><b>Zero-Day</b></sub></td>
+    <td width="33%" align="center"><a href="#zero-day"><img src="images/09_zeroday/zeroday1.png" width="100%" alt="Zero-Day"></a><br><sub><b>Zero-Day</b></sub></td>
   </tr>
   <tr>
     <td width="33%" align="center"><a href="#monster-under-the-bed"><img src="images/10_monster_under_bed/monster_under_bed.png" width="100%" alt="Monster Under the Bed"></a><br><sub><b>Monster Under the Bed</b></sub></td>
@@ -113,7 +113,8 @@ light.
 Neon-lit sci-fi corridor from Beeple's short film — a classic global-illumination
 stress test.
 
-<p align="center"><img src="images/09_zeroday/zeroday.png" width="100%" alt="Zero-Day"></p>
+<p align="center"><img src="images/09_zeroday/zeroday1.png" width="100%" alt="Zero-Day"></p>
+<p align="center"><img src="images/09_zeroday/zeroday2.png" width="100%" alt="Zero-Day"></p>
 
 ---
 
