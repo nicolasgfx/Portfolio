@@ -114,7 +114,10 @@ const PROJECTS = [
     licenseUrl: "https://www.beeple-crap.com/resources",
     notes:
       "Released by the author for any commercial or non-commercial use; credited here voluntarily. Also available via NVIDIA ORCA under CC BY 4.0.",
-    images: [{ file: "images/09_zeroday/zeroday.png" }],
+    images: [
+      { file: "images/09_zeroday/zeroday1.png" },
+      { file: "images/09_zeroday/zeroday2.png" },
+    ],
   },
   {
     id: "monster",
