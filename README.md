@@ -147,9 +147,10 @@ from a fan-made 3D model. **Unofficial fan art** — see the
 
 ## Gelatinous Cube
 
-A translucent ooze creeping down a dungeon corridor, half-digested bones
-suspended inside it — a study in rough refraction, absorption and volumetric
-scattering. **Unofficial fan art** — see the
+A translucent ooze settled in a vine-grown stone ruin, a helmeted skeleton with
+its sword, shield and a few spent arrows suspended mid-digestion inside — a
+study in refraction, absorption and volumetric scattering. The clay pass drops
+the jelly and shows what is trapped in it. **Unofficial fan art** — see the
 [notice](#fan-art-notice-gelatinous-cube) below.
 
 <p align="center"><img src="images/13_gelatinous_cube/main.png" width="100%" alt="Gelatinous Cube — fan art"><br><sub><b>Main</b></sub></p>
@@ -159,8 +160,9 @@ scattering. **Unofficial fan art** — see the
 
 ## 4060.b Spaceship
 
-A retro-futurist shuttle in 1960s science-fiction styling — hard-surface metal,
-painted trim and sharp specular highlights.
+A retro-futurist rocket in 1960s science-fiction styling — polished chrome, a
+glass bubble canopy over magenta seats, and ribbed thrusters, lit on a plain
+studio backdrop.
 
 <p align="center"><img src="images/14_spaceship/main.png" width="100%" alt="4060.b Spaceship"><br><sub><b>Main</b></sub></p>
 <p align="center"><img src="images/14_spaceship/clay.png" width="100%" alt="4060.b Spaceship — clay render"><br><sub><b>Clay render</b></sub></p>

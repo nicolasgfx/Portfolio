@@ -166,7 +166,7 @@ const PROJECTS = [
     id: "gelatinouscube",
     title: "Gelatinous Cube — fan art",
     blurb:
-      "A translucent ooze creeping down a dungeon corridor, half-digested bones suspended inside it — a study in rough refraction, absorption and volumetric scattering.",
+      "A translucent ooze settled in a vine-grown stone ruin, a helmeted skeleton with its sword, shield and a few spent arrows suspended mid-digestion inside — a study in refraction, absorption and volumetric scattering. The clay pass drops the jelly and shows what is trapped in it.",
     author: "glenatron",
     source: "Sketchfab",
     sourceUrl:
@@ -185,7 +185,7 @@ const PROJECTS = [
     id: "spaceship",
     title: "4060.b Spaceship",
     blurb:
-      "A retro-futurist shuttle in 1960s science-fiction styling — hard-surface metal, painted trim and sharp specular highlights.",
+      "A retro-futurist rocket in 1960s science-fiction styling — polished chrome, a glass bubble canopy over magenta seats, and ribbed thrusters, lit on a plain studio backdrop.",
     author: "thecali",
     source: "Blend Swap #13489",
     sourceUrl: "https://blendswap.com/blend/13489",
