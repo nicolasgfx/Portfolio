@@ -24,9 +24,9 @@ as a small gallery site.
     <td width="33%" align="center"><a href="#hornet"><img src="images/12_hornet/hornet.png" width="100%" alt="Hornet"></a><br><sub><b>Hornet</b></sub></td>
   </tr>
   <tr>
+    <td width="33%" align="center"><a href="#gelatinous-cube"><img src="images/13_gelatinous_cube/main.png" width="100%" alt="Gelatinous Cube"></a><br><sub><b>Gelatinous Cube</b></sub></td>
+    <td width="33%" align="center"><a href="#4060b-spaceship"><img src="images/14_spaceship/main.png" width="100%" alt="4060.b Spaceship"></a><br><sub><b>4060.b Spaceship</b></sub></td>
     <td width="33%" align="center"><a href="#staircase"><img src="images/other/staicase.png" width="100%" alt="Staircase"></a><br><sub><b>Staircase</b></sub></td>
-    <td width="33%"></td>
-    <td width="33%"></td>
   </tr>
 </table>
 
@@ -145,6 +145,28 @@ from a fan-made 3D model. **Unofficial fan art** — see the
 
 ---
 
+## Gelatinous Cube
+
+A translucent ooze creeping down a dungeon corridor, half-digested bones
+suspended inside it — a study in rough refraction, absorption and volumetric
+scattering. **Unofficial fan art** — see the
+[notice](#fan-art-notice-gelatinous-cube) below.
+
+<p align="center"><img src="images/13_gelatinous_cube/main.png" width="100%" alt="Gelatinous Cube — fan art"><br><sub><b>Main</b></sub></p>
+<p align="center"><img src="images/13_gelatinous_cube/clay.png" width="100%" alt="Gelatinous Cube — clay render"><br><sub><b>Clay render</b></sub></p>
+
+---
+
+## 4060.b Spaceship
+
+A retro-futurist shuttle in 1960s science-fiction styling — hard-surface metal,
+painted trim and sharp specular highlights.
+
+<p align="center"><img src="images/14_spaceship/main.png" width="100%" alt="4060.b Spaceship"><br><sub><b>Main</b></sub></p>
+<p align="center"><img src="images/14_spaceship/clay.png" width="100%" alt="4060.b Spaceship — clay render"><br><sub><b>Clay render</b></sub></p>
+
+---
+
 ## Staircase
 
 A sunlit wooden staircase — a soft-shadow and indirect-light study.
@@ -166,6 +188,8 @@ Trademarks and characters are the property of their respective owners.
 | Bistro (Café, Vespa, Le Chevalier) | *\*Amazon Lumberyard Bistro\** — Amazon Lumberyard | [NVIDIA ORCA](https\://developer.nvidia.com/orca/amazon-lumberyard-bistro) · [pbrt-v4-scenes](https\://github.com/mmp/pbrt-v4-scenes) | [CC BY 4.0](https\://creativecommons.org/licenses/by/4.0/) |
 | Zero-Day | *\*Zero-Day\** — Mike Winkelmann (Beeple) | [beeple-crap.com/resources](https\://www.beeple-crap.com/resources) | Free for any use, no attribution required (credited voluntarily) |
 | Hornet | *\*Silksong \|\| Hornet Fanart\** — dark_igorek | [Sketchfab](https\://sketchfab.com/3d-models/silksong-hornet-fanart-57d431b977c841ef8c117af82f109890) | [CC BY 4.0](https\://creativecommons.org/licenses/by/4.0/) |
+| Gelatinous Cube | *\*Gelatinous Cube\** — glenatron | [Sketchfab](https\://sketchfab.com/3d-models/gelatinous-cube-e08385238f4d4b59b012233a9fbdca21) | [CC BY-NC 4.0](https\://creativecommons.org/licenses/by-nc/4.0/) (attribution required; non-commercial use only) |
+| 4060.b Spaceship | *\*4060.b Spaceship\** — thecali | [Blend Swap #13489](https\://blendswap.com/blend/13489) | [CC0 1.0](https\://creativecommons.org/publicdomain/zero/1.0/) (public domain; credited voluntarily) |
 | Classroom | *\*Class room\** — Christophe Seux | [Blender Demo Files](https\://www.blender.org/download/demo-files/) | [CC0 1.0](https\://creativecommons.org/publicdomain/zero/1.0/) (public domain; credited voluntarily) |
 | Monster Under the Bed | Metin Seven, based on 2D concept art by Blake Stevenson | [Blender Demo Files](https\://www.blender.org/download/demo-files/) | [CC BY 4.0](https\://creativecommons.org/licenses/by/4.0/) |
 | Staircase | *\*The Wooden Staircase\** — Wig42 | [Blend Swap #14449](https\://blendswap.com/blend/14449) | [CC BY](https\://creativecommons.org/licenses/by/3.0/) |
@@ -179,6 +203,22 @@ Knight: Silksong\* are trademarks and/or copyright of **Team Cherry**. This
 non-commercial render is not affiliated with, authorized, sponsored, or endorsed
 by Team Cherry. The underlying 3D model, *\*Silksong \|\| Hornet Fanart\** by
 dark_igorek, is used under [CC BY 4.0](https\://creativecommons.org/licenses/by/4.0/).
+
+### Fan-art notice (Gelatinous Cube)
+
+The Gelatinous Cube render is **unofficial fan art**. The gelatinous cube is a
+\*Dungeons & Dragons\* monster; D&D and its trade dress are trademarks of
+**Wizards of the Coast**, and this render is not affiliated with, authorized,
+sponsored, or endorsed by them. (The creature's game statistics appear in the
+[CC BY 4.0](https\://creativecommons.org/licenses/by/4.0/)-licensed SRD 5.1, but
+that covers the rules text, not this artwork.)
+
+The underlying 3D model, *\*Gelatinous Cube\** by **glenatron**, is licensed
+[CC BY-NC 4.0](https\://creativecommons.org/licenses/by-nc/4.0/). Attribution is
+given above, and the **NonCommercial** term is respected: this site carries no
+advertising, sells nothing, and the renders are neither licensed nor offered for
+sale. Should this portfolio ever be monetized, this render must be pulled or
+separate permission obtained from the author.
 
 ### Kroken — NoDerivatives, permission granted
 

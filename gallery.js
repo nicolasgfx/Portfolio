@@ -163,6 +163,42 @@ const PROJECTS = [
     images: [{ file: "images/12_hornet/hornet.png" }],
   },
   {
+    id: "gelatinouscube",
+    title: "Gelatinous Cube — fan art",
+    blurb:
+      "A translucent ooze creeping down a dungeon corridor, half-digested bones suspended inside it — a study in rough refraction, absorption and volumetric scattering.",
+    author: "glenatron",
+    source: "Sketchfab",
+    sourceUrl:
+      "https://sketchfab.com/3d-models/gelatinous-cube-e08385238f4d4b59b012233a9fbdca21",
+    license: "CC BY-NC 4.0",
+    licenseUrl: "https://creativecommons.org/licenses/by-nc/4.0/",
+    fanart: true,
+    notes:
+      'Unofficial fan art. Model "Gelatinous Cube" by glenatron, used under CC BY-NC 4.0 — the NonCommercial term is respected here: this site carries no advertising, sells nothing, and the renders are not licensed or offered for sale. The gelatinous cube is a Dungeons & Dragons monster; D&D is a trademark of Wizards of the Coast — see disclaimer below.',
+    images: [
+      { file: "images/13_gelatinous_cube/main.png", caption: "Main" },
+      { file: "images/13_gelatinous_cube/clay.png", caption: "Clay render" },
+    ],
+  },
+  {
+    id: "spaceship",
+    title: "4060.b Spaceship",
+    blurb:
+      "A retro-futurist shuttle in 1960s science-fiction styling — hard-surface metal, painted trim and sharp specular highlights.",
+    author: "thecali",
+    source: "Blend Swap #13489",
+    sourceUrl: "https://blendswap.com/blend/13489",
+    license: "CC0 1.0 (Public Domain)",
+    licenseUrl: "https://creativecommons.org/publicdomain/zero/1.0/",
+    notes:
+      'Model "4060.b Spaceship" by thecali. Released into the public domain under CC0 — no attribution required; credited here voluntarily.',
+    images: [
+      { file: "images/14_spaceship/main.png", caption: "Main" },
+      { file: "images/14_spaceship/clay.png", caption: "Clay render" },
+    ],
+  },
+  {
     id: "staircase",
     title: "Staircase",
     blurb: "A sunlit wooden staircase — a soft-shadow and indirect-light study.",
@@ -180,10 +216,15 @@ const PROJECTS = [
 const CREDITS_INTRO =
   "All images here are renders I produced with my own path tracer. The underlying 3D scenes and models were created by the artists credited below and used under the stated licenses; each render is a new image derived from those assets. Trademarks and characters are the property of their respective owners.";
 
+/* A project whose renders have not been dropped in yet carries `draft: true` and
+ * stays out of the page entirely — grid, sections and credits alike — so the
+ * page never links images that do not exist. Remove the flag to publish it. */
+const ACTIVE = PROJECTS.filter((p) => !p.draft);
+
 /* Flat, ordered list of every image with its project — the lightbox and the
  * overview grid share this ordering. */
 const FLAT = [];
-PROJECTS.forEach((p) => p.images.forEach((img) => FLAT.push({ project: p, img })));
+ACTIVE.forEach((p) => p.images.forEach((img) => FLAT.push({ project: p, img })));
 
 /* ---------- helpers ---------- */
 
@@ -247,7 +288,7 @@ function buildOverview() {
 function buildSections() {
   const wrap = document.getElementById("sections");
   let flatIndex = 0;
-  PROJECTS.forEach((p) => {
+  ACTIVE.forEach((p) => {
     const section = el("section", { class: "project", id: `project-${p.id}` });
     section.append(el("h2", { class: "project__title", text: p.title }));
     if (p.blurb) section.append(el("p", { class: "project__blurb", text: p.blurb }));
@@ -275,7 +316,7 @@ function buildSections() {
 
 function buildCredits() {
   const list = document.getElementById("credits-list");
-  PROJECTS.filter((p) => !p.kind).forEach((p) => {
+  ACTIVE.filter((p) => !p.kind).forEach((p) => {
     list.append(el("li", { class: p.fanart ? "credit--fanart" : "" }, [creditLine(p)]));
   });
 }
