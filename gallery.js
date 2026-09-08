@@ -21,10 +21,7 @@ const PROJECTS = [
       "Every render here comes out of a path tracer I wrote from scratch — scene management, physically based materials, importance sampling and light transport, all my own code. These are shots of its editor: scene tree, layered material inspector, live viewport, and progressive render output.",
     images: [
       { file: "images/00_editor/2_editor.png" },
-      { file: "images/00_editor/3_editor.png" },
       { file: "images/00_editor/4_editor.png" },
-      { file: "images/00_editor/5_editor.png" },
-      { file: "images/00_editor/6_editor.png" },
     ],
   },
   {
@@ -86,21 +83,8 @@ const PROJECTS = [
       { file: "images/07_bistro/01_bistro_vespa.png", caption: "Vespa" },
       { file: "images/07_bistro/02_bistro_cafe.png", caption: "Café" },
       { file: "images/07_bistro/03_bistro_le_chevalier.png", caption: "Le Chevalier" },
+      { file: "images/07_bistro/04_clay.png", caption: "Clay render" },
     ],
-  },
-  {
-    id: "bathroom",
-    title: "Bathroom",
-    blurb:
-      "A daylit modern bathroom — reflective tile, chrome fixtures, and soft window light.",
-    author: "PHI Archviz",
-    source: "Fab",
-    sourceUrl: "https://www.fab.com/listings/0a045566-e87c-4c54-927b-b40173523681",
-    license: "Fab Standard License",
-    licenseUrl: "https://www.fab.com/eula",
-    notes:
-      'Asset "Bathroom Scene 15" by PHI Archviz, purchased on Fab. The Fab Standard License permits rendered images ("linear" end products) and public display; no attribution required (credited voluntarily), and the underlying 3D asset files are not redistributed.',
-    images: [{ file: "images/08_bathroom/bathroom.png" }],
   },
   {
     id: "zeroday",
@@ -115,9 +99,23 @@ const PROJECTS = [
     notes:
       "Released by the author for any commercial or non-commercial use; credited here voluntarily. Also available via NVIDIA ORCA under CC BY 4.0.",
     images: [
-      { file: "images/09_zeroday/zeroday1.png" },
-      { file: "images/09_zeroday/zeroday2.png" },
+      { file: "images/08_zeroday/zeroday1.png" },
+      { file: "images/08_zeroday/zeroday2.png" },
     ],
+  },
+  {
+    id: "bathroom",
+    title: "Bathroom",
+    blurb:
+      "A daylit modern bathroom — reflective tile, chrome fixtures, and soft window light.",
+    author: "PHI Archviz",
+    source: "Fab",
+    sourceUrl: "https://www.fab.com/listings/0a045566-e87c-4c54-927b-b40173523681",
+    license: "Fab Standard License",
+    licenseUrl: "https://www.fab.com/eula",
+    notes:
+      'Asset "Bathroom Scene 15" by PHI Archviz, purchased on Fab. The Fab Standard License permits rendered images ("linear" end products) and public display; no attribution required (credited voluntarily), and the underlying 3D asset files are not redistributed.',
+    images: [{ file: "images/09_bathroom/bathroom.png" }],
   },
   {
     id: "monster",
@@ -147,22 +145,6 @@ const PROJECTS = [
     images: [{ file: "images/11_classroom/classroom.png" }],
   },
   {
-    id: "hornet",
-    title: "Hornet — fan art",
-    blurb:
-      "Character study lit with a single warm key and a looping light-trail, rendered from a fan-made 3D model.",
-    author: "dark_igorek",
-    source: "Sketchfab",
-    sourceUrl:
-      "https://sketchfab.com/3d-models/silksong-hornet-fanart-57d431b977c841ef8c117af82f109890",
-    license: "CC BY 4.0",
-    licenseUrl: "https://creativecommons.org/licenses/by/4.0/",
-    fanart: true,
-    notes:
-      'Unofficial fan art. Model "Silksong || Hornet Fanart" by dark_igorek. The character Hornet and Hollow Knight: Silksong are trademarks / © Team Cherry — see disclaimer below.',
-    images: [{ file: "images/12_hornet/hornet.png" }],
-  },
-  {
     id: "gelatinouscube",
     title: "Gelatinous Cube — fan art",
     blurb:
@@ -177,8 +159,8 @@ const PROJECTS = [
     notes:
       'Unofficial fan art. Model "Gelatinous Cube" by glenatron, used under CC BY-NC 4.0 — the NonCommercial term is respected here: this site carries no advertising, sells nothing, and the renders are not licensed or offered for sale. The gelatinous cube is a Dungeons & Dragons monster; D&D is a trademark of Wizards of the Coast — see disclaimer below.',
     images: [
-      { file: "images/13_gelatinous_cube/main.png", caption: "Main" },
-      { file: "images/13_gelatinous_cube/clay.png", caption: "Clay render" },
+      { file: "images/12_gelatinous_cube/main.png", caption: "Main" },
+      { file: "images/12_gelatinous_cube/clay.png", caption: "Clay render" },
     ],
   },
   {
@@ -194,9 +176,25 @@ const PROJECTS = [
     notes:
       'Model "4060.b Spaceship" by thecali. Released into the public domain under CC0 — no attribution required; credited here voluntarily.',
     images: [
-      { file: "images/14_spaceship/main.png", caption: "Main" },
-      { file: "images/14_spaceship/clay.png", caption: "Clay render" },
+      { file: "images/13_spaceship/main.png", caption: "Main" },
+      { file: "images/13_spaceship/clay.png", caption: "Clay render" },
     ],
+  },
+  {
+    id: "hornet",
+    title: "Hornet — fan art",
+    blurb:
+      "Character study lit with a single warm key and a looping light-trail, rendered from a fan-made 3D model.",
+    author: "dark_igorek",
+    source: "Sketchfab",
+    sourceUrl:
+      "https://sketchfab.com/3d-models/silksong-hornet-fanart-57d431b977c841ef8c117af82f109890",
+    license: "CC BY 4.0",
+    licenseUrl: "https://creativecommons.org/licenses/by/4.0/",
+    fanart: true,
+    notes:
+      'Unofficial fan art. Model "Silksong || Hornet Fanart" by dark_igorek. The character Hornet and Hollow Knight: Silksong are trademarks / © Team Cherry — see disclaimer below.',
+    images: [{ file: "images/16_hornet/hornet.png" }],
   },
   {
     id: "staircase",

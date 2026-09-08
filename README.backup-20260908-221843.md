@@ -3,33 +3,32 @@
 Hero renders produced with my own, self-written path tracers. This repo doubles
 as a small gallery site.
 
-**Click any image to open it at full resolution.**
-
 ---
 
-## Contents
+## Gallery
 
-**[Editor](#editor)** — the path tracer behind every image below
-
-**Renders** —
-[Poolhouse](#poolhouse) ·
-[Kroken](#kroken) ·
-[Bistro](#bistro) ·
-[Zero-Day](#zero-day) ·
-[Bathroom](#bathroom) ·
-[Monster Under the Bed](#monster-under-the-bed) ·
-[Classroom](#classroom) ·
-[Gelatinous Cube](#gelatinous-cube) ·
-[4060.b Spaceship](#4060b-spaceship) ·
-[Hornet](#hornet) ·
-[Staircase](#staircase)
-
-**[Credits &amp; licenses](#credits--licenses)** —
-[Fan-art notice (Hornet)](#fan-art-notice-hornet) ·
-[Fan-art notice (Gelatinous Cube)](#fan-art-notice-gelatinous-cube) ·
-[Kroken — NoDerivatives](#kroken--noderivatives-permission-granted) ·
-[Bathroom — Fab Standard License](#bathroom--fab-standard-license) ·
-[Rights holders](#rights-holders)
+<table>
+  <tr>
+    <td width="33%" align="center"><a href="#editor"><img src="images/00_editor/2_editor.png" width="100%" alt="The editor"></a><br><sub><b>The editor</b></sub></td>
+    <td width="33%" align="center"><a href="#poolhouse"><img src="images/05_poolhouse/01_Hero_Shot_Grass.png" width="100%" alt="Poolhouse"></a><br><sub><b>Poolhouse</b></sub></td>
+    <td width="33%" align="center"><a href="#kroken"><img src="images/06_kroken/Camera_01_Main.png" width="100%" alt="Kroken"></a><br><sub><b>Kroken</b></sub></td>
+  </tr>
+  <tr>
+    <td width="33%" align="center"><a href="#bistro"><img src="images/07_bistro/02_bistro_cafe.png" width="100%" alt="Bistro"></a><br><sub><b>Bistro</b></sub></td>
+    <td width="33%" align="center"><a href="#bathroom"><img src="images/08_bathroom/bathroom.png" width="100%" alt="Bathroom"></a><br><sub><b>Bathroom</b></sub></td>
+    <td width="33%" align="center"><a href="#zero-day"><img src="images/09_zeroday/zeroday1.png" width="100%" alt="Zero-Day"></a><br><sub><b>Zero-Day</b></sub></td>
+  </tr>
+  <tr>
+    <td width="33%" align="center"><a href="#monster-under-the-bed"><img src="images/10_monster_under_bed/monster_under_bed.png" width="100%" alt="Monster Under the Bed"></a><br><sub><b>Monster Under the Bed</b></sub></td>
+    <td width="33%" align="center"><a href="#classroom"><img src="images/11_classroom/classroom.png" width="100%" alt="Classroom"></a><br><sub><b>Classroom</b></sub></td>
+    <td width="33%" align="center"><a href="#hornet"><img src="images/12_hornet/hornet.png" width="100%" alt="Hornet"></a><br><sub><b>Hornet</b></sub></td>
+  </tr>
+  <tr>
+    <td width="33%" align="center"><a href="#gelatinous-cube"><img src="images/13_gelatinous_cube/main.png" width="100%" alt="Gelatinous Cube"></a><br><sub><b>Gelatinous Cube</b></sub></td>
+    <td width="33%" align="center"><a href="#4060b-spaceship"><img src="images/14_spaceship/main.png" width="100%" alt="4060.b Spaceship"></a><br><sub><b>4060.b Spaceship</b></sub></td>
+    <td width="33%" align="center"><a href="#staircase"><img src="images/other/staicase.png" width="100%" alt="Staircase"></a><br><sub><b>Staircase</b></sub></td>
+  </tr>
+</table>
 
 ---
 
@@ -42,12 +41,11 @@ inspector, live viewport, and progressive render output.
 
 ---
 
-<table>
-  <tr>
-    <td width="50%" align="center"><a href="images/00_editor/2_editor.png"><img src="images/00_editor/2_editor.png" width="100%" alt="Editor"></a></td>
-    <td width="50%" align="center"><a href="images/00_editor/4_editor.png"><img src="images/00_editor/4_editor.png" width="100%" alt="Editor"></a></td>
-  </tr>
-</table>
+<p align="center"><img src="images/00_editor/2_editor.png" width="100%" alt="Editor"></p>
+<p align="center"><img src="images/00_editor/3_editor.png" width="100%" alt="Editor"></p>
+<p align="center"><img src="images/00_editor/4_editor.png" width="100%" alt="Editor"></p>
+<p align="center"><img src="images/00_editor/5_editor.png" width="100%" alt="Editor"></p>
+<p align="center"><img src="images/00_editor/6_editor.png" width="100%" alt="Editor"></p>
 
 ---
 
@@ -56,16 +54,10 @@ inspector, live viewport, and progressive render output.
 A modern villa and pool — **heavily reworked by me** from a Sketchfab base model,
 relit and re-dressed for a set of cinematic hero shots.
 
-<table>
-  <tr>
-    <td width="50%" align="center"><a href="images/05_poolhouse/01_Hero_Shot_Grass.png"><img src="images/05_poolhouse/01_Hero_Shot_Grass.png" width="100%" alt="Poolhouse — hero, grass"></a><br><sub><b>Hero — grass</b></sub></td>
-    <td width="50%" align="center"><a href="images/05_poolhouse/02_Hero_Shot_Terrace.png"><img src="images/05_poolhouse/02_Hero_Shot_Terrace.png" width="100%" alt="Poolhouse — hero, terrace"></a><br><sub><b>Hero — terrace</b></sub></td>
-  </tr>
-  <tr>
-    <td width="50%" align="center"><a href="images/05_poolhouse/03_Hero_Shot_Inside.png"><img src="images/05_poolhouse/03_Hero_Shot_Inside.png" width="100%" alt="Poolhouse — hero, interior"></a><br><sub><b>Hero — interior</b></sub></td>
-    <td width="50%" align="center"><a href="images/05_poolhouse/04_grade_cinematic.png"><img src="images/05_poolhouse/04_grade_cinematic.png" width="100%" alt="Poolhouse — cinematic grade"></a><br><sub><b>Cinematic grade</b></sub></td>
-  </tr>
-</table>
+<p align="center"><img src="images/05_poolhouse/01_Hero_Shot_Grass.png" width="100%" alt="Poolhouse — hero, grass"><br><sub><b>Hero — grass</b></sub></p>
+<p align="center"><img src="images/05_poolhouse/02_Hero_Shot_Terrace.png" width="100%" alt="Poolhouse — hero, terrace"><br><sub><b>Hero — terrace</b></sub></p>
+<p align="center"><img src="images/05_poolhouse/03_Hero_Shot_Inside.png" width="100%" alt="Poolhouse — hero, interior"><br><sub><b>Hero — interior</b></sub></p>
+<p align="center"><img src="images/05_poolhouse/04_grade_cinematic.png" width="100%" alt="Poolhouse — cinematic grade"><br><sub><b>Cinematic grade</b></sub></p>
 
 > Base model: *\*Modern luxury villa house building with pool\** by zigurat
 > architecture studio, licensed
@@ -80,24 +72,14 @@ relit and re-dressed for a set of cinematic hero shots.
 A modern interior-design scene — a Kroken easy chair and chaise longue beside a
 styled shelving wall.
 
-<table>
-  <tr>
-    <td width="50%" align="center"><a href="images/06_kroken/Camera_01_Main.png"><img src="images/06_kroken/Camera_01_Main.png" width="100%" alt="Kroken — Main"></a><br><sub><b>Main</b></sub></td>
-    <td width="50%" align="center"><a href="images/06_kroken/Camera_02_Chaise_Longue.png"><img src="images/06_kroken/Camera_02_Chaise_Longue.png" width="100%" alt="Kroken — Chaise longue"></a><br><sub><b>Chaise longue</b></sub></td>
-  </tr>
-  <tr>
-    <td width="50%" align="center"><a href="images/06_kroken/Camera_03_Shelf.png"><img src="images/06_kroken/Camera_03_Shelf.png" width="100%" alt="Kroken — Shelf"></a><br><sub><b>Shelf</b></sub></td>
-    <td width="50%" align="center"><a href="images/06_kroken/Camera_04_Shelf_Detail.png"><img src="images/06_kroken/Camera_04_Shelf_Detail.png" width="100%" alt="Kroken — Shelf detail"></a><br><sub><b>Shelf detail</b></sub></td>
-  </tr>
-  <tr>
-    <td width="50%" align="center"><a href="images/06_kroken/Camera_05_Blanket_Detail_Top.png"><img src="images/06_kroken/Camera_05_Blanket_Detail_Top.png" width="100%" alt="Kroken — Blanket detail, top"></a><br><sub><b>Blanket detail — top</b></sub></td>
-    <td width="50%" align="center"><a href="images/06_kroken/Camera_06_Blanket_Detail_Front.png"><img src="images/06_kroken/Camera_06_Blanket_Detail_Front.png" width="100%" alt="Kroken — Blanket detail, front"></a><br><sub><b>Blanket detail — front</b></sub></td>
-  </tr>
-  <tr>
-    <td width="50%" align="center"><a href="images/06_kroken/Camera_07_Moka_Detail.png"><img src="images/06_kroken/Camera_07_Moka_Detail.png" width="100%" alt="Kroken — Moka detail"></a><br><sub><b>Moka detail</b></sub></td>
-    <td width="50%" align="center"><a href="images/06_kroken/Camera_08_Outside.png"><img src="images/06_kroken/Camera_08_Outside.png" width="100%" alt="Kroken — Outside"></a><br><sub><b>Outside</b></sub></td>
-  </tr>
-</table>
+<p align="center"><img src="images/06_kroken/Camera_01_Main.png" width="100%" alt="Kroken — Main"><br><sub><b>Main</b></sub></p>
+<p align="center"><img src="images/06_kroken/Camera_02_Chaise_Longue.png" width="100%" alt="Kroken — Chaise longue"><br><sub><b>Chaise longue</b></sub></p>
+<p align="center"><img src="images/06_kroken/Camera_03_Shelf.png" width="100%" alt="Kroken — Shelf"><br><sub><b>Shelf</b></sub></p>
+<p align="center"><img src="images/06_kroken/Camera_04_Shelf_Detail.png" width="100%" alt="Kroken — Shelf detail"><br><sub><b>Shelf detail</b></sub></p>
+<p align="center"><img src="images/06_kroken/Camera_05_Blanket_Detail_Top.png" width="100%" alt="Kroken — Blanket detail, top"><br><sub><b>Blanket detail — top</b></sub></p>
+<p align="center"><img src="images/06_kroken/Camera_06_Blanket_Detail_Front.png" width="100%" alt="Kroken — Blanket detail, front"><br><sub><b>Blanket detail — front</b></sub></p>
+<p align="center"><img src="images/06_kroken/Camera_07_Moka_Detail.png" width="100%" alt="Kroken — Moka detail"><br><sub><b>Moka detail</b></sub></p>
+<p align="center"><img src="images/06_kroken/Camera_08_Outside.png" width="100%" alt="Kroken — Outside"><br><sub><b>Outside</b></sub></p>
 
 > Scene: *\*Kroken\** by Angelo Ferretti / Lucy Dreams, licensed
 > [CC BY-ND 4.0](https\://creativecommons.org/licenses/by-nd/4.0/) — published with
@@ -111,30 +93,9 @@ styled shelving wall.
 The Amazon Lumberyard Bistro — a Parisian café exterior and interior under warm
 evening light.
 
-<table>
-  <tr>
-    <td width="50%" align="center"><a href="images/07_bistro/01_bistro_vespa.png"><img src="images/07_bistro/01_bistro_vespa.png" width="100%" alt="Bistro — Vespa"></a><br><sub><b>Vespa</b></sub></td>
-    <td width="50%" align="center"><a href="images/07_bistro/02_bistro_cafe.png"><img src="images/07_bistro/02_bistro_cafe.png" width="100%" alt="Bistro — Café"></a><br><sub><b>Café</b></sub></td>
-  </tr>
-  <tr>
-    <td width="50%" align="center"><a href="images/07_bistro/03_bistro_le_chevalier.png"><img src="images/07_bistro/03_bistro_le_chevalier.png" width="100%" alt="Bistro — Le Chevalier"></a><br><sub><b>Le Chevalier</b></sub></td>
-    <td width="50%" align="center"><a href="images/07_bistro/04_clay.png"><img src="images/07_bistro/04_clay.png" width="100%" alt="Bistro — clay render"></a><br><sub><b>Clay render</b></sub></td>
-  </tr>
-</table>
-
----
-
-## Zero-Day
-
-Neon-lit sci-fi corridor from Beeple's short film — a classic global-illumination
-stress test.
-
-<table>
-  <tr>
-    <td width="50%" align="center"><a href="images/08_zeroday/zeroday1.png"><img src="images/08_zeroday/zeroday1.png" width="100%" alt="Zero-Day"></a></td>
-    <td width="50%" align="center"><a href="images/08_zeroday/zeroday2.png"><img src="images/08_zeroday/zeroday2.png" width="100%" alt="Zero-Day"></a></td>
-  </tr>
-</table>
+<p align="center"><img src="images/07_bistro/01_bistro_vespa.png" width="100%" alt="Bistro — Vespa"><br><sub><b>Vespa</b></sub></p>
+<p align="center"><img src="images/07_bistro/02_bistro_cafe.png" width="100%" alt="Bistro — Café"><br><sub><b>Café</b></sub></p>
+<p align="center"><img src="images/07_bistro/03_bistro_le_chevalier.png" width="100%" alt="Bistro — Le Chevalier"><br><sub><b>Le Chevalier</b></sub></p>
 
 ---
 
@@ -143,12 +104,17 @@ stress test.
 A daylit modern bathroom — reflective tile, chrome fixtures, and soft window
 light.
 
-<table>
-  <tr>
-    <td width="50%" align="center"><a href="images/09_bathroom/bathroom.png"><img src="images/09_bathroom/bathroom.png" width="100%" alt="Bathroom"></a></td>
-    <td width="50%"></td>
-  </tr>
-</table>
+<p align="center"><img src="images/08_bathroom/bathroom.png" width="100%" alt="Bathroom"></p>
+
+---
+
+## Zero-Day
+
+Neon-lit sci-fi corridor from Beeple's short film — a classic global-illumination
+stress test.
+
+<p align="center"><img src="images/09_zeroday/zeroday1.png" width="100%" alt="Zero-Day"></p>
+<p align="center"><img src="images/09_zeroday/zeroday2.png" width="100%" alt="Zero-Day"></p>
 
 ---
 
@@ -157,12 +123,7 @@ light.
 A stylized creature peering out from beneath a bed — a subsurface-scattering
 study.
 
-<table>
-  <tr>
-    <td width="50%" align="center"><a href="images/10_monster_under_bed/monster_under_bed.png"><img src="images/10_monster_under_bed/monster_under_bed.png" width="100%" alt="Monster Under the Bed"></a></td>
-    <td width="50%"></td>
-  </tr>
-</table>
+<p align="center"><img src="images/10_monster_under_bed/monster_under_bed.png" width="100%" alt="Monster Under the Bed"></p>
 
 ---
 
@@ -170,12 +131,17 @@ study.
 
 The well-known Blender classroom benchmark scene — daylight through the blinds.
 
-<table>
-  <tr>
-    <td width="50%" align="center"><a href="images/11_classroom/classroom.png"><img src="images/11_classroom/classroom.png" width="100%" alt="Classroom"></a></td>
-    <td width="50%"></td>
-  </tr>
-</table>
+<p align="center"><img src="images/11_classroom/classroom.png" width="100%" alt="Classroom"></p>
+
+---
+
+## Hornet
+
+Character study lit with a single warm key and a looping light-trail, rendered
+from a fan-made 3D model. **Unofficial fan art** — see the
+[notice](#fan-art-notice-hornet) below.
+
+<p align="center"><img src="images/12_hornet/hornet.png" width="100%" alt="Hornet — fan art"></p>
 
 ---
 
@@ -187,12 +153,8 @@ study in refraction, absorption and volumetric scattering. The clay pass drops
 the jelly and shows what is trapped in it. **Unofficial fan art** — see the
 [notice](#fan-art-notice-gelatinous-cube) below.
 
-<table>
-  <tr>
-    <td width="50%" align="center"><a href="images/12_gelatinous_cube/main.png"><img src="images/12_gelatinous_cube/main.png" width="100%" alt="Gelatinous Cube — fan art"></a><br><sub><b>Main</b></sub></td>
-    <td width="50%" align="center"><a href="images/12_gelatinous_cube/clay.png"><img src="images/12_gelatinous_cube/clay.png" width="100%" alt="Gelatinous Cube — clay render"></a><br><sub><b>Clay render</b></sub></td>
-  </tr>
-</table>
+<p align="center"><img src="images/13_gelatinous_cube/main.png" width="100%" alt="Gelatinous Cube — fan art"><br><sub><b>Main</b></sub></p>
+<p align="center"><img src="images/13_gelatinous_cube/clay.png" width="100%" alt="Gelatinous Cube — clay render"><br><sub><b>Clay render</b></sub></p>
 
 ---
 
@@ -202,27 +164,8 @@ A retro-futurist rocket in 1960s science-fiction styling — polished chrome, a
 glass bubble canopy over magenta seats, and ribbed thrusters, lit on a plain
 studio backdrop.
 
-<table>
-  <tr>
-    <td width="50%" align="center"><a href="images/13_spaceship/main.png"><img src="images/13_spaceship/main.png" width="100%" alt="4060.b Spaceship"></a><br><sub><b>Main</b></sub></td>
-    <td width="50%" align="center"><a href="images/13_spaceship/clay.png"><img src="images/13_spaceship/clay.png" width="100%" alt="4060.b Spaceship — clay render"></a><br><sub><b>Clay render</b></sub></td>
-  </tr>
-</table>
-
----
-
-## Hornet
-
-Character study lit with a single warm key and a looping light-trail, rendered
-from a fan-made 3D model. **Unofficial fan art** — see the
-[notice](#fan-art-notice-hornet) below.
-
-<table>
-  <tr>
-    <td width="50%" align="center"><a href="images/16_hornet/hornet.png"><img src="images/16_hornet/hornet.png" width="100%" alt="Hornet — fan art"></a></td>
-    <td width="50%"></td>
-  </tr>
-</table>
+<p align="center"><img src="images/14_spaceship/main.png" width="100%" alt="4060.b Spaceship"><br><sub><b>Main</b></sub></p>
+<p align="center"><img src="images/14_spaceship/clay.png" width="100%" alt="4060.b Spaceship — clay render"><br><sub><b>Clay render</b></sub></p>
 
 ---
 
@@ -230,12 +173,7 @@ from a fan-made 3D model. **Unofficial fan art** — see the
 
 A sunlit wooden staircase — a soft-shadow and indirect-light study.
 
-<table>
-  <tr>
-    <td width="50%" align="center"><a href="images/other/staicase.png"><img src="images/other/staicase.png" width="100%" alt="Staircase"></a></td>
-    <td width="50%"></td>
-  </tr>
-</table>
+<p align="center"><img src="images/other/staicase.png" width="100%" alt="Staircase"></p>
 
 ---
 
