@@ -97,6 +97,10 @@ styled shelving wall.
     <td width="50%" align="center"><a href="images/06_kroken/Camera_06_Blanket_Detail_Front_001.png"><img src="images/06_kroken/Camera_06_Blanket_Detail_Front_001.png" width="100%" alt="Kroken — Blanket detail, front"></a><br><sub><b>Blanket detail — front</b></sub></td>
     <td width="50%" align="center"><a href="images/06_kroken/Camera_07_Moka_Detail_001.png"><img src="images/06_kroken/Camera_07_Moka_Detail_001.png" width="100%" alt="Kroken — Moka detail"></a><br><sub><b>Moka detail</b></sub></td>
   </tr>
+  <tr>
+    <td width="50%" align="center"><a href="images/06_kroken/Camera_08_dispenser.png"><img src="images/06_kroken/Camera_08_dispenser.png" width="100%" alt="Kroken — Dispenser"></a><br><sub><b>Dispenser</b></sub></td>
+    <td width="50%" align="center"><a href="images/06_kroken/Camera_09_red_glasses.png"><img src="images/06_kroken/Camera_09_red_glasses.png" width="100%" alt="Kroken — Red glasses"></a><br><sub><b>Red glasses</b></sub></td>
+  </tr>
 </table>
 
 > Scene: *\*Kroken\** by Angelo Ferretti / Lucy Dreams, licensed

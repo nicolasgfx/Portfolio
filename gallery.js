@@ -65,6 +65,8 @@ const PROJECTS = [
       { file: "images/06_kroken/Camera_05_Blanket_Detail_Top_001.png", caption: "Blanket detail — top" },
       { file: "images/06_kroken/Camera_06_Blanket_Detail_Front_001.png", caption: "Blanket detail — front" },
       { file: "images/06_kroken/Camera_07_Moka_Detail_001.png", caption: "Moka detail" },
+      { file: "images/06_kroken/Camera_08_dispenser.png", caption: "Dispenser" },
+      { file: "images/06_kroken/Camera_09_red_glasses.png", caption: "Red glasses" },
     ],
   },
   {
