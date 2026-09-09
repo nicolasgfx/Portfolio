@@ -82,20 +82,20 @@ styled shelving wall.
 
 <table>
   <tr>
-    <td width="50%" align="center"><a href="images/06_kroken/Camera_01_Main.png"><img src="images/06_kroken/Camera_01_Main.png" width="100%" alt="Kroken — Main"></a><br><sub><b>Main</b></sub></td>
-    <td width="50%" align="center"><a href="images/06_kroken/Camera_02_Chaise_Longue.png"><img src="images/06_kroken/Camera_02_Chaise_Longue.png" width="100%" alt="Kroken — Chaise longue"></a><br><sub><b>Chaise longue</b></sub></td>
+    <td width="50%" align="center"><a href="images/06_kroken/Camera_01_Main_001.png"><img src="images/06_kroken/Camera_01_Main_001.png" width="100%" alt="Kroken — Main"></a><br><sub><b>Main</b></sub></td>
+    <td width="50%" align="center"><a href="images/06_kroken/Camera_01b_Main_Clay.png"><img src="images/06_kroken/Camera_01b_Main_Clay.png" width="100%" alt="Kroken — clay render"></a><br><sub><b>Clay render</b></sub></td>
   </tr>
   <tr>
-    <td width="50%" align="center"><a href="images/06_kroken/Camera_03_Shelf.png"><img src="images/06_kroken/Camera_03_Shelf.png" width="100%" alt="Kroken — Shelf"></a><br><sub><b>Shelf</b></sub></td>
-    <td width="50%" align="center"><a href="images/06_kroken/Camera_04_Shelf_Detail.png"><img src="images/06_kroken/Camera_04_Shelf_Detail.png" width="100%" alt="Kroken — Shelf detail"></a><br><sub><b>Shelf detail</b></sub></td>
+    <td width="50%" align="center"><a href="images/06_kroken/Camera_02_Chaise_Longue_001.png"><img src="images/06_kroken/Camera_02_Chaise_Longue_001.png" width="100%" alt="Kroken — Chaise longue"></a><br><sub><b>Chaise longue</b></sub></td>
+    <td width="50%" align="center"><a href="images/06_kroken/Camera_03_Shelf_001.png"><img src="images/06_kroken/Camera_03_Shelf_001.png" width="100%" alt="Kroken — Shelf"></a><br><sub><b>Shelf</b></sub></td>
   </tr>
   <tr>
-    <td width="50%" align="center"><a href="images/06_kroken/Camera_05_Blanket_Detail_Top.png"><img src="images/06_kroken/Camera_05_Blanket_Detail_Top.png" width="100%" alt="Kroken — Blanket detail, top"></a><br><sub><b>Blanket detail — top</b></sub></td>
-    <td width="50%" align="center"><a href="images/06_kroken/Camera_06_Blanket_Detail_Front.png"><img src="images/06_kroken/Camera_06_Blanket_Detail_Front.png" width="100%" alt="Kroken — Blanket detail, front"></a><br><sub><b>Blanket detail — front</b></sub></td>
+    <td width="50%" align="center"><a href="images/06_kroken/Camera_04_Shelf_Detail_001.png"><img src="images/06_kroken/Camera_04_Shelf_Detail_001.png" width="100%" alt="Kroken — Shelf detail"></a><br><sub><b>Shelf detail</b></sub></td>
+    <td width="50%" align="center"><a href="images/06_kroken/Camera_05_Blanket_Detail_Top_001.png"><img src="images/06_kroken/Camera_05_Blanket_Detail_Top_001.png" width="100%" alt="Kroken — Blanket detail, top"></a><br><sub><b>Blanket detail — top</b></sub></td>
   </tr>
   <tr>
-    <td width="50%" align="center"><a href="images/06_kroken/Camera_07_Moka_Detail.png"><img src="images/06_kroken/Camera_07_Moka_Detail.png" width="100%" alt="Kroken — Moka detail"></a><br><sub><b>Moka detail</b></sub></td>
-    <td width="50%" align="center"><a href="images/06_kroken/Camera_08_Outside.png"><img src="images/06_kroken/Camera_08_Outside.png" width="100%" alt="Kroken — Outside"></a><br><sub><b>Outside</b></sub></td>
+    <td width="50%" align="center"><a href="images/06_kroken/Camera_06_Blanket_Detail_Front_001.png"><img src="images/06_kroken/Camera_06_Blanket_Detail_Front_001.png" width="100%" alt="Kroken — Blanket detail, front"></a><br><sub><b>Blanket detail — front</b></sub></td>
+    <td width="50%" align="center"><a href="images/06_kroken/Camera_07_Moka_Detail_001.png"><img src="images/06_kroken/Camera_07_Moka_Detail_001.png" width="100%" alt="Kroken — Moka detail"></a><br><sub><b>Moka detail</b></sub></td>
   </tr>
 </table>
 

@@ -57,14 +57,14 @@ const PROJECTS = [
     notes:
       "The CC BY-ND 4.0 license excludes derivatives like renders, but Angelo Ferretti (Lucy Dreams, the scene's author) granted written permission by email on 2026-07-03 to publish rendered images in this context, subject to the shop's EULA (lucydreams.it/shop/eula-license). pbrt-v4 scene via github.com/mmp/pbrt-v4-scenes.",
     images: [
-      { file: "images/06_kroken/Camera_01_Main.png", caption: "Main" },
-      { file: "images/06_kroken/Camera_02_Chaise_Longue.png", caption: "Chaise longue" },
-      { file: "images/06_kroken/Camera_03_Shelf.png", caption: "Shelf" },
-      { file: "images/06_kroken/Camera_04_Shelf_Detail.png", caption: "Shelf detail" },
-      { file: "images/06_kroken/Camera_05_Blanket_Detail_Top.png", caption: "Blanket detail — top" },
-      { file: "images/06_kroken/Camera_06_Blanket_Detail_Front.png", caption: "Blanket detail — front" },
-      { file: "images/06_kroken/Camera_07_Moka_Detail.png", caption: "Moka detail" },
-      { file: "images/06_kroken/Camera_08_Outside.png", caption: "Outside" },
+      { file: "images/06_kroken/Camera_01_Main_001.png", caption: "Main" },
+      { file: "images/06_kroken/Camera_01b_Main_Clay.png", caption: "Clay render" },
+      { file: "images/06_kroken/Camera_02_Chaise_Longue_001.png", caption: "Chaise longue" },
+      { file: "images/06_kroken/Camera_03_Shelf_001.png", caption: "Shelf" },
+      { file: "images/06_kroken/Camera_04_Shelf_Detail_001.png", caption: "Shelf detail" },
+      { file: "images/06_kroken/Camera_05_Blanket_Detail_Top_001.png", caption: "Blanket detail — top" },
+      { file: "images/06_kroken/Camera_06_Blanket_Detail_Front_001.png", caption: "Blanket detail — front" },
+      { file: "images/06_kroken/Camera_07_Moka_Detail_001.png", caption: "Moka detail" },
     ],
   },
   {
