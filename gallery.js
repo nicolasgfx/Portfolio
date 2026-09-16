@@ -183,6 +183,25 @@ const PROJECTS = [
     ],
   },
   {
+    id: "transparentmachines",
+    title: "Transparent Machines",
+    blurb:
+      "An intricate machine built entirely from glass, floating against a soft blue backdrop — nested refractive shells, threads and gears that need dozens of ray bounces to resolve.",
+    author: "Mike Winkelmann (Beeple)",
+    source: "beeple-crap.com/films",
+    sourceUrl: "https://www.beeple-crap.com/films",
+    license: "Free for any use (no attribution required)",
+    licenseUrl: "https://www.beeple-crap.com/resources",
+    notes:
+      'Models from frames of Beeple\'s short film "Transparent Machines", released by the author for any commercial or non-commercial use; credited here voluntarily. pbrt-v4 scene via github.com/mmp/pbrt-v4-scenes.',
+    images: [
+      { file: "images/14_transparent_machines/01_Main.png", caption: "Main" },
+      { file: "images/14_transparent_machines/02_Clay.png", caption: "Clay render" },
+      { file: "images/14_transparent_machines/03_Main.png", caption: "Close-up" },
+      { file: "images/14_transparent_machines/04_Clay.png", caption: "Close-up — clay render" },
+    ],
+  },
+  {
     id: "hornet",
     title: "Hornet — fan art",
     blurb:

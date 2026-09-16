@@ -21,6 +21,7 @@ as a small gallery site.
 [Classroom](#classroom) ·
 [Gelatinous Cube](#gelatinous-cube) ·
 [4060.b Spaceship](#4060b-spaceship) ·
+[Transparent Machines](#transparent-machines) ·
 [Hornet](#hornet) ·
 [Staircase](#staircase)
 
@@ -215,6 +216,25 @@ studio backdrop.
 
 ---
 
+## Transparent Machines
+
+An intricate machine built entirely from glass, floating against a soft blue
+backdrop — nested refractive shells, threads and gears that need dozens of ray
+bounces to resolve.
+
+<table>
+  <tr>
+    <td width="50%" align="center"><a href="images/14_transparent_machines/01_Main.png"><img src="images/14_transparent_machines/01_Main.png" width="100%" alt="Transparent Machines — Main"></a><br><sub><b>Main</b></sub></td>
+    <td width="50%" align="center"><a href="images/14_transparent_machines/02_Clay.png"><img src="images/14_transparent_machines/02_Clay.png" width="100%" alt="Transparent Machines — clay render"></a><br><sub><b>Clay render</b></sub></td>
+  </tr>
+  <tr>
+    <td width="50%" align="center"><a href="images/14_transparent_machines/03_Main.png"><img src="images/14_transparent_machines/03_Main.png" width="100%" alt="Transparent Machines — Close-up"></a><br><sub><b>Close-up</b></sub></td>
+    <td width="50%" align="center"><a href="images/14_transparent_machines/04_Clay.png"><img src="images/14_transparent_machines/04_Clay.png" width="100%" alt="Transparent Machines — close-up, clay render"></a><br><sub><b>Close-up — clay render</b></sub></td>
+  </tr>
+</table>
+
+---
+
 ## Hornet
 
 Character study lit with a single warm key and a looping light-trail, rendered
@@ -255,6 +275,7 @@ Trademarks and characters are the property of their respective owners.
 | Poolhouse *\*(heavily modified)\** | *\*Modern luxury villa house building with pool\** — zigurat architecture studio | [Sketchfab](https\://sketchfab.com/3d-models/modern-luxury-villa-house-building-with-pool-0e858284939343cb994233d40a48a20a) | [CC BY 4.0](https\://creativecommons.org/licenses/by/4.0/) |
 | Bistro (Café, Vespa, Le Chevalier) | *\*Amazon Lumberyard Bistro\** — Amazon Lumberyard | [NVIDIA ORCA](https\://developer.nvidia.com/orca/amazon-lumberyard-bistro) · [pbrt-v4-scenes](https\://github.com/mmp/pbrt-v4-scenes) | [CC BY 4.0](https\://creativecommons.org/licenses/by/4.0/) |
 | Zero-Day | *\*Zero-Day\** — Mike Winkelmann (Beeple) | [beeple-crap.com/resources](https\://www.beeple-crap.com/resources) | Free for any use, no attribution required (credited voluntarily) |
+| Transparent Machines | Models from *\*Transparent Machines\** — Mike Winkelmann (Beeple) | [beeple-crap.com/films](https\://www.beeple-crap.com/films) · [pbrt-v4-scenes](https\://github.com/mmp/pbrt-v4-scenes) | [Free for any use](https\://www.beeple-crap.com/resources), no attribution required (credited voluntarily) |
 | Hornet | *\*Silksong \|\| Hornet Fanart\** — dark_igorek | [Sketchfab](https\://sketchfab.com/3d-models/silksong-hornet-fanart-57d431b977c841ef8c117af82f109890) | [CC BY 4.0](https\://creativecommons.org/licenses/by/4.0/) |
 | Gelatinous Cube | *\*Gelatinous Cube\** — glenatron | [Sketchfab](https\://sketchfab.com/3d-models/gelatinous-cube-e08385238f4d4b59b012233a9fbdca21) | [CC BY-NC 4.0](https\://creativecommons.org/licenses/by-nc/4.0/) (attribution required; non-commercial use only) |
 | 4060.b Spaceship | *\*4060.b Spaceship\** — thecali | [Blend Swap #13489](https\://blendswap.com/blend/13489) | [CC0 1.0](https\://creativecommons.org/publicdomain/zero/1.0/) (public domain; credited voluntarily) |
