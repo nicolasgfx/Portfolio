@@ -195,10 +195,26 @@ const PROJECTS = [
     notes:
       'Models from frames of Beeple\'s short film "Transparent Machines", released by the author for any commercial or non-commercial use; credited here voluntarily. pbrt-v4 scene via github.com/mmp/pbrt-v4-scenes.',
     images: [
-      { file: "images/14_transparent_machines/01_Main.png", caption: "Main" },
-      { file: "images/14_transparent_machines/02_Clay.png", caption: "Clay render" },
-      { file: "images/14_transparent_machines/03_Main.png", caption: "Close-up" },
-      { file: "images/14_transparent_machines/04_Clay.png", caption: "Close-up — clay render" },
+      { file: "images/14_transparent_machines/01_main.png", caption: "Main" },
+      { file: "images/14_transparent_machines/02_main.png", caption: "Close-up" },
+    ],
+  },
+  {
+    id: "lion",
+    title: "MaterialX Lion",
+    blurb:
+      "A guardian-lion statue on a carved wooden base — a crazed ceramic glaze laid over gold leaf, built as layered MaterialX BSDFs with 4K–8K UDIM textures. The close-up goes in on the forepaws, where the cracks in the glaze open onto the metal underneath.",
+    author: "NVIDIA Corporation",
+    source: "ASWF / DPEL",
+    sourceUrl: "https://www.aswf.io/blog/materialxteapotlion/",
+    license: "ASWF Digital Assets License v1.1",
+    licenseUrl:
+      "https://dpel.aswf.io/materialx-teapot-lion/materialx-teapot-lion-license",
+    notes:
+      'Asset "MaterialX Teapot and Lion", contributed by NVIDIA to the Digital Production Example Library (DPEL), an Academy Software Foundation project. MaterialX Teapot and Lion Copyright 2026 NVIDIA Corporation. All rights reserved. The license permits use for education, research, software development, benchmarking and demonstrations — which is what these renders are; it does not imply any endorsement by or affiliation with NVIDIA.',
+    images: [
+      { file: "images/15_lion/lion1.png", caption: "Main" },
+      { file: "images/15_lion/lion2.png", caption: "Glaze detail" },
     ],
   },
   {

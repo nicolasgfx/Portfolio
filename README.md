@@ -22,6 +22,7 @@ as a small gallery site.
 [Gelatinous Cube](#gelatinous-cube) ·
 [4060.b Spaceship](#4060b-spaceship) ·
 [Transparent Machines](#transparent-machines) ·
+[MaterialX Lion](#materialx-lion) ·
 [Hornet](#hornet) ·
 [Staircase](#staircase)
 
@@ -30,6 +31,7 @@ as a small gallery site.
 [Fan-art notice (Gelatinous Cube)](#fan-art-notice-gelatinous-cube) ·
 [Kroken — NoDerivatives](#kroken--noderivatives-permission-granted) ·
 [Bathroom — Fab Standard License](#bathroom--fab-standard-license) ·
+[MaterialX Lion — ASWF Digital Assets License](#materialx-lion--aswf-digital-assets-license) ·
 [Rights holders](#rights-holders)
 
 ---
@@ -224,12 +226,25 @@ bounces to resolve.
 
 <table>
   <tr>
-    <td width="50%" align="center"><a href="images/14_transparent_machines/01_Main.png"><img src="images/14_transparent_machines/01_Main.png" width="100%" alt="Transparent Machines — Main"></a><br><sub><b>Main</b></sub></td>
-    <td width="50%" align="center"><a href="images/14_transparent_machines/02_Clay.png"><img src="images/14_transparent_machines/02_Clay.png" width="100%" alt="Transparent Machines — clay render"></a><br><sub><b>Clay render</b></sub></td>
+    <td width="50%" align="center"><a href="images/14_transparent_machines/01_main.png"><img src="images/14_transparent_machines/01_main.png" width="100%" alt="Transparent Machines — Main"></a><br><sub><b>Main</b></sub></td>
+    <td width="50%" align="center"><a href="images/14_transparent_machines/02_main.png"><img src="images/14_transparent_machines/02_main.png" width="100%" alt="Transparent Machines — Close-up"></a><br><sub><b>Close-up</b></sub></td>
   </tr>
+</table>
+
+---
+
+## MaterialX Lion
+
+A guardian-lion statue on a carved wooden base — a crazed ceramic glaze laid
+over gold leaf, built as layered MaterialX BSDFs with 4K–8K UDIM textures. The
+close-up goes in on the forepaws, where the cracks in the glaze open onto the
+metal underneath. See the [notice](#materialx-lion--aswf-digital-assets-license)
+below.
+
+<table>
   <tr>
-    <td width="50%" align="center"><a href="images/14_transparent_machines/03_Main.png"><img src="images/14_transparent_machines/03_Main.png" width="100%" alt="Transparent Machines — Close-up"></a><br><sub><b>Close-up</b></sub></td>
-    <td width="50%" align="center"><a href="images/14_transparent_machines/04_Clay.png"><img src="images/14_transparent_machines/04_Clay.png" width="100%" alt="Transparent Machines — close-up, clay render"></a><br><sub><b>Close-up — clay render</b></sub></td>
+    <td width="50%" align="center"><a href="images/15_lion/lion1.png"><img src="images/15_lion/lion1.png" width="100%" alt="MaterialX Lion"></a><br><sub><b>Main</b></sub></td>
+    <td width="50%" align="center"><a href="images/15_lion/lion2.png"><img src="images/15_lion/lion2.png" width="100%" alt="MaterialX Lion — glaze detail"></a><br><sub><b>Glaze detail</b></sub></td>
   </tr>
 </table>
 
@@ -276,6 +291,7 @@ Trademarks and characters are the property of their respective owners.
 | Bistro (Café, Vespa, Le Chevalier) | *\*Amazon Lumberyard Bistro\** — Amazon Lumberyard | [NVIDIA ORCA](https\://developer.nvidia.com/orca/amazon-lumberyard-bistro) · [pbrt-v4-scenes](https\://github.com/mmp/pbrt-v4-scenes) | [CC BY 4.0](https\://creativecommons.org/licenses/by/4.0/) |
 | Zero-Day | *\*Zero-Day\** — Mike Winkelmann (Beeple) | [beeple-crap.com/resources](https\://www.beeple-crap.com/resources) | Free for any use, no attribution required (credited voluntarily) |
 | Transparent Machines | Models from *\*Transparent Machines\** — Mike Winkelmann (Beeple) | [beeple-crap.com/films](https\://www.beeple-crap.com/films) · [pbrt-v4-scenes](https\://github.com/mmp/pbrt-v4-scenes) | [Free for any use](https\://www.beeple-crap.com/resources), no attribution required (credited voluntarily) |
+| MaterialX Lion | *\*MaterialX Teapot and Lion\** — NVIDIA Corporation | [ASWF blog](https\://www.aswf.io/blog/materialxteapotlion/) · [DPEL](https\://dpel.aswf.io/materialx-teapot-lion/) | [ASWF Digital Assets License v1.1](https\://dpel.aswf.io/materialx-teapot-lion/materialx-teapot-lion-license) (non-commercial permitted uses; copyright notice required) |
 | Hornet | *\*Silksong \|\| Hornet Fanart\** — dark_igorek | [Sketchfab](https\://sketchfab.com/3d-models/silksong-hornet-fanart-57d431b977c841ef8c117af82f109890) | [CC BY 4.0](https\://creativecommons.org/licenses/by/4.0/) |
 | Gelatinous Cube | *\*Gelatinous Cube\** — glenatron | [Sketchfab](https\://sketchfab.com/3d-models/gelatinous-cube-e08385238f4d4b59b012233a9fbdca21) | [CC BY-NC 4.0](https\://creativecommons.org/licenses/by-nc/4.0/) (attribution required; non-commercial use only) |
 | 4060.b Spaceship | *\*4060.b Spaceship\** — thecali | [Blend Swap #13489](https\://blendswap.com/blend/13489) | [CC0 1.0](https\://creativecommons.org/publicdomain/zero/1.0/) (public domain; credited voluntarily) |
@@ -329,6 +345,23 @@ such as the still shown here) and to display it publicly. It does **not**
 require attribution — the author is credited here voluntarily — and it does **not**
 permit redistributing the underlying 3D asset files themselves. Only rendered
 images are published in this repository, so the license terms are respected.
+
+### MaterialX Lion — ASWF Digital Assets License
+
+The lion renders show the *\*MaterialX Teapot and Lion\**, an asset contributed
+by **NVIDIA** to the Academy Software Foundation's [Digital Production Example
+Library](https\://dpel.aswf.io/materialx-teapot-lion/). Required notice:
+
+> MaterialX Teapot and Lion Copyright 2026 NVIDIA Corporation. All rights reserved.
+
+The [ASWF Digital Assets License
+v1.1](https\://dpel.aswf.io/materialx-teapot-lion/materialx-teapot-lion-license)
+permits use for education, training, research, software and hardware
+development, benchmarking and product demonstrations — which is what these
+renders are — and requires publications showing derived images to carry that
+copyright notice. The underlying asset files are **not** redistributed here, and
+nothing in this repository implies endorsement by, sponsorship by, or
+affiliation with NVIDIA.
 
 ### Rights holders
 
