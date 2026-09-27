@@ -2,7 +2,7 @@
  * Portfolio gallery — data-driven, dependency-free.
  *
  * Everything on the page (the overview thumbnail grid, the per-project
- * single-column sections, the credits list, and the lightbox) is built from the
+ * sections, the credits list, and the lightbox) is built from the
  * PROJECTS array below. Each project groups one or more images that share a
  * scene and credit. To add work, add a project or push an image onto one.
  *
@@ -18,7 +18,7 @@ const PROJECTS = [
     title: "The editor",
     kind: "tool",
     blurb:
-      "Every render here comes out of a path tracer I wrote from scratch — scene management, physically based materials, importance sampling and light transport, all my own code. These are shots of its editor: scene tree, layered material inspector, live viewport, and progressive render output.",
+      "Every render here — apart from the Blender reference images in The Old View — comes out of a path tracer I wrote from scratch: scene management, physically based materials, importance sampling and light transport, all my own code. These are shots of its editor: scene tree, layered material inspector, live viewport, and progressive render output.",
     images: [
       { file: "images/00_editor/2_editor.png" },
       { file: "images/00_editor/4_editor.png" },
@@ -147,42 +147,6 @@ const PROJECTS = [
     images: [{ file: "images/11_classroom/classroom.png" }],
   },
   {
-    id: "gelatinouscube",
-    title: "Gelatinous Cube — fan art",
-    blurb:
-      "A translucent ooze settled in a vine-grown stone ruin, a helmeted skeleton with its sword, shield and a few spent arrows suspended mid-digestion inside — a study in refraction, absorption and volumetric scattering. The clay pass drops the jelly and shows what is trapped in it.",
-    author: "glenatron",
-    source: "Sketchfab",
-    sourceUrl:
-      "https://sketchfab.com/3d-models/gelatinous-cube-e08385238f4d4b59b012233a9fbdca21",
-    license: "CC BY-NC 4.0",
-    licenseUrl: "https://creativecommons.org/licenses/by-nc/4.0/",
-    fanart: true,
-    notes:
-      'Unofficial fan art. Model "Gelatinous Cube" by glenatron, used under CC BY-NC 4.0 — the NonCommercial term is respected here: this site carries no advertising, sells nothing, and the renders are not licensed or offered for sale. The gelatinous cube is a Dungeons & Dragons monster; D&D is a trademark of Wizards of the Coast — see disclaimer below.',
-    images: [
-      { file: "images/12_gelatinous_cube/main.png", caption: "Main" },
-      { file: "images/12_gelatinous_cube/clay.png", caption: "Clay render" },
-    ],
-  },
-  {
-    id: "spaceship",
-    title: "4060.b Spaceship",
-    blurb:
-      "A retro-futurist rocket in 1960s science-fiction styling — polished chrome, a glass bubble canopy over magenta seats, and ribbed thrusters, lit on a plain studio backdrop.",
-    author: "thecali",
-    source: "Blend Swap #13489",
-    sourceUrl: "https://blendswap.com/blend/13489",
-    license: "CC0 1.0 (Public Domain)",
-    licenseUrl: "https://creativecommons.org/publicdomain/zero/1.0/",
-    notes:
-      'Model "4060.b Spaceship" by thecali. Released into the public domain under CC0 — no attribution required; credited here voluntarily.',
-    images: [
-      { file: "images/13_spaceship/main.png", caption: "Main" },
-      { file: "images/13_spaceship/clay.png", caption: "Clay render" },
-    ],
-  },
-  {
     id: "transparentmachines",
     title: "Transparent Machines",
     blurb:
@@ -195,8 +159,8 @@ const PROJECTS = [
     notes:
       'Models from frames of Beeple\'s short film "Transparent Machines", released by the author for any commercial or non-commercial use; credited here voluntarily. pbrt-v4 scene via github.com/mmp/pbrt-v4-scenes.',
     images: [
-      { file: "images/14_transparent_machines/01_main.png", caption: "Main" },
-      { file: "images/14_transparent_machines/02_main.png", caption: "Close-up" },
+      { file: "images/12_transparent_machines/01_main.png", caption: "Main" },
+      { file: "images/12_transparent_machines/02_main.png", caption: "Close-up" },
     ],
   },
   {
@@ -213,13 +177,37 @@ const PROJECTS = [
     notes:
       'Asset "MaterialX Teapot and Lion", contributed by NVIDIA to the Digital Production Example Library (DPEL), an Academy Software Foundation project. MaterialX Teapot and Lion Copyright 2026 NVIDIA Corporation. All rights reserved. The license permits use for education, research, software development, benchmarking and demonstrations — which is what these renders are; it does not imply any endorsement by or affiliation with NVIDIA.',
     images: [
-      { file: "images/15_lion/lion1.png", caption: "Main" },
-      { file: "images/15_lion/lion2.png", caption: "Glaze detail" },
+      { file: "images/13_lion/lion1.png", caption: "Main" },
+      { file: "images/13_lion/lion2.png", caption: "Glaze detail" },
+    ],
+  },
+  {
+    id: "theoldview",
+    title: "The Old View",
+    layout: "pairs",
+    blurb:
+      "A replica of Valley View Mall in Dallas, the 1970s shopping centre that Kane Pixels' The Oldest View made famous. Each row is one camera rendered twice: on the left in Blender 5.1, on the right in my own path tracer.",
+    author: "Šime Bugarija",
+    source: "CGTrader",
+    sourceUrl:
+      "https://www.cgtrader.com/3d-models/interior/other/mall-from-the-oldest-view-project-files-and-assets",
+    license: "CGTrader Royalty Free License",
+    licenseUrl: "https://www.cgtrader.com/pages/terms-and-conditions",
+    notes:
+      'Scene "Mall From The Oldest View – Project Files and Assets" by Šime Bugarija, purchased on CGTrader (US$9). The license permits rendering the scene and publicly displaying the images; no attribution required (credited voluntarily), and the underlying 3D files are not redistributed. Both images in each pair were rendered by me from the same scene and camera. Blender is a registered trademark of the Blender Foundation; The Oldest View is a series by Kane Pixels — see notice below.',
+    images: [
+      { file: "images/14_the_old_view/01_blender.png", caption: "Balcony — Blender 5.1" },
+      { file: "images/14_the_old_view/01_mine.png", caption: "Balcony — my path tracer" },
+      { file: "images/14_the_old_view/02_blender.png", caption: "Puppet — Blender 5.1" },
+      { file: "images/14_the_old_view/02_mine.png", caption: "Puppet — my path tracer" },
+      { file: "images/14_the_old_view/03_blender.png", caption: "Atrium — Blender 5.1" },
+      { file: "images/14_the_old_view/03_mine.png", caption: "Atrium — my path tracer" },
     ],
   },
   {
     id: "hornet",
     title: "Hornet — fan art",
+    group: "studies",
     blurb:
       "Character study lit with a single warm key and a looping light-trail, rendered from a fan-made 3D model.",
     author: "dark_igorek",
@@ -231,11 +219,29 @@ const PROJECTS = [
     fanart: true,
     notes:
       'Unofficial fan art. Model "Silksong || Hornet Fanart" by dark_igorek. The character Hornet and Hollow Knight: Silksong are trademarks / © Team Cherry — see disclaimer below.',
-    images: [{ file: "images/16_hornet/hornet.png" }],
+    images: [{ file: "images/90_studies/01_hornet.png" }],
+  },
+  {
+    id: "gelatinouscube",
+    title: "Gelatinous Cube — fan art",
+    group: "studies",
+    blurb:
+      "A translucent ooze settled in a vine-grown stone ruin, a helmeted skeleton with its sword, shield and a few spent arrows suspended mid-digestion inside — a study in refraction, absorption and volumetric scattering.",
+    author: "glenatron",
+    source: "Sketchfab",
+    sourceUrl:
+      "https://sketchfab.com/3d-models/gelatinous-cube-e08385238f4d4b59b012233a9fbdca21",
+    license: "CC BY-NC 4.0",
+    licenseUrl: "https://creativecommons.org/licenses/by-nc/4.0/",
+    fanart: true,
+    notes:
+      'Unofficial fan art. Model "Gelatinous Cube" by glenatron, used under CC BY-NC 4.0 — the NonCommercial term is respected here: this site carries no advertising, sells nothing, and the renders are not licensed or offered for sale. The gelatinous cube is a Dungeons & Dragons monster; D&D is a trademark of Wizards of the Coast — see disclaimer below.',
+    images: [{ file: "images/90_studies/02_gelatinous_cube.png" }],
   },
   {
     id: "staircase",
     title: "Staircase",
+    group: "studies",
     blurb: "A sunlit wooden staircase — a soft-shadow and indirect-light study.",
     author: "Wig42",
     source: "Blend Swap #14449",
@@ -244,17 +250,44 @@ const PROJECTS = [
     licenseUrl: "https://creativecommons.org/licenses/by/3.0/",
     notes:
       'Scene "The Wooden Staircase" by Wig42. Confirm the exact CC-BY version shown on the Blend Swap page.',
-    images: [{ file: "images/other/staicase.png" }],
+    images: [{ file: "images/90_studies/03_staircase.png" }],
+  },
+  {
+    id: "spaceship",
+    title: "4060.b Spaceship",
+    group: "studies",
+    blurb:
+      "A retro-futurist rocket in 1960s science-fiction styling — polished chrome, a glass bubble canopy over magenta seats, and ribbed thrusters, lit on a plain studio backdrop.",
+    author: "thecali",
+    source: "Blend Swap #13489",
+    sourceUrl: "https://blendswap.com/blend/13489",
+    license: "CC0 1.0 (Public Domain)",
+    licenseUrl: "https://creativecommons.org/publicdomain/zero/1.0/",
+    notes:
+      'Model "4060.b Spaceship" by thecali. Released into the public domain under CC0 — no attribution required; credited here voluntarily.',
+    images: [{ file: "images/90_studies/04_spaceship.png" }],
   },
 ];
 
+/* Small one-shot pieces share a single section instead of one each: every
+ * project with `group: "<key>"` is laid out side by side under that group's
+ * heading, each image keeping its own title and credit. */
+const GROUPS = {
+  studies: {
+    title: "Studies",
+    blurb:
+      "Single-image studies — a character, a creature, a staircase and a spaceship, each built around one lighting or material problem. Click any image for its full description and credit.",
+  },
+};
+
 const CREDITS_INTRO =
-  "All images here are renders I produced with my own path tracer. The underlying 3D scenes and models were created by the artists credited below and used under the stated licenses; each render is a new image derived from those assets. Trademarks and characters are the property of their respective owners.";
+  "All images here are renders I produced with my own path tracer — except the left-hand images of The Old View comparison, which I rendered in Blender 5.1. The underlying 3D scenes and models were created by the artists credited below and used under the stated licenses; each render is a new image derived from those assets. Trademarks and characters are the property of their respective owners.";
 
 /* A project whose renders have not been dropped in yet carries `draft: true` and
  * stays out of the page entirely — grid, sections and credits alike — so the
  * page never links images that do not exist. Remove the flag to publish it. */
 const ACTIVE = PROJECTS.filter((p) => !p.draft);
+const DRAFT_IDS = new Set(PROJECTS.filter((p) => p.draft).map((p) => p.id));
 
 /* Flat, ordered list of every image with its project — the lightbox and the
  * overview grid share this ordering. */
@@ -318,27 +351,69 @@ function buildOverview() {
   });
 }
 
-/* ---------- per-project sections (single column) ---------- */
+/* ---------- per-project sections ---------- */
+
+/* Single column by default; `layout: "pairs"` puts two images per row (a
+ * side-by-side comparison); grouped projects share one section (see GROUPS). */
+
+function shot(p, img, idx) {
+  const btn = el(
+    "button",
+    { class: "shot__btn", type: "button", "aria-label": `Open ${imgTitle(p, img)} in full size` },
+    [el("img", { src: img.file, alt: imgTitle(p, img), loading: "lazy", decoding: "async" })]
+  );
+  btn.addEventListener("click", () => openLightbox(idx));
+  return el("figure", { class: "shot" }, [btn]);
+}
+
+function sectionHead(id, title, blurb) {
+  const section = el("section", { class: "project", id: `project-${id}` });
+  section.append(el("h2", { class: "project__title", text: title }));
+  if (blurb) section.append(el("p", { class: "project__blurb", text: blurb }));
+  return section;
+}
 
 function buildSections() {
   const wrap = document.getElementById("sections");
+  const groupGrids = {};
   let flatIndex = 0;
   ACTIVE.forEach((p) => {
-    const section = el("section", { class: "project", id: `project-${p.id}` });
-    section.append(el("h2", { class: "project__title", text: p.title }));
-    if (p.blurb) section.append(el("p", { class: "project__blurb", text: p.blurb }));
+    if (p.group) {
+      if (!groupGrids[p.group]) {
+        const g = GROUPS[p.group];
+        const section = sectionHead(p.group, g.title, g.blurb);
+        groupGrids[p.group] = el("div", { class: "project__images project__images--group" });
+        section.append(groupGrids[p.group]);
+        wrap.append(section);
+      }
+      p.images.forEach((img) => {
+        const fig = shot(p, img, flatIndex++);
+        fig.classList.add("shot--study");
+        // Each study's flex share is its aspect ratio, so a row of mixed
+        // landscape and square renders comes out at one common height.
+        const image = fig.querySelector("img");
+        image.addEventListener("load", () =>
+          fig.style.setProperty("--ar", image.naturalWidth / image.naturalHeight)
+        );
+        fig.append(
+          el("figcaption", { class: "shot__cap shot__cap--study" }, [
+            el("strong", { text: imgTitle(p, img) }),
+            el("span", { class: "project__credit" }, [creditLineShort(p)]),
+          ])
+        );
+        groupGrids[p.group].append(fig);
+      });
+      return;
+    }
+
+    const section = sectionHead(p.id, p.title, p.blurb);
     if (!p.kind) section.append(el("p", { class: "project__credit" }, [creditLineShort(p)]));
 
-    const images = el("div", { class: "project__images" });
+    const images = el("div", {
+      class: p.layout === "pairs" ? "project__images project__images--pairs" : "project__images",
+    });
     p.images.forEach((img) => {
-      const idx = flatIndex++;
-      const btn = el(
-        "button",
-        { class: "shot__btn", type: "button", "aria-label": `Open ${imgTitle(p, img)} in full size` },
-        [el("img", { src: img.file, alt: imgTitle(p, img), loading: "lazy", decoding: "async" })]
-      );
-      btn.addEventListener("click", () => openLightbox(idx));
-      const fig = el("figure", { class: "shot" }, [btn]);
+      const fig = shot(p, img, flatIndex++);
       if (img.caption) fig.append(el("figcaption", { class: "shot__cap", text: img.caption }));
       images.append(fig);
     });
@@ -426,5 +501,9 @@ document.addEventListener("DOMContentLoaded", () => {
   buildOverview();
   buildSections();
   buildCredits();
+  // Static notices tied to an unpublished project stay hidden with it.
+  document.querySelectorAll("[data-project]").forEach((node) => {
+    if (DRAFT_IDS.has(node.dataset.project)) node.remove();
+  });
   initLightbox();
 });

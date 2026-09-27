@@ -152,6 +152,41 @@ a:hover {
   flex-direction: column;
   gap: clamp(1.25rem, 3vw, 2.5rem);
 }
+/* Side-by-side comparison: one camera per row. */
+.project__images--pairs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1.25rem, 3vw, 2.5rem) clamp(0.6rem, 1.5vw, 1rem);
+}
+/* Justified rows: each study grows by its aspect ratio (--ar, set on load), so
+   the renders in a row share one height and wrap two to a row on desktop. */
+.project__images--group {
+  margin-top: 1.5rem;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: clamp(1rem, 2.5vw, 1.75rem) clamp(0.6rem, 1.5vw, 1rem);
+}
+.shot--study {
+  flex: var(--ar, 1) 1 calc(var(--ar, 1) * 300px);
+  min-width: 0;
+}
+.shot__cap--study {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+.shot__cap--study strong {
+  color: var(--fg-dim);
+  font-weight: 600;
+}
+.shot__cap--study .project__credit {
+  margin: 0;
+}
+@media (max-width: 640px) {
+  .project__images--pairs {
+    grid-template-columns: 1fr;
+  }
+}
 .shot {
   margin: 0;
 }

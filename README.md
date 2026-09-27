@@ -19,12 +19,10 @@ as a small gallery site.
 [Bathroom](#bathroom) ·
 [Monster Under the Bed](#monster-under-the-bed) ·
 [Classroom](#classroom) ·
-[Gelatinous Cube](#gelatinous-cube) ·
-[4060.b Spaceship](#4060b-spaceship) ·
 [Transparent Machines](#transparent-machines) ·
 [MaterialX Lion](#materialx-lion) ·
-[Hornet](#hornet) ·
-[Staircase](#staircase)
+[The Old View](#the-old-view) ·
+[Studies](#studies) (Hornet, Gelatinous Cube, Staircase, Spaceship)
 
 **[Credits &amp; licenses](#credits--licenses)** —
 [Fan-art notice (Hornet)](#fan-art-notice-hornet) ·
@@ -32,13 +30,15 @@ as a small gallery site.
 [Kroken — NoDerivatives](#kroken--noderivatives-permission-granted) ·
 [Bathroom — Fab Standard License](#bathroom--fab-standard-license) ·
 [MaterialX Lion — ASWF Digital Assets License](#materialx-lion--aswf-digital-assets-license) ·
+[The Old View — Blender comparison](#the-old-view--blender-comparison) ·
 [Rights holders](#rights-holders)
 
 ---
 
 ## Editor
 
-Every render here comes out of a path tracer I wrote from scratch — scene
+Every render here — apart from the Blender reference images in
+[The Old View](#the-old-view) — comes out of a path tracer I wrote from scratch: scene
 management, physically based materials, importance sampling and light transport,
 all my own code. Below are shots of its editor: scene tree, layered material
 inspector, live viewport, and progressive render output.
@@ -186,38 +186,6 @@ The well-known Blender classroom benchmark scene — daylight through the blinds
 
 ---
 
-## Gelatinous Cube
-
-A translucent ooze settled in a vine-grown stone ruin, a helmeted skeleton with
-its sword, shield and a few spent arrows suspended mid-digestion inside — a
-study in refraction, absorption and volumetric scattering. The clay pass drops
-the jelly and shows what is trapped in it. **Unofficial fan art** — see the
-[notice](#fan-art-notice-gelatinous-cube) below.
-
-<table>
-  <tr>
-    <td width="50%" align="center"><a href="images/12_gelatinous_cube/main.png"><img src="images/12_gelatinous_cube/main.png" width="100%" alt="Gelatinous Cube — fan art"></a><br><sub><b>Main</b></sub></td>
-    <td width="50%" align="center"><a href="images/12_gelatinous_cube/clay.png"><img src="images/12_gelatinous_cube/clay.png" width="100%" alt="Gelatinous Cube — clay render"></a><br><sub><b>Clay render</b></sub></td>
-  </tr>
-</table>
-
----
-
-## 4060.b Spaceship
-
-A retro-futurist rocket in 1960s science-fiction styling — polished chrome, a
-glass bubble canopy over magenta seats, and ribbed thrusters, lit on a plain
-studio backdrop.
-
-<table>
-  <tr>
-    <td width="50%" align="center"><a href="images/13_spaceship/main.png"><img src="images/13_spaceship/main.png" width="100%" alt="4060.b Spaceship"></a><br><sub><b>Main</b></sub></td>
-    <td width="50%" align="center"><a href="images/13_spaceship/clay.png"><img src="images/13_spaceship/clay.png" width="100%" alt="4060.b Spaceship — clay render"></a><br><sub><b>Clay render</b></sub></td>
-  </tr>
-</table>
-
----
-
 ## Transparent Machines
 
 An intricate machine built entirely from glass, floating against a soft blue
@@ -226,8 +194,8 @@ bounces to resolve.
 
 <table>
   <tr>
-    <td width="50%" align="center"><a href="images/14_transparent_machines/01_main.png"><img src="images/14_transparent_machines/01_main.png" width="100%" alt="Transparent Machines — Main"></a><br><sub><b>Main</b></sub></td>
-    <td width="50%" align="center"><a href="images/14_transparent_machines/02_main.png"><img src="images/14_transparent_machines/02_main.png" width="100%" alt="Transparent Machines — Close-up"></a><br><sub><b>Close-up</b></sub></td>
+    <td width="50%" align="center"><a href="images/12_transparent_machines/01_main.png"><img src="images/12_transparent_machines/01_main.png" width="100%" alt="Transparent Machines — Main"></a><br><sub><b>Main</b></sub></td>
+    <td width="50%" align="center"><a href="images/12_transparent_machines/02_main.png"><img src="images/12_transparent_machines/02_main.png" width="100%" alt="Transparent Machines — Close-up"></a><br><sub><b>Close-up</b></sub></td>
   </tr>
 </table>
 
@@ -243,44 +211,74 @@ below.
 
 <table>
   <tr>
-    <td width="50%" align="center"><a href="images/15_lion/lion1.png"><img src="images/15_lion/lion1.png" width="100%" alt="MaterialX Lion"></a><br><sub><b>Main</b></sub></td>
-    <td width="50%" align="center"><a href="images/15_lion/lion2.png"><img src="images/15_lion/lion2.png" width="100%" alt="MaterialX Lion — glaze detail"></a><br><sub><b>Glaze detail</b></sub></td>
+    <td width="50%" align="center"><a href="images/13_lion/lion1.png"><img src="images/13_lion/lion1.png" width="100%" alt="MaterialX Lion"></a><br><sub><b>Main</b></sub></td>
+    <td width="50%" align="center"><a href="images/13_lion/lion2.png"><img src="images/13_lion/lion2.png" width="100%" alt="MaterialX Lion — glaze detail"></a><br><sub><b>Glaze detail</b></sub></td>
   </tr>
 </table>
 
 ---
 
-## Hornet
+## The Old View
 
-Character study lit with a single warm key and a looping light-trail, rendered
-from a fan-made 3D model. **Unofficial fan art** — see the
-[notice](#fan-art-notice-hornet) below.
+A replica of Valley View Mall in Dallas, the 1970s shopping centre that Kane
+Pixels' *The Oldest View* made famous. Each row is one camera rendered twice:
+**left in Blender 5.1, right in my own path tracer** — both rendered by me from
+the same scene. See the [notice](#the-old-view--blender-comparison) below.
 
 <table>
   <tr>
-    <td width="50%" align="center"><a href="images/16_hornet/hornet.png"><img src="images/16_hornet/hornet.png" width="100%" alt="Hornet — fan art"></a></td>
-    <td width="50%"></td>
+    <td width="50%" align="center"><a href="images/14_the_old_view/01_blender.png"><img src="images/14_the_old_view/01_blender.png" width="100%" alt="The Old View — balcony, Blender 5.1"></a><br><sub><b>Balcony — Blender 5.1</b></sub></td>
+    <td width="50%" align="center"><a href="images/14_the_old_view/01_mine.png"><img src="images/14_the_old_view/01_mine.png" width="100%" alt="The Old View — balcony, my path tracer"></a><br><sub><b>Balcony — my path tracer</b></sub></td>
+  </tr>
+  <tr>
+    <td width="50%" align="center"><a href="images/14_the_old_view/02_blender.png"><img src="images/14_the_old_view/02_blender.png" width="100%" alt="The Old View — puppet, Blender 5.1"></a><br><sub><b>Puppet — Blender 5.1</b></sub></td>
+    <td width="50%" align="center"><a href="images/14_the_old_view/02_mine.png"><img src="images/14_the_old_view/02_mine.png" width="100%" alt="The Old View — puppet, my path tracer"></a><br><sub><b>Puppet — my path tracer</b></sub></td>
+  </tr>
+  <tr>
+    <td width="50%" align="center"><a href="images/14_the_old_view/03_blender.png"><img src="images/14_the_old_view/03_blender.png" width="100%" alt="The Old View — atrium, Blender 5.1"></a><br><sub><b>Atrium — Blender 5.1</b></sub></td>
+    <td width="50%" align="center"><a href="images/14_the_old_view/03_mine.png"><img src="images/14_the_old_view/03_mine.png" width="100%" alt="The Old View — atrium, my path tracer"></a><br><sub><b>Atrium — my path tracer</b></sub></td>
   </tr>
 </table>
 
 ---
 
-## Staircase
+## Studies
 
-A sunlit wooden staircase — a soft-shadow and indirect-light study.
+Single-image studies, each built around one lighting or material problem.
+Widths are matched to each render's aspect ratio so every row shares one height.
 
 <table>
   <tr>
-    <td width="50%" align="center"><a href="images/other/staicase.png"><img src="images/other/staicase.png" width="100%" alt="Staircase"></a></td>
-    <td width="50%"></td>
+    <td width="64%" align="center"><a href="images/90_studies/01_hornet.png"><img src="images/90_studies/01_hornet.png" width="100%" alt="Hornet — fan art"></a><br><sub><b>Hornet — fan art</b></sub></td>
+    <td width="36%" align="center"><a href="images/90_studies/02_gelatinous_cube.png"><img src="images/90_studies/02_gelatinous_cube.png" width="100%" alt="Gelatinous Cube — fan art"></a><br><sub><b>Gelatinous Cube — fan art</b></sub></td>
+  </tr>
+  <tr>
+    <td width="36%" align="center"><a href="images/90_studies/03_staircase.png"><img src="images/90_studies/03_staircase.png" width="100%" alt="Staircase"></a><br><sub><b>Staircase</b></sub></td>
+    <td width="64%" align="center"><a href="images/90_studies/04_spaceship.png"><img src="images/90_studies/04_spaceship.png" width="100%" alt="4060.b Spaceship"></a><br><sub><b>4060.b Spaceship</b></sub></td>
   </tr>
 </table>
+
+- **Hornet** — character study lit with a single warm key and a looping
+  light-trail, rendered from a fan-made 3D model. **Unofficial fan art** — see
+  the [notice](#fan-art-notice-hornet) below.
+- **Gelatinous Cube** — a translucent ooze settled in a vine-grown stone ruin, a
+  helmeted skeleton with its sword, shield and a few spent arrows suspended
+  mid-digestion inside — a study in refraction, absorption and volumetric
+  scattering. **Unofficial fan art** — see the
+  [notice](#fan-art-notice-gelatinous-cube) below.
+- **Staircase** — a sunlit wooden staircase; a soft-shadow and indirect-light
+  study.
+- **4060.b Spaceship** — a retro-futurist rocket in 1960s science-fiction
+  styling: polished chrome, a glass bubble canopy over magenta seats, and ribbed
+  thrusters, lit on a plain studio backdrop.
 
 ---
 
 ## Credits & licenses
 
-All images here are renders I produced with my own path tracer. The underlying
+All images here are renders I produced with my own path tracer — except the
+left-hand images of [The Old View](#the-old-view) comparison, which I
+rendered in Blender 5.1. The underlying
 3D scenes and models were created by the artists credited below and used under
 the stated licenses; **each render is a new image derived from those assets.**
 Trademarks and characters are the property of their respective owners.
@@ -300,6 +298,7 @@ Trademarks and characters are the property of their respective owners.
 | Staircase | *\*The Wooden Staircase\** — Wig42 | [Blend Swap #14449](https\://blendswap.com/blend/14449) | [CC BY](https\://creativecommons.org/licenses/by/3.0/) |
 | Bathroom | *\*Bathroom Scene 15\** — PHI Archviz | [Fab](https\://www.fab.com/listings/0a045566-e87c-4c54-927b-b40173523681) | [Fab Standard License](https\://www.fab.com/eula) (Personal/Professional; no attribution required, credited voluntarily) |
 | Kroken | Angelo Ferretti / Lucy Dreams | [lucydreams.it](https\://www.lucydreams.it/kroken/) · [pbrt-v4-scenes](https\://github.com/mmp/pbrt-v4-scenes) | [CC BY-ND 4.0](https\://creativecommons.org/licenses/by-nd/4.0/) |
+| The Old View | *\*Mall From The Oldest View – Project Files and Assets\** — Šime Bugarija | [CGTrader](https\://www.cgtrader.com/3d-models/interior/other/mall-from-the-oldest-view-project-files-and-assets) | [CGTrader Royalty Free License](https\://www.cgtrader.com/pages/terms-and-conditions) (purchased for US$9; no attribution required, credited voluntarily) |
 
 ### Fan-art notice (Hornet)
 
@@ -363,6 +362,20 @@ copyright notice. The underlying asset files are **not** redistributed here, and
 nothing in this repository implies endorsement by, sponsorship by, or
 affiliation with NVIDIA.
 
+### The Old View — Blender comparison
+
+The mall scene, *\*Mall From The Oldest View – Project Files and Assets\** by
+**Šime Bugarija**, was purchased on
+[CGTrader](https\://www.cgtrader.com/3d-models/interior/other/mall-from-the-oldest-view-project-files-and-assets). Its license permits rendering the scene and publishing the resulting
+images; the underlying 3D files are **not** redistributed in this repository.
+
+Every image in the comparison — the Blender side included — was rendered by me
+from the same scene and cameras. **Blender** is a registered trademark of the
+Blender Foundation; this comparison is not affiliated with or endorsed by the
+Blender Foundation. The mall is a replica of Valley View Mall (Dallas),
+popularized by Kane Pixels' series *The Oldest View*; this repository is not
+affiliated with Kane Pixels.
+
 ### Rights holders
 
 Attribution and licenses above are provided in good faith. If you are a rights
@@ -371,6 +384,9 @@ holder and have a concern about any asset used here, contact
 
 ---
 
+> **Note:** The Old View entry assumes the CGTrader Royalty Free License; confirm
+> the license named on your CGTrader order and update it if it differs.
+>
 > **Note:** The Staircase entry lists CC BY; confirm the exact CC-BY version
 > shown on the [Blend Swap page](https\://blendswap.com/blend/14449) and update
 > the license link if it differs.
