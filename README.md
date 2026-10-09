@@ -1,7 +1,9 @@
 # Portfolio — Path-Traced Renders
 
-Hero renders produced with my own, self-written path tracers. This repo doubles
-as a small gallery site.
+Hero renders produced with my path tracer. This repo doubles
+as a small gallery site: **[nicolasgfx.github.io/Portfolio](https://nicolasgfx.github.io/Portfolio/)**,
+with the renderer's architecture diagrams at
+[#architecture](https://nicolasgfx.github.io/Portfolio/#architecture).
 
 **Click any image to open it at full resolution.**
 
@@ -24,6 +26,9 @@ as a small gallery site.
 [The Old View](#the-old-view) ·
 [Studies](#studies) (Hornet, Gelatinous Cube, Staircase, Spaceship)
 
+**[The renderer](#the-renderer)** — what is in it, and a
+[case study](#case-study-retiring-the-megakernel) with the measurements behind it
+
 **[Credits &amp; licenses](#credits--licenses)** —
 [Fan-art notice (Hornet)](#fan-art-notice-hornet) ·
 [Fan-art notice (Gelatinous Cube)](#fan-art-notice-gelatinous-cube) ·
@@ -38,10 +43,11 @@ as a small gallery site.
 ## Editor
 
 Every render here — apart from the Blender reference images in
-[The Old View](#the-old-view) — comes out of a path tracer I wrote from scratch: scene
-management, physically based materials, importance sampling and light transport,
-all my own code. Below are shots of its editor: scene tree, layered material
-inspector, live viewport, and progressive render output.
+[The Old View](#the-old-view) — comes out of a spectral GPU path tracer developed
+under my technical direction, with an AI-assisted implementation: I set the
+architecture and the acceptance criteria, and changes are graded against
+measurements and tests. Below are shots of its editor: scene tree, layered
+material inspector, live viewport, and progressive render output.
 
 ---
 
@@ -271,6 +277,156 @@ Widths are matched to each render's aspect ratio so every row shares one height.
 - **4060.b Spaceship** — a retro-futurist rocket in 1960s science-fiction
   styling: polished chrome, a glass bubble canopy over magenta seats, and ribbed
   thrusters, lit on a plain studio backdrop.
+
+---
+
+## The renderer
+
+Four areas of the path tracer behind every render above. Each item is present in
+the code today and named with the paper it implements; the case study below is
+where the depth is.
+
+**Spectral light transport**
+
+- Every path carries four sampled wavelengths. RGB exists only at two boundaries:
+  a role-aware uplift of authored values on the way in (Jakob & Hanika 2019) and
+  the film's CIE 1931 projection to XYZ and linear sRGB on the way out.
+  Dispersion, measured-conductor Fresnel and thin-film interference are evaluated
+  per wavelength.
+- Next-event estimation combined with BSDF sampling by the power heuristic; path
+  guiding over a spatial binary tree with adaptive directional quadtrees (Müller,
+  Gross & Novák 2017), off by default; manifold next-event estimation for light
+  that reaches the environment through a dielectric (Hanika, Droske & Fascione
+  2015).
+- Spectral random-walk subsurface scattering with equiangular in-scatter sampling
+  (Kulla & Fajardo 2012); priority-based nested dielectrics (Schmidt & Budge
+  2002).
+
+**Light sampling & materials**
+
+- Many-light sampling through a light BVH with importance bounds and cone unions
+  (Conty Estevez & Kulla 2018); environment maps with piecewise-constant
+  importance sampling, MIS compensation (Karlík et al. 2019) and portal-masked
+  sampling for interiors lit through windows (Bitterli, Novák & Jarosz 2015).
+- Owen-scrambled Sobol on a Morton-coded pixel index with per-dimension digit
+  permutation, after PBRT-v4's ZSobol (Ahmed & Wonka 2020): error spreads as
+  screen-space blue noise at low sample counts while every 1D and 2D projection
+  stays a stratified (0,2)-sequence.
+- GGX with height-correlated Smith masking (Heitz 2014), anisotropic and bounded
+  VNDF sampling (Heitz 2018; Eto & Tokuyoshi 2023), rough dielectric transmission
+  (Walter et al. 2007) and multiple-scattering compensation for conductors from
+  directional-albedo tables (Kulla & Conty 2017; Turquin 2019); layered closures
+  with coat-over-base coupling and a position-free Monte Carlo layer walk (Guo et
+  al. 2018).
+
+**GPU architecture & performance**
+
+- One renderer, two kinds of stage: OptiX raygen programs own everything that
+  traces, native CUDA kernels own everything else. Each stage module is created
+  only when its stage is reachable, and path state lives in structure-of-arrays
+  between stages.
+- Two-level acceleration: one GAS per unique mesh with compaction, built in
+  batches under a VRAM budget; the IAS alone is rebuilt when only transforms
+  change. Textures carry mip chains with anisotropic filtering in BC7/BC4
+  artifacts keyed by BLAKE3, under a VRAM budget that halves the largest texture
+  first.
+- Display chain in CUDA: firefly rejection (median + MAD), the OptiX AI denoiser
+  with albedo and normal guides between two phases, mip-chain bloom, ACES, sRGB;
+  NVTX ranges per stage for Nsight.
+
+**Verification & engineering decisions**
+
+- A closure-level white furnace runs the production sampler over every material
+  stack: controls held to 0.99–1.01, every coated stack in a measured two-sided
+  band that may only tighten, the lossless coated case checked per cosine. A
+  closed-form fixture, an albedo-1 sphere inside a clear glass ball in a
+  radiance-1 environment, must integrate to 1.0 ± 0.01; it read 2.17 before the
+  repair that found two full-weight estimators of one transport.
+- Chi-squared sampler-versus-pdf tests, Kolmogorov–Smirnov on the sampler,
+  reciprocity tests, and architecture regression tests that pin invariants in
+  source: no RGB in transport, one camera path body, one render dispatch point.
+- Every renderer change declares its acceptance tier before it is gated:
+  byte-identical, estimator-identical, or a deliberate image change with a
+  predicted direction. 75 numbered decision records carry Problem, Decision,
+  Alternatives rejected, Enforcement and a falsifiable revisit trigger, and
+  reversals stay on record: path guiding was rejected, then accepted on new
+  evidence; an image-space caustic layer was rejected on visual judgement.
+
+### Case study: retiring the megakernel
+
+One OptiX module held the whole camera path, so any BSDF edit recompiled all of
+it. Measured on 2026-09-11: a 35.9 MB module, 23.5 minutes of nvcc and a further
+35.1 minutes of cold module creation on a disk-cache miss. Over an hour from a
+closure edit to a pixel was shaping the physics work: edits were batched and
+validated in bulk.
+
+The split was my decision, taken in two recorded steps. A wavefront backend was
+not accepted on architecture alone but gated on a measurement, and once it
+passed it became the only renderer: OptiX stages own tracing, native CUDA kernels
+own shading, and a feature the new backend cannot serve is refused by name rather
+than approximated. The megakernel reference arm was retired a week later, once it
+was no longer built from the source under review. The implementation was
+AI-assisted; the gates were set before the work began.
+
+| Measured | Megakernel | Wavefront |
+| --- | --- | --- |
+| Device modules a production render creates | one, 35.9 MB; 35.1 min to create cold | three stage modules of 24 KB, 95 KB and 505 KB; 1.7 s for all three |
+| nvcc for the shading code | 23.5 min for the one module | 3–4 s per stage module |
+| Time per sample at equal spp | 1.0× | 1.56× to 1.85× faster, rising with spp |
+| Film mean against the same-source megakernel | reference | five of six ladder rungs inside ±0.01 %; the sixth at +0.0323 % |
+
+<sub>Build and startup rows: the project's swap record, 2026-09-11, through the
+shipping binary. Rendering rows: Kroken and Watercolor at 1920×1080, 128–512 spp,
+authored settings, denoising off, both backends through the same binary, single
+interleaved runs. The subsurface stage is the named exception to the module
+figures: its 8.5 MB module takes 138 s to create cold and is built only for
+scenes with a subsurface material.</sub>
+
+The parity gate was shown to fail before it was trusted: a mutant build with the
+pre-merge shadow policy restored landed near the pre-merge baseline instead of
+the merged source, and the glass-enclosure closed form read 2.31 for the mutant
+against 0.9986 for the migrated build. The sixth ladder rung is a heavy-tailed
+scene at 128 spp whose p99, block maximum and RMSE all fall as samples rise, the
+shape of noise rather than bias. The host round trip was measured too: 24–28 % of
+the render timeline at 640×360, about 16 µs per GPU operation, which is why the
+schedule now makes one device-to-host read per bounce, and a second only when the
+subsurface walk ran.
+
+**One bounce of the wavefront today.** Per bounce the traced rays are split into
+hit and miss queues; a preparation kernel builds the closure once and routes each
+hit by execution shape, never by material identity, to the cheapest kernel that
+can shade it. A light connection is resolved only after the shadow trace and, for
+the environment, the manifold solve, and it is folded into the path's estimate
+exactly once.
+
+```mermaid
+flowchart TD
+  subgraph LOOP["One tile: the bounce loop"]
+    CAM["wf_camera_kernel · CUDA<br/>four wavelengths per path"] --> RQ["ray_q, read parity"]
+    RQ --> TR["__raygen__wf_trace · OptiX"]
+    TR --> EO["__raygen__wf_env_owns · OptiX<br/>only with environment NEE"]
+    EO --> DISP["wf_dispatch_trace_kernel<br/>hit_q · miss_q"]
+    DISP --> MISS["wf_miss_kernel<br/>environment radiance, terminal"]
+    DISP --> SH["shade kernels · CUDA<br/>closure once, routed by shape:<br/>diffuse · diffuse+glossy · generic · layered"]
+    SH --> SYNC["ONE host read of the counters"]
+    SYNC --> SHD["shadow_q → __raygen__wf_shadow<br/>and __raygen__wf_bend · OptiX"]
+    SHD --> RES["bend resolve, then shadow resolve<br/>the connection folded ONCE"]
+    RES --> SSS["sss_q → __raygen__wf_sss · OptiX<br/>spectral random walk, resolve<br/>second host read"]
+    SH -->|"continuations"| WQ["ray_q, write parity"]
+    SSS -->|"exits"| WQ
+    WQ -->|"swap parities · next bounce"| RQ
+  end
+
+  WQ -->|"no live paths"| FILM["wf_film_kernel<br/>spectrum → XYZ → linear sRGB"]
+  FILM --> P1["phase 1 · firefly filter"]
+  P1 --> DN["OptiX AI denoiser<br/>albedo + normal guides"]
+  DN --> P2["phase 2 · bloom → ACES → sRGB → look"]
+  P2 --> OUT["PNG · viewport"]
+  FILM --> EXR["raw + developed EXR"]
+```
+
+The repository is private. Source is available on request:
+**drnicolasmenzel@gmail.com**.
 
 ---
 
