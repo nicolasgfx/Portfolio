@@ -8,7 +8,7 @@
  *
  * License fields are deliberately explicit — this portfolio reproduces scenes
  * and models made by other artists, so accurate attribution is a requirement,
- * not decoration. A project with `kind: "tool"` is my own work (the editor) and
+ * not decoration. A project with `kind: "tool"` is the project's own editor and
  * carries no third-party credit.
  */
 
@@ -18,7 +18,7 @@ const PROJECTS = [
     title: "The editor",
     kind: "tool",
     blurb:
-      "Every render here — apart from the Blender reference images in The Old View — comes out of a path tracer I wrote from scratch: scene management, physically based materials, importance sampling and light transport, all my own code. These are shots of its editor: scene tree, layered material inspector, live viewport, and progressive render output.",
+      "Every render here — apart from the Blender reference images in The Old View — comes out of a spectral GPU path tracer developed under my technical direction, with an AI-assisted implementation: I set the architecture and the acceptance criteria, and changes are graded against measurements and tests. These are shots of its editor: scene tree, layered material inspector, live viewport, and progressive render output.",
     images: [
       { file: "images/00_editor/2_editor.png" },
       { file: "images/00_editor/4_editor.png" },
@@ -281,7 +281,7 @@ const GROUPS = {
 };
 
 const CREDITS_INTRO =
-  "All images here are renders I produced with my own path tracer — except the left-hand images of The Old View comparison, which I rendered in Blender 5.1. The underlying 3D scenes and models were created by the artists credited below and used under the stated licenses; each render is a new image derived from those assets. Trademarks and characters are the property of their respective owners.";
+  "All images here are renders I produced with my path tracer — except the left-hand images of The Old View comparison, which I rendered in Blender 5.1. The underlying 3D scenes and models were created by the artists credited below and used under the stated licenses; each render is a new image derived from those assets. Trademarks and characters are the property of their respective owners.";
 
 /* A project whose renders have not been dropped in yet carries `draft: true` and
  * stays out of the page entirely — grid, sections and credits alike — so the
@@ -472,7 +472,7 @@ function renderLightbox() {
   const credit = document.getElementById("lb-credit");
   credit.textContent = "";
   if (project.kind === "tool") {
-    credit.textContent = "My own work — path tracer and editor, no third-party assets.";
+    credit.textContent = "The project's own editor and path tracer; no third-party assets.";
   } else {
     credit.append(creditLine(project));
   }
