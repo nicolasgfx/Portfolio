@@ -45,6 +45,32 @@ const PROJECTS = [
     ],
   },
   {
+    id: "watercolor",
+    title: "Watercolor",
+    layout: "triples",
+    blurb:
+      "A sunlit attic painting studio — skylights, a worktable strewn with watercolor paints, brushes and sketches, an easel and a gallery wall.",
+    author: "Angelo Ferretti / Lucy Dreams",
+    source: "pbrt-v4-scenes",
+    sourceUrl: "https://github.com/mmp/pbrt-v4-scenes/tree/master/watercolor",
+    license: "CC BY-ND 2.0",
+    licenseUrl: "https://creativecommons.org/licenses/by-nd/2.0/",
+    notes:
+      'Scene "Watercolor" by Angelo Ferretti (lucydreams.it), released free of charge in pbrt-v4 format via github.com/mmp/pbrt-v4-scenes under CC BY-ND 2.0. Rendered from the cameras supplied with the scene; the scene files are not redistributed here. The written permission given for Kroken does not cover this scene.',
+    images: [
+      { file: "images/01_watercolor/camera-1.png", caption: "Studio", wide: true },
+      { file: "images/01_watercolor/camera-13.png", caption: "Worktable" },
+      { file: "images/01_watercolor/camera-9.png", caption: "Easel and trolley" },
+      { file: "images/01_watercolor/camera-10.png", caption: "Gallery wall" },
+      { file: "images/01_watercolor/camera-3.png", caption: "Drawer cabinet" },
+      { file: "images/01_watercolor/camera-7.png", caption: "Paint table" },
+      { file: "images/01_watercolor/camera-12.png", caption: "Paints from above" },
+      { file: "images/01_watercolor/camera-6.png", caption: "Watercolor sketch" },
+      { file: "images/01_watercolor/camera-8.png", caption: "Pens and swatches" },
+      { file: "images/01_watercolor/camera-16.png", caption: "Wicker chair" },
+    ],
+  },
+  {
     id: "kroken",
     title: "Kroken",
     blurb:
@@ -354,7 +380,9 @@ function buildOverview() {
 /* ---------- per-project sections ---------- */
 
 /* Single column by default; `layout: "pairs"` puts two images per row (a
- * side-by-side comparison); grouped projects share one section (see GROUPS). */
+ * side-by-side comparison); `layout: "triples"` puts three portrait images per
+ * row, with any `wide: true` image spanning the full row; grouped projects
+ * share one section (see GROUPS). */
 
 function shot(p, img, idx) {
   const btn = el(
@@ -410,10 +438,11 @@ function buildSections() {
     if (!p.kind) section.append(el("p", { class: "project__credit" }, [creditLineShort(p)]));
 
     const images = el("div", {
-      class: p.layout === "pairs" ? "project__images project__images--pairs" : "project__images",
+      class: p.layout ? `project__images project__images--${p.layout}` : "project__images",
     });
     p.images.forEach((img) => {
       const fig = shot(p, img, flatIndex++);
+      if (img.wide) fig.classList.add("shot--wide");
       if (img.caption) fig.append(el("figcaption", { class: "shot__cap", text: img.caption }));
       images.append(fig);
     });

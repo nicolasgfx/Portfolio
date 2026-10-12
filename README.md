@@ -15,6 +15,7 @@ with the renderer's architecture diagrams at
 
 **Renders** —
 [Poolhouse](#poolhouse) ·
+[Watercolor](#watercolor) ·
 [Kroken](#kroken) ·
 [Bistro](#bistro) ·
 [Zero-Day](#zero-day) ·
@@ -33,6 +34,7 @@ with the renderer's architecture diagrams at
 [Fan-art notice (Hornet)](#fan-art-notice-hornet) ·
 [Fan-art notice (Gelatinous Cube)](#fan-art-notice-gelatinous-cube) ·
 [Kroken — NoDerivatives](#kroken--noderivatives-permission-granted) ·
+[Watercolor — CC BY-ND 2.0](#watercolor--cc-by-nd-20) ·
 [Bathroom — Fab Standard License](#bathroom--fab-standard-license) ·
 [MaterialX Lion — ASWF Digital Assets License](#materialx-lion--aswf-digital-assets-license) ·
 [The Old View — Blender comparison](#the-old-view--blender-comparison) ·
@@ -81,6 +83,39 @@ relit and re-dressed for a set of cinematic hero shots.
 > [CC BY 4.0](https\://creativecommons.org/licenses/by/4.0/) and heavily modified
 > here (geometry, materials, lighting, staging). CC BY permits modification with
 > attribution and an indication of changes.
+
+---
+
+## Watercolor
+
+A sunlit attic painting studio — skylights, a worktable strewn with watercolor
+paints, brushes and sketches, an easel and a gallery wall.
+
+<table>
+  <tr>
+    <td colspan="3" align="center"><a href="images/01_watercolor/camera-1.png"><img src="images/01_watercolor/camera-1.png" width="100%" alt="Watercolor — studio"></a><br><sub><b>Studio</b></sub></td>
+  </tr>
+  <tr>
+    <td width="33%" align="center"><a href="images/01_watercolor/camera-13.png"><img src="images/01_watercolor/camera-13.png" width="100%" alt="Watercolor — worktable"></a><br><sub><b>Worktable</b></sub></td>
+    <td width="33%" align="center"><a href="images/01_watercolor/camera-9.png"><img src="images/01_watercolor/camera-9.png" width="100%" alt="Watercolor — easel and trolley"></a><br><sub><b>Easel and trolley</b></sub></td>
+    <td width="33%" align="center"><a href="images/01_watercolor/camera-10.png"><img src="images/01_watercolor/camera-10.png" width="100%" alt="Watercolor — gallery wall"></a><br><sub><b>Gallery wall</b></sub></td>
+  </tr>
+  <tr>
+    <td width="33%" align="center"><a href="images/01_watercolor/camera-3.png"><img src="images/01_watercolor/camera-3.png" width="100%" alt="Watercolor — drawer cabinet"></a><br><sub><b>Drawer cabinet</b></sub></td>
+    <td width="33%" align="center"><a href="images/01_watercolor/camera-7.png"><img src="images/01_watercolor/camera-7.png" width="100%" alt="Watercolor — paint table"></a><br><sub><b>Paint table</b></sub></td>
+    <td width="33%" align="center"><a href="images/01_watercolor/camera-12.png"><img src="images/01_watercolor/camera-12.png" width="100%" alt="Watercolor — paints from above"></a><br><sub><b>Paints from above</b></sub></td>
+  </tr>
+  <tr>
+    <td width="33%" align="center"><a href="images/01_watercolor/camera-6.png"><img src="images/01_watercolor/camera-6.png" width="100%" alt="Watercolor — watercolor sketch"></a><br><sub><b>Watercolor sketch</b></sub></td>
+    <td width="33%" align="center"><a href="images/01_watercolor/camera-8.png"><img src="images/01_watercolor/camera-8.png" width="100%" alt="Watercolor — pens and swatches"></a><br><sub><b>Pens and swatches</b></sub></td>
+    <td width="33%" align="center"><a href="images/01_watercolor/camera-16.png"><img src="images/01_watercolor/camera-16.png" width="100%" alt="Watercolor — wicker chair"></a><br><sub><b>Wicker chair</b></sub></td>
+  </tr>
+</table>
+
+> Scene: *\*Watercolor\** by Angelo Ferretti / Lucy Dreams, from
+> [pbrt-v4-scenes](https\://github.com/mmp/pbrt-v4-scenes/tree/master/watercolor),
+> licensed [CC BY-ND 2.0](https\://creativecommons.org/licenses/by-nd/2.0/) (see the
+> [note](#watercolor--cc-by-nd-20) below).
 
 ---
 
@@ -454,6 +489,7 @@ Trademarks and characters are the property of their respective owners.
 | Staircase | *\*The Wooden Staircase\** — Wig42 | [Blend Swap #14449](https\://blendswap.com/blend/14449) | [CC BY](https\://creativecommons.org/licenses/by/3.0/) |
 | Bathroom | *\*Bathroom Scene 15\** — PHI Archviz | [Fab](https\://www.fab.com/listings/0a045566-e87c-4c54-927b-b40173523681) | [Fab Standard License](https\://www.fab.com/eula) (Personal/Professional; no attribution required, credited voluntarily) |
 | Kroken | Angelo Ferretti / Lucy Dreams | [lucydreams.it](https\://www.lucydreams.it/kroken/) · [pbrt-v4-scenes](https\://github.com/mmp/pbrt-v4-scenes) | [CC BY-ND 4.0](https\://creativecommons.org/licenses/by-nd/4.0/) |
+| Watercolor | *\*Watercolor\** — Angelo Ferretti / Lucy Dreams | [pbrt-v4-scenes](https\://github.com/mmp/pbrt-v4-scenes/tree/master/watercolor) · [lucydreams.it](https\://www.lucydreams.it) | [CC BY-ND 2.0](https\://creativecommons.org/licenses/by-nd/2.0/) |
 | The Old View | *\*Mall From The Oldest View – Project Files and Assets\** — Šime Bugarija | [CGTrader](https\://www.cgtrader.com/3d-models/interior/other/mall-from-the-oldest-view-project-files-and-assets) | [CGTrader Royalty Free License](https\://www.cgtrader.com/pages/terms-and-conditions) (purchased for US$9; no attribution required, credited voluntarily) |
 
 ### Fan-art notice (Hornet)
@@ -489,6 +525,19 @@ Dreams — the scene's author), granted written permission by email on
 subject to Lucy Dreams' [shop EULA/license
 terms](https\://www.lucydreams.it/shop/eula-license/). That email is kept on
 file as proof of permission.
+
+### Watercolor — CC BY-ND 2.0
+
+The Watercolor scene by **Angelo Ferretti** (Lucy Dreams) is released free of
+charge in pbrt-v4's scene format through
+[pbrt-v4-scenes](https\://github.com/mmp/pbrt-v4-scenes/tree/master/watercolor)
+under [CC BY-ND 2.0](https\://creativecommons.org/licenses/by-nd/2.0/), which
+permits sharing the work with attribution but not distributing modified versions
+of it. The renders shown here were made from the cameras supplied with the
+scene, and the scene files themselves are not redistributed. The written
+permission given for Kroken does not extend to this scene, and Lucy Dreams'
+[shop EULA](https\://www.lucydreams.it/shop/eula-license/) governs copies bought
+from its shop, not this free release.
 
 ### Bathroom — Fab Standard License
 
