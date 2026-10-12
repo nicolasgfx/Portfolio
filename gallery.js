@@ -463,9 +463,14 @@ function buildCredits() {
 /* ---------- lightbox ---------- */
 
 let current = -1;
+// Where the lightbox was opened from, so closing it returns the reader there.
+let opener = null;
+let openerScrollY = 0;
 
 function openLightbox(i) {
   current = i;
+  opener = document.activeElement;
+  openerScrollY = window.scrollY;
   renderLightbox();
   const lb = document.getElementById("lightbox");
   lb.classList.add("open");
@@ -479,10 +484,9 @@ function closeLightbox() {
   lb.classList.remove("open");
   lb.setAttribute("aria-hidden", "true");
   document.body.style.overflow = "";
-  if (current >= 0) {
-    const thumb = document.querySelectorAll(".thumb")[current];
-    if (thumb) thumb.focus();
-  }
+  window.scrollTo({ top: openerScrollY, behavior: "instant" });
+  if (opener && opener !== document.body) opener.focus({ preventScroll: true });
+  opener = null;
   current = -1;
 }
 
