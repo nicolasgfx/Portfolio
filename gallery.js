@@ -51,12 +51,12 @@ const PROJECTS = [
     blurb:
       "A sunlit attic painting studio — skylights, a worktable strewn with watercolor paints, brushes and sketches, an easel and a gallery wall.",
     author: "Angelo Ferretti / Lucy Dreams",
-    source: "pbrt-v4-scenes",
-    sourceUrl: "https://github.com/mmp/pbrt-v4-scenes/tree/master/watercolor",
-    license: "CC BY-ND 2.0",
-    licenseUrl: "https://creativecommons.org/licenses/by-nd/2.0/",
+    source: "Lucy Dreams shop",
+    sourceUrl: "https://gum.co/urfLv",
+    license: "Lucy Dreams EULA (purchased)",
+    licenseUrl: "https://www.lucydreams.it/shop/eula-license/",
     notes:
-      'Scene "Watercolor" by Angelo Ferretti (lucydreams.it), released free of charge in pbrt-v4 format via github.com/mmp/pbrt-v4-scenes under CC BY-ND 2.0. Rendered from the cameras supplied with the scene; the scene files are not redistributed here. The written permission given for Kroken does not cover this scene.',
+      'Scene "Watercolor room interior scene" by Angelo Ferretti, purchased from Lucy Dreams on 2026-10-12 under its EULA, which permits renderings made from the scene and modifications to it; attribution is not required and is given voluntarily. Rendered from the pbrt-v4 port of the scene (github.com/mmp/pbrt-v4-scenes) with its supplied cameras and a replaced environment map from Poly Haven (CC0). The scene files are not redistributed here.',
     images: [
       { file: "images/01_watercolor/camera-1.png", caption: "Studio", wide: true },
       { file: "images/01_watercolor/camera-13.png", caption: "Worktable" },

@@ -34,7 +34,7 @@ with the renderer's architecture diagrams at
 [Fan-art notice (Hornet)](#fan-art-notice-hornet) ·
 [Fan-art notice (Gelatinous Cube)](#fan-art-notice-gelatinous-cube) ·
 [Kroken — NoDerivatives](#kroken--noderivatives-permission-granted) ·
-[Watercolor — CC BY-ND 2.0](#watercolor--cc-by-nd-20) ·
+[Watercolor — Lucy Dreams EULA](#watercolor--lucy-dreams-eula-purchased) ·
 [Bathroom — Fab Standard License](#bathroom--fab-standard-license) ·
 [MaterialX Lion — ASWF Digital Assets License](#materialx-lion--aswf-digital-assets-license) ·
 [The Old View — Blender comparison](#the-old-view--blender-comparison) ·
@@ -112,10 +112,11 @@ paints, brushes and sketches, an easel and a gallery wall.
   </tr>
 </table>
 
-> Scene: *\*Watercolor\** by Angelo Ferretti / Lucy Dreams, from
-> [pbrt-v4-scenes](https\://github.com/mmp/pbrt-v4-scenes/tree/master/watercolor),
-> licensed [CC BY-ND 2.0](https\://creativecommons.org/licenses/by-nd/2.0/) (see the
-> [note](#watercolor--cc-by-nd-20) below).
+> Scene: *\*Watercolor room interior scene\** by Angelo Ferretti / Lucy Dreams,
+> purchased under the [Lucy Dreams EULA](https\://www.lucydreams.it/shop/eula-license/);
+> rendered from its pbrt-v4 port with a replaced environment map from
+> [Poly Haven](https\://polyhaven.com/hdris) ([CC0](https\://creativecommons.org/publicdomain/zero/1.0/)) (see the
+> [note](#watercolor--lucy-dreams-eula-purchased) below).
 
 ---
 
@@ -489,7 +490,7 @@ Trademarks and characters are the property of their respective owners.
 | Staircase | *\*The Wooden Staircase\** — Wig42 | [Blend Swap #14449](https\://blendswap.com/blend/14449) | [CC BY](https\://creativecommons.org/licenses/by/3.0/) |
 | Bathroom | *\*Bathroom Scene 15\** — PHI Archviz | [Fab](https\://www.fab.com/listings/0a045566-e87c-4c54-927b-b40173523681) | [Fab Standard License](https\://www.fab.com/eula) (Personal/Professional; no attribution required, credited voluntarily) |
 | Kroken | Angelo Ferretti / Lucy Dreams | [lucydreams.it](https\://www.lucydreams.it/kroken/) · [pbrt-v4-scenes](https\://github.com/mmp/pbrt-v4-scenes) | [CC BY-ND 4.0](https\://creativecommons.org/licenses/by-nd/4.0/) |
-| Watercolor | *\*Watercolor\** — Angelo Ferretti / Lucy Dreams | [pbrt-v4-scenes](https\://github.com/mmp/pbrt-v4-scenes/tree/master/watercolor) · [lucydreams.it](https\://www.lucydreams.it) | [CC BY-ND 2.0](https\://creativecommons.org/licenses/by-nd/2.0/) |
+| Watercolor *\*(environment map replaced)\** | *\*Watercolor room interior scene\** — Angelo Ferretti / Lucy Dreams | [Lucy Dreams shop](https\://gum.co/urfLv) · [pbrt-v4-scenes](https\://github.com/mmp/pbrt-v4-scenes/tree/master/watercolor) | [Lucy Dreams EULA](https\://www.lucydreams.it/shop/eula-license/) (purchased 2026-10-12; no attribution required, credited voluntarily) |
 | The Old View | *\*Mall From The Oldest View – Project Files and Assets\** — Šime Bugarija | [CGTrader](https\://www.cgtrader.com/3d-models/interior/other/mall-from-the-oldest-view-project-files-and-assets) | [CGTrader Royalty Free License](https\://www.cgtrader.com/pages/terms-and-conditions) (purchased for US$9; no attribution required, credited voluntarily) |
 
 ### Fan-art notice (Hornet)
@@ -526,18 +527,20 @@ subject to Lucy Dreams' [shop EULA/license
 terms](https\://www.lucydreams.it/shop/eula-license/). That email is kept on
 file as proof of permission.
 
-### Watercolor — CC BY-ND 2.0
+### Watercolor — Lucy Dreams EULA (purchased)
 
-The Watercolor scene by **Angelo Ferretti** (Lucy Dreams) is released free of
-charge in pbrt-v4's scene format through
-[pbrt-v4-scenes](https\://github.com/mmp/pbrt-v4-scenes/tree/master/watercolor)
-under [CC BY-ND 2.0](https\://creativecommons.org/licenses/by-nd/2.0/), which
-permits sharing the work with attribution but not distributing modified versions
-of it. The renders shown here were made from the cameras supplied with the
-scene, and the scene files themselves are not redistributed. The written
-permission given for Kroken does not extend to this scene, and Lucy Dreams'
-[shop EULA](https\://www.lucydreams.it/shop/eula-license/) governs copies bought
-from its shop, not this free release.
+The [*\*Watercolor room interior scene\**](https\://gum.co/urfLv) by **Angelo
+Ferretti** (Lucy Dreams) was purchased on **2026-10-12** under the
+[Lucy Dreams EULA](https\://www.lucydreams.it/shop/eula-license/), which permits
+creating renderings from the scene, in personal and commercial work, and
+modifying it for that purpose. It does not require attribution; the author is
+credited here voluntarily. The renders were made from the scene's pbrt-v4 port in
+[pbrt-v4-scenes](https\://github.com/mmp/pbrt-v4-scenes/tree/master/watercolor),
+using its supplied cameras with a replaced environment map from
+[Poly Haven](https\://polyhaven.com/hdris) ([CC0](https\://creativecommons.org/publicdomain/zero/1.0/); no attribution
+required, credited voluntarily). The scene files
+themselves are not redistributed. The receipt is kept on file as proof of
+license.
 
 ### Bathroom — Fab Standard License
 
