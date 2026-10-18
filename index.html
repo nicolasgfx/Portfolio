@@ -6,7 +6,7 @@
     <title>Nicolas Menzel — Spectral GPU Path Tracer</title>
     <meta
       name="description"
-      content="Renders and architecture of a spectral GPU path tracer on OptiX 9, CUDA and C++17, developed under the technical direction of Nicolas Menzel."
+      content="Nicolas Menzel’s rendering portfolio: selected images, a spectral GPU path tracer, and the design behind it."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="stylesheet" href="style.css" />
@@ -16,8 +16,7 @@
       <p class="hero__eyebrow">Spectral GPU path tracing · OptiX 9 · CUDA · C++17</p>
       <h1 class="hero__name">Nicolas Menzel</h1>
       <p class="hero__tagline">
-        Hero renders from a spectral GPU path tracer built under my direction, and the
-        engineering behind it.
+        Selected renders from my spectral GPU path tracer, and a look at how it works.
       </p>
       <nav class="hero__nav">
         <a href="#overview">Gallery</a>
@@ -40,494 +39,112 @@
 
       <div id="sections"></div>
 
-      <!-- The renderer. Each bullet names something present in the code of the
-           renderer today, with the paper it implements; the case study quotes the
-           project's own measurement record. -->
+      <!-- Renderer overview and measurements. -->
       <section id="renderer" class="renderer" aria-label="The renderer">
         <h2 class="renderer__heading">The renderer</h2>
-        <p class="renderer__intro">
-          Four areas of the renderer behind the gallery. Each item is present in the
-          code today and named with the paper it implements; the case study below is
-          where the depth is.
-        </p>
-
+        <p class="renderer__intro">A GPU path tracer that follows light through a scene to build an image. It tracks wavelengths, so effects such as glass dispersion and thin-film colour emerge from the light simulation.</p>
         <div class="renderer__grid">
           <article class="renderer__group">
-            <h3>Spectral light transport</h3>
+            <h3>Light and colour</h3>
             <ul>
-              <li>
-                Every path carries four sampled wavelengths. RGB exists only at two
-                boundaries: a role-aware uplift of authored values on the way in
-                (Jakob &amp; Hanika 2019) and the film's CIE 1931 projection to XYZ and
-                linear sRGB on the way out. Dispersion, measured-conductor Fresnel and
-                thin-film interference are evaluated per wavelength.
-              </li>
-              <li>
-                Next-event estimation combined with BSDF sampling by the power
-                heuristic; path guiding over a spatial binary tree with adaptive
-                directional quadtrees (Müller, Gross &amp; Novák 2017), off by default;
-                manifold next-event estimation for light that reaches the environment
-                through a dielectric (Hanika, Droske &amp; Fascione 2015).
-              </li>
-              <li>
-                Spectral random-walk subsurface scattering with equiangular in-scatter
-                sampling (Kulla &amp; Fajardo 2012); priority-based nested dielectrics
-                (Schmidt &amp; Budge 2002).
-              </li>
+              <li>Each path samples four wavelengths. This supports dispersion in glass, measured metal reflectance, and the shifting colours of thin films.</li>
+              <li>Light can scatter inside translucent materials and pass through overlapping glass objects. Specialised sampling helps find light through windows and refractive surfaces.</li>
             </ul>
           </article>
-
           <article class="renderer__group">
-            <h3>Light sampling &amp; materials</h3>
+            <h3>Materials and sampling</h3>
             <ul>
-              <li>
-                Many-light sampling through a light BVH with importance bounds and cone
-                unions (Conty Estevez &amp; Kulla 2018); environment maps with
-                piecewise-constant importance sampling, MIS compensation (Karlík et al.
-                2019) and portal-masked sampling for interiors lit through windows
-                (Bitterli, Novák &amp; Jarosz 2015).
-              </li>
-              <li>
-                Owen-scrambled Sobol on a Morton-coded pixel index with per-dimension
-                digit permutation, after PBRT-v4's ZSobol (Ahmed &amp; Wonka 2020): error
-                spreads as screen-space blue noise at low sample counts while every 1D
-                and 2D projection stays a stratified (0,2)-sequence.
-              </li>
-              <li>
-                GGX with height-correlated Smith masking (Heitz 2014), anisotropic and
-                bounded VNDF sampling (Heitz 2018; Eto &amp; Tokuyoshi 2023), rough
-                dielectric transmission (Walter et al. 2007) and multiple-scattering
-                compensation for conductors from directional-albedo tables (Kulla &amp;
-                Conty 2017; Turquin 2019); layered closures with coat-over-base coupling
-                and a position-free Monte Carlo layer walk (Guo et al. 2018).
-              </li>
+              <li>Rough glass, brushed metal, and layered coatings share a material system. Layers account for how a coat changes the light reaching the surface beneath it.</li>
+              <li>A light hierarchy helps choose useful lights in complex scenes. Carefully distributed samples reduce noise; optional path guiding learns promising directions as rendering progresses.</li>
             </ul>
           </article>
-
           <article class="renderer__group">
-            <h3>GPU architecture &amp; performance</h3>
+            <h3>Running on the GPU</h3>
             <ul>
-              <li>
-                One renderer, two kinds of stage: OptiX raygen programs own everything
-                that traces, native CUDA kernels own everything else. Each stage module
-                is created only when its stage is reachable, and path state lives in
-                structure-of-arrays between stages.
-              </li>
-              <li>
-                Two-level acceleration: one GAS per unique mesh with compaction, built
-                in batches under a VRAM budget; the IAS alone is rebuilt when only
-                transforms change. Textures carry mip chains with anisotropic filtering
-                in BC7/BC4 artifacts keyed by BLAKE3, under a VRAM budget that halves
-                the largest texture first.
-              </li>
-              <li>
-                Display chain in CUDA: firefly rejection (median + MAD), the OptiX AI
-                denoiser with albedo and normal guides between two phases, mip-chain
-                bloom, ACES, sRGB; NVTX ranges per stage for Nsight.
-              </li>
+              <li>OptiX traces rays; CUDA kernels handle shading and image processing. The renderer groups similar work into stages, a design called wavefront rendering.</li>
+              <li>Instances share mesh data, and texture resolution adapts to the GPU memory budget. The display pipeline removes bright outliers, denoises, and applies bloom and tone mapping.</li>
             </ul>
           </article>
-
           <article class="renderer__group">
-            <h3>Verification &amp; engineering decisions</h3>
+            <h3>Checking the results</h3>
             <ul>
-              <li>
-                A closure-level white furnace runs the production sampler over every
-                material stack: controls held to 0.99–1.01, every coated stack in a
-                measured two-sided band that may only tighten, the lossless coated case
-                checked per cosine. A closed-form fixture, an albedo-1 sphere inside a
-                clear glass ball in a radiance-1 environment, must integrate to
-                1.0 ± 0.01; it read 2.17 before the repair that found two full-weight
-                estimators of one transport.
-              </li>
-              <li>
-                Chi-squared sampler-versus-pdf tests, Kolmogorov–Smirnov on the sampler,
-                reciprocity tests, and architecture regression tests that pin invariants
-                in source: no RGB in transport, one camera path body, one render dispatch
-                point.
-              </li>
-              <li>
-                Every renderer change declares its acceptance tier before it is gated:
-                byte-identical, estimator-identical, or a deliberate image change with a
-                predicted direction. 75 numbered decision records carry Problem,
-                Decision, Alternatives rejected, Enforcement and a falsifiable revisit
-                trigger, and reversals stay on record: path guiding was rejected, then
-                accepted on new evidence; an image-space caustic layer was rejected on
-                visual judgement.
-              </li>
+              <li>Energy tests check that materials do not create extra light. One glass test exposed double-counted lighting: it returned 2.17 where the expected result was 1.0.</li>
+              <li>Statistical tests check the sampling routines. Before each change, I define what should stay identical and what should change; design decisions record the evidence and tradeoffs.</li>
             </ul>
           </article>
         </div>
-
         <article class="renderer__case">
           <h3>Case study: retiring the megakernel</h3>
-          <p>
-            One OptiX module held the whole camera path, so any BSDF edit recompiled all
-            of it. Measured on 2026-09-11: a 35.9 MB module, 23.5 minutes of nvcc and a
-            further 35.1 minutes of cold module creation on a disk-cache miss. Over an
-            hour from a closure edit to a pixel was shaping the physics work: edits were
-            batched and validated in bulk.
-          </p>
-          <p>
-            The split was my decision, taken in two recorded steps. A wavefront backend
-            was not accepted on architecture alone but gated on a measurement, and once
-            it passed it became the only renderer: OptiX stages own tracing, native CUDA
-            kernels own shading, and a feature the new backend cannot serve is refused by
-            name rather than approximated. The megakernel reference arm was retired a
-            week later, once it was no longer built from the source under review. The
-            implementation was AI-assisted; the gates were set before the work began.
-          </p>
+          <p>The original renderer ran the whole light path in one large GPU program, or megakernel. A material edit meant 23.5 minutes of compilation, followed by 35.1 minutes to create the module on a cold start. That made small experiments expensive.</p>
+          <p>I chose to split the work into smaller wavefront stages, with performance and image checks set before the AI-assisted implementation began. The change cut build and startup times and improved rendering speed in the measured scenes.</p>
           <div class="renderer__table-wrap">
             <table aria-describedby="case-table-note">
-              <thead>
-                <tr>
-                  <th scope="col">Measured</th>
-                  <th scope="col">Megakernel</th>
-                  <th scope="col">Wavefront</th>
-                </tr>
-              </thead>
+              <thead><tr><th scope="col">Measured</th><th scope="col">Megakernel</th><th scope="col">Wavefront</th></tr></thead>
               <tbody>
-                <tr>
-                  <th scope="row">Device modules a production render creates</th>
-                  <td>one, 35.9 MB; 35.1 min to create cold</td>
-                  <td>three stage modules of 24 KB, 95 KB and 505 KB; 1.7 s for all three</td>
-                </tr>
-                <tr>
-                  <th scope="row">nvcc for the shading code</th>
-                  <td>23.5 min for the one module</td>
-                  <td>3–4 s per stage module</td>
-                </tr>
-                <tr>
-                  <th scope="row">Time per sample at equal spp</th>
-                  <td>1.0×</td>
-                  <td>1.56× to 1.85× faster, rising with spp</td>
-                </tr>
-                <tr>
-                  <th scope="row">Film mean against the same-source megakernel</th>
-                  <td>reference</td>
-                  <td>five of six ladder rungs inside ±0.01 %; the sixth at +0.0323 %</td>
-                </tr>
+                <tr><th scope="row">Shading compilation</th><td>23.5 min</td><td>3–4 s per stage</td></tr>
+                <tr><th scope="row">Cold module creation</th><td>35.1 min</td><td>1.7 s for three main modules</td></tr>
+                <tr><th scope="row">Rendering speed</th><td>1× baseline</td><td>1.56–1.85× faster</td></tr>
+                <tr><th scope="row">Average image brightness</th><td>Reference</td><td>Within ±0.01% in 5 of 6 comparisons; +0.0323% in the sixth</td></tr>
               </tbody>
             </table>
           </div>
-          <p id="case-table-note" class="renderer__table-note">
-            Build and startup rows: the project's swap record, 2026-09-11, through the
-            shipping binary. Rendering rows: Kroken and Watercolor at 1920×1080,
-            128–512 spp, authored settings, denoising off, both backends through the
-            same binary, single interleaved runs. The subsurface stage is the named
-            exception to the module figures: its 8.5 MB module takes 138 s to create
-            cold and is built only for scenes with a subsurface material.
-          </p>
-          <p>
-            The parity gate was shown to fail before it was trusted: a mutant build with
-            the pre-merge shadow policy restored landed near the pre-merge baseline
-            instead of the merged source, and the glass-enclosure closed form read 2.31
-            for the mutant against 0.9986 for the migrated build. The sixth ladder rung
-            is a heavy-tailed scene at 128 spp whose p99, block maximum and RMSE all
-            fall as samples rise, the shape of noise rather than bias. The host round
-            trip was measured too: 24–28 % of the render timeline at 640×360, about
-            16 µs per GPU operation, which is why the schedule now makes one
-            device-to-host read per bounce, and a second only when the subsurface walk
-            ran.
-          </p>
+          <p id="case-table-note" class="renderer__table-note">Build/startup measurements: 11 September 2026. Rendering: Kroken and Watercolor at 1920×1080, 128–512 samples per pixel, denoising off, both backends in the same binary, with single interleaved runs. These are scene-specific results. Subsurface scattering uses a separate 8.5 MB module that takes 138 s to create cold.</p>
+          <p>The main gain was a shorter feedback loop: material changes became practical to test one at a time. Brightness comparisons were backed by sampling and energy tests, including a deliberately broken build to check that the tests caught the error.</p>
         </article>
-
-        <p class="renderer__meta">
-          The repository is private. Source is available on request:
-          <a href="mailto:drnicolasmenzel@gmail.com">drnicolasmenzel@gmail.com</a>.
+        <p class="renderer__meta">The renderer repository is private.
+          <a href="mailto:drnicolasmenzel@gmail.com">Source available on request.</a>
         </p>
       </section>
 
-      <!-- Architecture. The diagram sources below follow the renderer's README and
-           doc/architecture/wavefront_pipeline.md, checked against the scheduler;
-           `<br/>` is entity-escaped so the browser hands mermaid the literal text
-           instead of parsing it as markup. -->
       <section id="architecture" class="architecture" aria-label="Renderer architecture">
         <h2 class="architecture__heading">Architecture</h2>
-        <p class="architecture__intro">
-          The project is one binary with two faces: an interactive scene editor and a
-          GPU path tracer, both reading and writing the <strong>same</strong> runtime
-          <code>Scene</code>. There is no editor scene graph, no exporter, and no
-          translation layer between the two — the editor's undo stack and the
-          renderer's device buffers are both derived from a single authored file.
-        </p>
-        <p class="architecture__intro">
-          The five diagrams below are the top-down map: the system, the
-          synchronization system, dirtiness, the file system, and the inside of the
-          renderer.
-        </p>
-        <ul class="arch-legend" aria-label="Diagram colour code">
-          <li class="key key--truth">source of truth</li>
-          <li class="key key--disk">on disk</li>
-          <li class="key key--view">derived, read-only</li>
-          <li class="key key--bridge">renderer boundary</li>
-          <li class="key key--gpu">renderer / GPU</li>
-        </ul>
-
+        <p class="architecture__intro">Three views of the design: how a scene reaches the GPU, how edits update it, and how light becomes an image.</p>
         <article class="arch-block">
-          <h3>System map</h3>
-          <p>
-            One runtime <code>Scene</code> is the hub. Two derived views hang off it and
-            they are orthogonal — neither consumes the other: an authoring index for the
-            editor, a compiled cache for the renderer. Everything that crosses to the GPU
-            crosses as a sealed, immutable snapshot.
-          </p>
-          <figure class="diagram">
+          <h3>From scene to image</h3>
+          <p>The editor and renderer share one scene model. Editor panels read from it, while the renderer receives a fixed snapshot so editing can continue during a render.</p>
+          <figure class="diagram" aria-label="From scene to image">
 <pre class="mermaid diagram__src">
 flowchart TD
-  subgraph DISK["Disk"]
-    SJ["scene.json&lt;br/&gt;the ONE authored file"]
-    AJ["asset.json + meshes/*.ply&lt;br/&gt;*.meshbin"]
-    MJ["*.mat.json"]
-  end
-
-  SJ --&gt; LOAD["scene_loader.cpp&lt;br/&gt;asset_loader.cpp"]
-  AJ --&gt; LOAD
-  MJ --&gt; LOAD
-  LOAD --&gt; SCENE["Scene — src/document/scene.h&lt;br/&gt;SOLE SOURCE OF TRUTH"]
-
-  SCENE --&gt; HIER["hierarchy::Snapshot + derive/ views&lt;br/&gt;editor infrastructure"]
-  SCENE --&gt; COMPILE["compile — the render derivation&lt;br/&gt;+ light derivation"]
-
-  HIER --&gt; UI["Scene Tree · Inspector&lt;br/&gt;Gizmo · Tools · Physics"]
-  COMPILE --&gt; RC["RenderCache&lt;br/&gt;flat instances + GeometryPool&lt;br/&gt;+ light distributions"]
-
-  UI --&gt;|"EditOp"| SCENE
-  RC --&gt; REQ["RenderRequest&lt;br/&gt;sealed Scene clone + RenderCache snapshot&lt;br/&gt;+ RenderSceneEpoch"]
-  REQ --&gt; JOB["bridge renderer&lt;br/&gt;worker thread · last-wins mailbox"]
-  JOB --&gt; DEV["RenderDevice::sync()&lt;br/&gt;reuse vs re-init"]
-  DEV --&gt; SESS["RenderSession&lt;br/&gt;accel · framebuffers · env"]
-  SESS --&gt; GPU["OptiX 9 / CUDA 12"]
-  GPU --&gt;|"snapshot double-buffer"| UI
-  SCENE --&gt;|"save"| SJ
-
-  classDef disk fill:#4a6fa5,stroke:#8fb0d8,color:#fff
-  classDef truth fill:#b73a3a,stroke:#e07a7a,color:#fff
-  classDef view fill:#5a4a86,stroke:#9d8ad0,color:#fff
-  classDef bridge fill:#8a5a2b,stroke:#d8a05a,color:#fff
-  classDef gpu fill:#2f7d3c,stroke:#7acb85,color:#fff
-  class SJ,AJ,MJ disk
-  class SCENE truth
-  class HIER,COMPILE,RC view
-  class REQ,JOB,DEV bridge
-  class SESS,GPU gpu
+  FILE["Project files"] --&gt;|"load"| SCENE["Shared scene"]
+  SCENE --&gt;|"save"| FILE
+  SCENE --&gt; UI["Editor panels"]
+  UI --&gt;|"edits and undo"| SCENE
+  SCENE --&gt; SNAP["Render snapshot"]
+  SNAP --&gt; GPU["GPU renderer"]
+  GPU --&gt; VIEW["Live viewport or saved image"]
 </pre>
           </figure>
         </article>
-
         <article class="arch-block">
-          <h3>The synchronization system — epochs and the three channels</h3>
-          <p>
-            Every edit is an <code>EditOp</code>, and each op declares which render
-            domains it touched. Nine monotonic counters live in one struct on the editor
-            side; the renderer keeps its own mirror and diffs the two. Only
-            <strong>three</strong> channels reach the GPU; anything else is an
-            architecture violation.
-          </p>
-          <figure class="diagram">
+          <h3>Updating only what changed</h3>
+          <p>Edits update revision counters, which tell the renderer what needs refreshing. Camera and display settings have direct update paths. The GPU context and texture pool survive scene rebuilds.</p>
+          <figure class="diagram" aria-label="Updating only what changed">
 <pre class="mermaid diagram__src">
 flowchart TD
-  OP["EditOp::apply / revert"] --&gt; DOMAINS["touched_domains()&lt;br/&gt;returns RenderSceneDelta"]
-  DOMAINS --&gt; BUMP["Document::bump_domains_()&lt;br/&gt;THE ONE WRITER"]
-  BUMP --&gt; DV["domain_versions_ : RenderSceneEpoch&lt;br/&gt;geometry · geometry_verts · material · material_ids&lt;br/&gt;transform · instance_set · lighting · environment · render"]
-
-  DV --&gt; BR["build_request_()"]
-  BR --&gt; CLONE["deep Scene clone, throwaway&lt;br/&gt;doctored: isolation · clay · environment portals"]
-  BR --&gt; SNAP["RenderCache snapshot&lt;br/&gt;immutable, refcounted"]
-  CLONE --&gt; MAIL
-  SNAP --&gt; MAIL
-  DV --&gt; MAIL["RenderRequest mailbox&lt;br/&gt;last-wins, single slot"]
-
-  MAIL --&gt;|"channel 1 · epoch"| SYNC["RenderDevice::sync()"]
-  CAM["update_camera()&lt;br/&gt;pose + fov only"] --&gt;|"channel 2 · camera fast path"| SYNC
-  PFX["update_postfx()&lt;br/&gt;display fields only"] --&gt;|"channel 3 · post-FX live push"| SYNC
-
-  SYNC --&gt; DIFF["epoch.diff(cached_epoch_)"]
-  DIFF --&gt;|"geometry moved,&lt;br/&gt;or LOD / texture cap changed"| INIT["rebuild RenderSession&lt;br/&gt;accel · framebuffers · environment"]
-  DIFF --&gt;|"otherwise"| REUSE["reuse session&lt;br/&gt;settings applied, texture residency reconciled&lt;br/&gt;every frame"]
-  INIT --&gt; DRAW["render_frame · apply_postfx · download"]
-  REUSE --&gt; DRAW
-
-  classDef truth fill:#b73a3a,stroke:#e07a7a,color:#fff
-  classDef view fill:#5a4a86,stroke:#9d8ad0,color:#fff
-  classDef bridge fill:#8a5a2b,stroke:#d8a05a,color:#fff
-  classDef gpu fill:#2f7d3c,stroke:#7acb85,color:#fff
-  class DV truth
-  class CLONE,SNAP view
-  class MAIL,SYNC,DIFF bridge
-  class INIT,REUSE,DRAW gpu
-</pre>
-          </figure>
-          <p>
-            GPU state is split by <strong>lifetime</strong>, which is the whole
-            explanation of why a scene change is cheap: device-lifetime state
-            (the OptiX context and the texture pool) survives it; session-lifetime
-            state (accel structures, framebuffers, environment) dies with the geometry.
-            The worker that delivers frames owns no GPU state at all.
-          </p>
-        </article>
-
-        <article class="arch-block">
-          <h3>Dirtiness — revisions and their consumers</h3>
-          <p>
-            A scene-scale fact that two or more panels display is derived
-            <strong>once</strong>, by the model, behind every revision counter that can
-            invalidate it — never by each view, per frame. Setting
-            <code>PPT_VALIDATE_VIEWS=1</code> re-derives on every access, reports a
-            mismatch and self-heals, so a missed bump surfaces as a logged error instead
-            of a panel that silently stops updating.
-          </p>
-          <figure class="diagram">
-<pre class="mermaid diagram__src">
-flowchart TD
-  EDIT["structural / material / lighting edit"] --&gt; RV["Document revision counters"]
-
-  RV --&gt; R1["edit serial"]
-  RV --&gt; R2["material"]
-  RV --&gt; R3["lighting"]
-  RV --&gt; R4["asset data cache"]
-  RV --&gt; R5["transform · topology"]
-
-  R1 --&gt; V1["hierarchy::Snapshot"]
-  R2 --&gt; V2["derive::MaterialUsage&lt;br/&gt;derive::TextureUsage"]
-  R3 --&gt; V3["derive::Emitters"]
-  R4 --&gt; V4["derive::InstanceParts"]
-
-  V1 --&gt; PANEL["Scene Tree · Inspector&lt;br/&gt;Materials · Textures panels"]
-  V2 --&gt; PANEL
-  V3 --&gt; PANEL
-  V4 --&gt; PANEL
-
-  R3 --&gt; HOST["host render-cache sync&lt;br/&gt;the render boundary"]
-  HOST --&gt; DL["light derivation&lt;br/&gt;emitters"]
-  R5 --&gt; COMMIT["commit boundary&lt;br/&gt;regrow what the definition says, then re-derive&lt;br/&gt;ONE walk"]
-  DL --&gt; RCOUT["RenderCache ready for upload"]
-  COMMIT --&gt; RCOUT
-
-  classDef truth fill:#b73a3a,stroke:#e07a7a,color:#fff
-  classDef view fill:#5a4a86,stroke:#9d8ad0,color:#fff
-  classDef bridge fill:#8a5a2b,stroke:#d8a05a,color:#fff
-  classDef gpu fill:#2f7d3c,stroke:#7acb85,color:#fff
-  class COMMIT truth
-  class V1,V2,V3,V4 view
-  class HOST bridge
-  class RCOUT gpu
-</pre>
-          </figure>
-          <p>
-            The commit used to be a 610-line tree of incremental fast paths, each proved
-            equal to a full re-derive by a parity test. Two measurements retired it: a
-            full compile of a villa-sized scene emits rows at 0.0027 ms each, about
-            5.6 ms in total, while undoing a 200-row delete through the incremental path
-            took 1121 ms against 38 ms for restoring an image and re-deriving. What is
-            left is what a commit is: regrow what the definition says, then re-derive.
-          </p>
-        </article>
-
-        <article class="arch-block">
-          <h3>The file system — library, project, codecs</h3>
-          <p>
-            An asset <strong>is</strong> the directory holding its
-            <code>asset.json</code> — no UUID, no registry, no index. A ref resolves
-            against the project directory or it is absolute, which makes a project
-            self-contained by construction. The app-level <code>assets/</code> tree is a
-            library you <em>instantiate from</em>, never a base you resolve against.
-            Every document is a codec: one writer, one reader, a round-trip test.
-          </p>
-          <figure class="diagram">
-<pre class="mermaid diagram__src">
-flowchart TD
-  subgraph LIB["assets/ — the LIBRARY, instantiate from"]
-    L1["geometry/ID/asset.json&lt;br/&gt;procedural primitives"]
-    L2["materials/CATEGORY/*.mat.json"]
-    L3["material_db/ — generated, gitignored"]
-    L4["ASSET/asset.json + meshes/ + textures/"]
-  end
-
-  subgraph PRJ["projects/NAME/ — self-contained"]
-    P1["scene.json — the ONE authored file&lt;br/&gt;geometry · groups · physics · cameras"]
-    P2["assets/SLUG/asset.json"]
-    P3["meshes/*.ply"]
-    P4["proxy/*.meshbin — cache, keyed by source hash"]
-    P5["textures/"]
-    P6["editor_state.json — sidecar, publish target"]
-    P7["renders/*.exr · *.png"]
-  end
-
-  L4 --&gt;|"INSTANTIATE — mirror, ref UNCHANGED"| P2
-  P1 --&gt; RD["scene_loader.cpp"]
-  P2 --&gt; RD2["load_asset — asset_loader.cpp"]
-  RD --&gt; SCENE["Scene"]
-  RD2 --&gt; SCENE
-  SCENE --&gt; WR["write_scene_json / write_asset_json&lt;br/&gt;asset_json.cpp · editor/scene_io.cpp"]
-  WR --&gt; P1
-  WR --&gt; P2
-  SCENE --&gt; P7
-
-  RESOLVE["resolve_asset_ref(ref, project_dir)&lt;br/&gt;THE ONLY RESOLVER — ONE BASE"]
-  RESOLVE -.-&gt; P2
-  PATHS["paths: ABSOLUTE in memory&lt;br/&gt;document-RELATIVE on disk"]
-  PATHS -.-&gt; WR
-
-  classDef disk fill:#4a6fa5,stroke:#8fb0d8,color:#fff
-  classDef truth fill:#b73a3a,stroke:#e07a7a,color:#fff
-  class P1,P2,P3,P4,P5,P6,P7,L1,L2,L3,L4 disk
-  class SCENE,RESOLVE truth
+  EDIT["Scene edit"] --&gt; REV["Record changed parts"]
+  REV --&gt; SNAP["Latest scene snapshot"]
+  SNAP --&gt; SYNC["Update GPU state"]
+  CAM["Camera movement"] --&gt; SYNC
+  LOOK["Display settings"] --&gt; SYNC
+  SYNC --&gt;|"reuse or rebuild as needed"| FRAME["Render next frame"]
 </pre>
           </figure>
         </article>
-
         <article class="arch-block">
-          <h3>Inside the renderer — the wavefront</h3>
-          <p>
-            Dependencies point one way only: the Renderer layer chooses <em>what</em> to
-            compute, each layer below chooses <em>how</em> to run it on this hardware, and
-            CUDA never drives renderer architecture. Inside that, two kinds of stage, and
-            no stage is both: OptiX raygen programs own everything that traces, native
-            CUDA kernels own everything else. Per bounce the traced rays are split into
-            hit and miss queues; a preparation kernel builds the closure once and routes
-            each hit by execution shape — never by material identity — to the cheapest
-            kernel that can shade it. A light connection is resolved only after the
-            shadow trace and, for the environment, the manifold solve, and it is folded
-            into the path's estimate exactly once. The host reads the counters once per
-            bounce, and a second time only when the subsurface walk ran.
-          </p>
-          <figure class="diagram">
+          <h3>How a light path becomes a pixel</h3>
+          <p>Rays start at the camera. At each surface, the renderer evaluates the material, checks light visibility, and may continue the path with another bounce. This shows the main flow; glass and subsurface scattering add specialised steps.</p>
+          <figure class="diagram" aria-label="How a light path becomes a pixel">
 <pre class="mermaid diagram__src">
 flowchart TD
-  R["Renderer&lt;br/&gt;integrator · closures · NEE · film"]
-  B["GPU Backend&lt;br/&gt;accel · launch params · queues · SBT"]
-  O["OptiX&lt;br/&gt;traversal · program groups · pipelines"]
-  C["CUDA&lt;br/&gt;memory · kernels"]
-  R --&gt; B --&gt; O --&gt; C
-
-  subgraph LOOP["One tile: the bounce loop"]
-    CAM["wf_camera_kernel · CUDA&lt;br/&gt;four wavelengths per path"] --&gt; RQ["ray_q, read parity"]
-    RQ --&gt; TR["__raygen__wf_trace · OptiX"]
-    TR --&gt; EO["__raygen__wf_env_owns · OptiX&lt;br/&gt;only with environment NEE"]
-    EO --&gt; DISP["wf_dispatch_trace_kernel&lt;br/&gt;hit_q · miss_q"]
-    DISP --&gt; MISS["wf_miss_kernel&lt;br/&gt;environment radiance, terminal"]
-    DISP --&gt; SH["shade kernels · CUDA&lt;br/&gt;closure once, routed by shape:&lt;br/&gt;diffuse · diffuse+glossy · generic · layered"]
-    SH --&gt; SYNC["ONE host read of the counters"]
-    SYNC --&gt; SHD["shadow_q → __raygen__wf_shadow&lt;br/&gt;and __raygen__wf_bend · OptiX"]
-    SHD --&gt; RES["bend resolve, then shadow resolve&lt;br/&gt;the connection folded ONCE"]
-    RES --&gt; SSS["sss_q → __raygen__wf_sss · OptiX&lt;br/&gt;spectral random walk, resolve&lt;br/&gt;second host read"]
-    SH --&gt;|"continuations"| WQ["ray_q, write parity"]
-    SSS --&gt;|"exits"| WQ
-    WQ --&gt;|"swap parities · next bounce"| RQ
-  end
-
-  WQ --&gt;|"no live paths"| FILM["wf_film_kernel&lt;br/&gt;spectrum → XYZ → linear sRGB"]
-  FILM --&gt; P1["phase 1 · firefly filter"]
-  P1 --&gt; DN["OptiX AI denoiser&lt;br/&gt;albedo + normal guides"]
-  DN --&gt; P2["phase 2 · bloom → ACES → sRGB → look"]
-  P2 --&gt; OUT["PNG · viewport"]
-  FILM --&gt; EXR["raw + developed EXR"]
-
-  R -.-&gt; LOOP
-
-  classDef gpu fill:#2f7d3c,stroke:#7acb85,color:#fff
-  class R,B,O,C gpu
+  CAM["Start camera rays"] --&gt; TRACE["Trace rays · OptiX"]
+  TRACE --&gt;|"hit a surface"| SHADE["Evaluate material · CUDA"]
+  TRACE --&gt;|"miss"| SKY["Add environment light"]
+  SHADE --&gt; LIGHT["Check visibility and add direct light"]
+  SHADE --&gt;|"next bounce, if needed"| TRACE
+  LIGHT --&gt; SUM["Accumulate light for each pixel"]
+  SKY --&gt; SUM
+  SUM --&gt; RGB["Convert spectrum to image colour"]
+  RGB --&gt; OUT["Denoise and tone map for display"]
 </pre>
           </figure>
         </article>
@@ -599,6 +216,37 @@ flowchart TD
               rel="noopener"
               >shop EULA/license terms</a
             >. That email is kept on file as proof of permission.
+          </p>
+        </div>
+
+        <div class="disclaimer" data-project="watercolor">
+          <h3>Watercolor — Lucy Dreams EULA (purchased)</h3>
+          <p>
+            The
+            <a href="https://gum.co/urfLv" target="_blank" rel="noopener"
+              >Watercolor room interior scene</a
+            >
+            by <strong>Angelo Ferretti</strong> (Lucy Dreams) was purchased on
+            <strong>2026-10-12</strong> under the
+            <a
+              href="https://www.lucydreams.it/shop/eula-license/"
+              target="_blank"
+              rel="noopener"
+              >Lucy Dreams EULA</a
+            >, which permits creating renderings from the scene, in personal
+            and commercial work, and modifying it for that purpose. It does not
+            require attribution; the author is credited here voluntarily. The
+            renders were made from the scene's pbrt-v4 port in
+            <a
+              href="https://github.com/mmp/pbrt-v4-scenes/tree/master/watercolor"
+              target="_blank"
+              rel="noopener"
+              >pbrt-v4-scenes</a
+            >, using its supplied cameras with a replaced environment map from
+            <a href="https://polyhaven.com/hdris" target="_blank" rel="noopener">Poly Haven</a>
+            (<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener">CC0</a>). The
+            scene files themselves are not redistributed. The receipt is kept on
+            file as proof of license.
           </p>
         </div>
 
@@ -722,7 +370,7 @@ flowchart TD
           flowchart: { useMaxWidth: true, curve: "basis", padding: 12 },
         });
         // Rendered one at a time so a single bad diagram cannot take the
-        // other four down with it.
+        // others down with it.
         for (const fig of figures) {
           const node = fig.querySelector(".mermaid");
           try {

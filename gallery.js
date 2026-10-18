@@ -18,7 +18,7 @@ const PROJECTS = [
     title: "The editor",
     kind: "tool",
     blurb:
-      "Every render here — apart from the Blender reference images in The Old View — comes out of a spectral GPU path tracer developed under my technical direction, with an AI-assisted implementation: I set the architecture and the acceptance criteria, and changes are graded against measurements and tests. These are shots of its editor: scene tree, layered material inspector, live viewport, and progressive render output.",
+      "I direct the renderer’s architecture and testing, with AI-assisted implementation. Its editor brings together the scene tree, layered materials, and a live render preview. All gallery images use this renderer except the labelled Blender comparisons.",
     images: [
       { file: "images/00_editor/2_editor.png" },
       { file: "images/00_editor/4_editor.png" },
@@ -28,7 +28,7 @@ const PROJECTS = [
     id: "poolhouse",
     title: "Poolhouse",
     blurb:
-      "A modern villa and pool — heavily reworked from a Sketchfab base model, relit and re-dressed for a set of cinematic hero shots.",
+      "A villa scene I reworked with new geometry, materials, lighting, and staging, based on a Sketchfab model.",
     author: "zigurat architecture studio",
     source: "Sketchfab",
     sourceUrl:
@@ -45,10 +45,36 @@ const PROJECTS = [
     ],
   },
   {
+    id: "watercolor",
+    title: "Watercolor",
+    layout: "triples",
+    blurb:
+      "Daylight fills an attic painting studio, from the worktable to the gallery wall.",
+    author: "Angelo Ferretti / Lucy Dreams",
+    source: "Lucy Dreams shop",
+    sourceUrl: "https://gum.co/urfLv",
+    license: "Lucy Dreams EULA (purchased)",
+    licenseUrl: "https://www.lucydreams.it/shop/eula-license/",
+    notes:
+      'Scene "Watercolor room interior scene" by Angelo Ferretti, purchased from Lucy Dreams on 2026-10-12 under its EULA, which permits renderings made from the scene and modifications to it; attribution is not required and is given voluntarily. Rendered from the pbrt-v4 port of the scene (github.com/mmp/pbrt-v4-scenes) with its supplied cameras and a replaced environment map from Poly Haven (CC0). The scene files are not redistributed here.',
+    images: [
+      { file: "images/01_watercolor/camera-1.png", caption: "Studio", wide: true },
+      { file: "images/01_watercolor/camera-13.png", caption: "Worktable" },
+      { file: "images/01_watercolor/camera-9.png", caption: "Easel and trolley" },
+      { file: "images/01_watercolor/camera-10.png", caption: "Gallery wall" },
+      { file: "images/01_watercolor/camera-3.png", caption: "Drawer cabinet" },
+      { file: "images/01_watercolor/camera-7.png", caption: "Paint table" },
+      { file: "images/01_watercolor/camera-12.png", caption: "Paints from above" },
+      { file: "images/01_watercolor/camera-6.png", caption: "Watercolor sketch" },
+      { file: "images/01_watercolor/camera-8.png", caption: "Pens and swatches" },
+      { file: "images/01_watercolor/camera-16.png", caption: "Wicker chair" },
+    ],
+  },
+  {
     id: "kroken",
     title: "Kroken",
     blurb:
-      "A modern interior-design scene — a Kroken easy chair and chaise longue beside a styled shelving wall.",
+      "A chair and chaise longue beside a shelving wall, with close-ups of fabric, glass, and small objects.",
     author: "Angelo Ferretti / Lucy Dreams",
     source: "lucydreams.it",
     sourceUrl: "https://www.lucydreams.it/kroken/",
@@ -73,7 +99,7 @@ const PROJECTS = [
     id: "bistro",
     title: "Bistro",
     blurb:
-      "The Amazon Lumberyard Bistro — a Parisian café exterior and interior under warm evening light.",
+      "The Amazon Lumberyard Bistro in warm evening light.",
     author: "Amazon Lumberyard",
     source: "NVIDIA ORCA",
     sourceUrl: "https://developer.nvidia.com/orca/amazon-lumberyard-bistro",
@@ -92,7 +118,7 @@ const PROJECTS = [
     id: "zeroday",
     title: "Zero-Day",
     blurb:
-      "Neon-lit sci-fi corridor from Beeple's short film — a classic global-illumination stress test.",
+      "A neon-lit corridor from Beeple’s short film, showing how coloured light bounces through a scene.",
     author: "Mike Winkelmann (Beeple)",
     source: "beeple-crap.com/resources",
     sourceUrl: "https://www.beeple-crap.com/resources",
@@ -109,7 +135,7 @@ const PROJECTS = [
     id: "bathroom",
     title: "Bathroom",
     blurb:
-      "A daylit modern bathroom — reflective tile, chrome fixtures, and soft window light.",
+      "Soft window light across reflective tiles and chrome fixtures.",
     author: "PHI Archviz",
     source: "Fab",
     sourceUrl: "https://www.fab.com/listings/0a045566-e87c-4c54-927b-b40173523681",
@@ -123,7 +149,7 @@ const PROJECTS = [
     id: "monster",
     title: "Monster Under the Bed",
     blurb:
-      "A stylized creature peering out from beneath a bed — a subsurface-scattering study.",
+      "A creature beneath a bed, used to study how light scatters inside a translucent material.",
     author: "Metin Seven",
     source: "Blender Demo Files",
     sourceUrl: "https://www.blender.org/download/demo-files/",
@@ -137,7 +163,7 @@ const PROJECTS = [
     id: "classroom",
     title: "Classroom",
     blurb:
-      "The well-known Blender classroom benchmark scene — daylight through the blinds.",
+      "The Blender classroom scene, lit by daylight through the blinds.",
     author: "Christophe Seux",
     source: "Blender Demo Files",
     sourceUrl: "https://www.blender.org/download/demo-files/",
@@ -150,7 +176,7 @@ const PROJECTS = [
     id: "transparentmachines",
     title: "Transparent Machines",
     blurb:
-      "An intricate machine built entirely from glass, floating against a soft blue backdrop — nested refractive shells, threads and gears that need dozens of ray bounces to resolve.",
+      "Glass gears and nested shells from Beeple’s Transparent Machines. Rays need many bounces to pass through the overlapping surfaces.",
     author: "Mike Winkelmann (Beeple)",
     source: "beeple-crap.com/films",
     sourceUrl: "https://www.beeple-crap.com/films",
@@ -167,7 +193,7 @@ const PROJECTS = [
     id: "lion",
     title: "MaterialX Lion",
     blurb:
-      "A guardian-lion statue on a carved wooden base — a crazed ceramic glaze laid over gold leaf, built as layered MaterialX BSDFs with 4K–8K UDIM textures. The close-up goes in on the forepaws, where the cracks in the glaze open onto the metal underneath.",
+      "Cracked ceramic glaze over gold leaf, built with layered MaterialX materials. The close-up shows the metal beneath the glaze.",
     author: "NVIDIA Corporation",
     source: "ASWF / DPEL",
     sourceUrl: "https://www.aswf.io/blog/materialxteapotlion/",
@@ -186,7 +212,7 @@ const PROJECTS = [
     title: "The Old View",
     layout: "pairs",
     blurb:
-      "A replica of Valley View Mall in Dallas, the 1970s shopping centre that Kane Pixels' The Oldest View made famous. Each row is one camera rendered twice: on the left in Blender 5.1, on the right in my own path tracer.",
+      "A replica of Valley View Mall, featured in Kane Pixels’ The Oldest View. Each pair uses the same scene and camera: Blender 5.1 on the left, my path tracer on the right, both rendered by me.",
     author: "Šime Bugarija",
     source: "CGTrader",
     sourceUrl:
@@ -209,7 +235,7 @@ const PROJECTS = [
     title: "Hornet — fan art",
     group: "studies",
     blurb:
-      "Character study lit with a single warm key and a looping light-trail, rendered from a fan-made 3D model.",
+      "A character study with warm light and a looping light trail, using a fan-made model.",
     author: "dark_igorek",
     source: "Sketchfab",
     sourceUrl:
@@ -226,7 +252,7 @@ const PROJECTS = [
     title: "Gelatinous Cube — fan art",
     group: "studies",
     blurb:
-      "A translucent ooze settled in a vine-grown stone ruin, a helmeted skeleton with its sword, shield and a few spent arrows suspended mid-digestion inside — a study in refraction, absorption and volumetric scattering.",
+      "A skeleton suspended inside a translucent creature: a study in light bending, absorption, and scattering.",
     author: "glenatron",
     source: "Sketchfab",
     sourceUrl:
@@ -242,7 +268,7 @@ const PROJECTS = [
     id: "staircase",
     title: "Staircase",
     group: "studies",
-    blurb: "A sunlit wooden staircase — a soft-shadow and indirect-light study.",
+    blurb: "A sunlit wooden staircase: soft shadows and bounced daylight.",
     author: "Wig42",
     source: "Blend Swap #14449",
     sourceUrl: "https://blendswap.com/blend/14449",
@@ -257,7 +283,7 @@ const PROJECTS = [
     title: "4060.b Spaceship",
     group: "studies",
     blurb:
-      "A retro-futurist rocket in 1960s science-fiction styling — polished chrome, a glass bubble canopy over magenta seats, and ribbed thrusters, lit on a plain studio backdrop.",
+      "A retro rocket with chrome surfaces and a glass canopy under studio lighting.",
     author: "thecali",
     source: "Blend Swap #13489",
     sourceUrl: "https://blendswap.com/blend/13489",
@@ -276,7 +302,7 @@ const GROUPS = {
   studies: {
     title: "Studies",
     blurb:
-      "Single-image studies — a character, a creature, a staircase and a spaceship, each built around one lighting or material problem. Click any image for its full description and credit.",
+      "Small studies in lighting, reflection, and translucent materials. Click an image for its description and credit.",
   },
 };
 
@@ -354,7 +380,9 @@ function buildOverview() {
 /* ---------- per-project sections ---------- */
 
 /* Single column by default; `layout: "pairs"` puts two images per row (a
- * side-by-side comparison); grouped projects share one section (see GROUPS). */
+ * side-by-side comparison); `layout: "triples"` puts three portrait images per
+ * row, with any `wide: true` image spanning the full row; grouped projects
+ * share one section (see GROUPS). */
 
 function shot(p, img, idx) {
   const btn = el(
@@ -410,10 +438,11 @@ function buildSections() {
     if (!p.kind) section.append(el("p", { class: "project__credit" }, [creditLineShort(p)]));
 
     const images = el("div", {
-      class: p.layout === "pairs" ? "project__images project__images--pairs" : "project__images",
+      class: p.layout ? `project__images project__images--${p.layout}` : "project__images",
     });
     p.images.forEach((img) => {
       const fig = shot(p, img, flatIndex++);
+      if (img.wide) fig.classList.add("shot--wide");
       if (img.caption) fig.append(el("figcaption", { class: "shot__cap", text: img.caption }));
       images.append(fig);
     });
@@ -434,9 +463,14 @@ function buildCredits() {
 /* ---------- lightbox ---------- */
 
 let current = -1;
+// Where the lightbox was opened from, so closing it returns the reader there.
+let opener = null;
+let openerScrollY = 0;
 
 function openLightbox(i) {
   current = i;
+  opener = document.activeElement;
+  openerScrollY = window.scrollY;
   renderLightbox();
   const lb = document.getElementById("lightbox");
   lb.classList.add("open");
@@ -450,10 +484,9 @@ function closeLightbox() {
   lb.classList.remove("open");
   lb.setAttribute("aria-hidden", "true");
   document.body.style.overflow = "";
-  if (current >= 0) {
-    const thumb = document.querySelectorAll(".thumb")[current];
-    if (thumb) thumb.focus();
-  }
+  window.scrollTo({ top: openerScrollY, behavior: "instant" });
+  if (opener && opener !== document.body) opener.focus({ preventScroll: true });
+  opener = null;
   current = -1;
 }
 

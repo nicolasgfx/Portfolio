@@ -158,6 +158,15 @@ a:hover {
   grid-template-columns: 1fr 1fr;
   gap: clamp(1.25rem, 3vw, 2.5rem) clamp(0.6rem, 1.5vw, 1rem);
 }
+/* Portrait sets: three per row; a wide establishing shot spans the row. */
+.project__images--triples {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.25rem, 3vw, 2.5rem) clamp(0.6rem, 1.5vw, 1rem);
+}
+.shot--wide {
+  grid-column: 1 / -1;
+}
 /* Justified rows: each study grows by its aspect ratio (--ar, set on load), so
    the renders in a row share one height and wrap two to a row on desktop. */
 .project__images--group {
@@ -185,6 +194,9 @@ a:hover {
 @media (max-width: 640px) {
   .project__images--pairs {
     grid-template-columns: 1fr;
+  }
+  .project__images--triples {
+    grid-template-columns: 1fr 1fr;
   }
 }
 .shot {
