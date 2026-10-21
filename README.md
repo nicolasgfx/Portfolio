@@ -128,7 +128,7 @@ A chair and chaise longue beside a shelving wall, with close-ups of fabric, glas
     <td width="50%" align="center"><a href="images/06_kroken/Camera_05_Blanket_Detail_Top_001.png"><img src="images/06_kroken/Camera_05_Blanket_Detail_Top_001.png" width="100%" alt="Kroken — Blanket detail, top"></a><br><sub><b>Blanket detail — top</b></sub></td>
   </tr>
   <tr>
-    <td width="50%" align="center"><a href="images/06_kroken/Camera_06_Blanket_Detail_Front_001.png"><img src="images/06_kroken/Camera_06_Blanket_Detail_Front_001.png" width="100%" alt="Kroken — Blanket detail, front"></a><br><sub><b>Blanket detail — front</b></sub></td>
+    <td width="50%" align="center"><a href="images/06_kroken/Camera_06_Blanket_Detail_Front_002.png"><img src="images/06_kroken/Camera_06_Blanket_Detail_Front_002.png" width="100%" alt="Kroken — Blanket detail, front"></a><br><sub><b>Blanket detail — front</b></sub></td>
     <td width="50%" align="center"><a href="images/06_kroken/Camera_07_Moka_Detail_001.png"><img src="images/06_kroken/Camera_07_Moka_Detail_001.png" width="100%" alt="Kroken — Moka detail"></a><br><sub><b>Moka detail</b></sub></td>
   </tr>
   <tr>
