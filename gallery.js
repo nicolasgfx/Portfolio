@@ -71,6 +71,28 @@ const PROJECTS = [
     ],
   },
   {
+    id: "knittedbears",
+    title: "Knitted Bears",
+    layout: "pairs",
+    blurb:
+      "Two teddy bears covered in knitted yarn fibres, placed on the worktable of the Watercolor studio. The editor shots show the fibre geometry.",
+    author: "hectopod",
+    source: "Sketchfab",
+    sourceUrl: "https://sketchfab.com/3d-models/teddy-bears-e84b12b4ac20402aaf4d40f2219cd0e2",
+    license: "CC BY 4.0",
+    licenseUrl: "https://creativecommons.org/licenses/by/4.0/",
+    notes:
+      'Bear model "Teddy bears" by hectopod, modified by Nicolas Menzel (knitted yarn fibres and materials added, placed in a new scene). CC BY 4.0 permits modification with attribution and an indication of changes. Background: the Watercolor scene by Angelo Ferretti / Lucy Dreams, purchased under the Lucy Dreams EULA, which permits modifying the scene for renderings.',
+    images: [
+      { file: "images/02_knitted_bears/1.png", caption: "On the worktable" },
+      { file: "images/02_knitted_bears/2.png", caption: "Shallow focus" },
+      { file: "images/02_knitted_bears/3.png", caption: "Yarn close-up" },
+      { file: "images/02_knitted_bears/4.png", caption: "Studio view" },
+      { file: "images/02_knitted_bears/5_bears_editor1.png", caption: "Editor — fibre preview" },
+      { file: "images/02_knitted_bears/6_bears_editor2.png", caption: "Editor — fibre selection" },
+    ],
+  },
+  {
     id: "kroken",
     title: "Kroken",
     blurb:

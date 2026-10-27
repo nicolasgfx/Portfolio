@@ -13,6 +13,7 @@ Selected renders from my spectral GPU path tracer.
 **Renders** —
 [Poolhouse](#poolhouse) ·
 [Watercolor](#watercolor) ·
+[Knitted Bears](#knitted-bears) ·
 [Kroken](#kroken) ·
 [Bistro](#bistro) ·
 [Zero-Day](#zero-day) ·
@@ -32,6 +33,7 @@ Selected renders from my spectral GPU path tracer.
 [Fan-art notice (Gelatinous Cube)](#fan-art-notice-gelatinous-cube) ·
 [Kroken — NoDerivatives](#kroken--noderivatives-permission-granted) ·
 [Watercolor — Lucy Dreams EULA](#watercolor--lucy-dreams-eula-purchased) ·
+[Knitted Bears — CC BY 4.0 model](#knitted-bears--cc-by-40-model-in-a-purchased-scene) ·
 [Bathroom — Fab Standard License](#bathroom--fab-standard-license) ·
 [MaterialX Lion — ASWF Digital Assets License](#materialx-lion--aswf-digital-assets-license) ·
 [The Old View — Blender comparison](#the-old-view--blender-comparison) ·
@@ -107,6 +109,34 @@ Daylight fills an attic painting studio, from the worktable to the gallery wall.
 > rendered from its pbrt-v4 port with a replaced environment map from
 > [Poly Haven](https://polyhaven.com/hdris) ([CC0](https://creativecommons.org/publicdomain/zero/1.0/)) (see the
 > [note](#watercolor--lucy-dreams-eula-purchased) below).
+
+---
+
+## Knitted Bears
+
+Two teddy bears covered in knitted yarn fibres, placed on the worktable of the
+Watercolor studio. The editor shots show the fibre geometry.
+
+<table>
+  <tr>
+    <td width="50%" align="center"><a href="images/02_knitted_bears/1.png"><img src="images/02_knitted_bears/1.png" width="100%" alt="Knitted Bears — on the worktable"></a><br><sub><b>On the worktable</b></sub></td>
+    <td width="50%" align="center"><a href="images/02_knitted_bears/2.png"><img src="images/02_knitted_bears/2.png" width="100%" alt="Knitted Bears — shallow focus"></a><br><sub><b>Shallow focus</b></sub></td>
+  </tr>
+  <tr>
+    <td width="50%" align="center"><a href="images/02_knitted_bears/3.png"><img src="images/02_knitted_bears/3.png" width="100%" alt="Knitted Bears — yarn close-up"></a><br><sub><b>Yarn close-up</b></sub></td>
+    <td width="50%" align="center"><a href="images/02_knitted_bears/4.png"><img src="images/02_knitted_bears/4.png" width="100%" alt="Knitted Bears — studio view"></a><br><sub><b>Studio view</b></sub></td>
+  </tr>
+  <tr>
+    <td width="50%" align="center"><a href="images/02_knitted_bears/5_bears_editor1.png"><img src="images/02_knitted_bears/5_bears_editor1.png" width="100%" alt="Knitted Bears — editor — fibre preview"></a><br><sub><b>Editor — fibre preview</b></sub></td>
+    <td width="50%" align="center"><a href="images/02_knitted_bears/6_bears_editor2.png"><img src="images/02_knitted_bears/6_bears_editor2.png" width="100%" alt="Knitted Bears — editor — fibre selection"></a><br><sub><b>Editor — fibre selection</b></sub></td>
+  </tr>
+</table>
+
+> Bears: *Teddy bears* by hectopod, licensed
+> [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) and modified here
+> (knitted yarn fibres and materials added). Background: the purchased
+> [Watercolor](#watercolor) scene (see the
+> [note](#knitted-bears--cc-by-40-model-in-a-purchased-scene) below).
 
 ---
 
@@ -400,6 +430,7 @@ Trademarks and characters are the property of their respective owners.
 | Bathroom | *Bathroom Scene 15** — PHI Archviz | [Fab](https://www.fab.com/listings/0a045566-e87c-4c54-927b-b40173523681) | [Fab Standard License](https://www.fab.com/eula) (Personal/Professional; no attribution required, credited voluntarily) |
 | Kroken | Angelo Ferretti / Lucy Dreams | [lucydreams.it](https://www.lucydreams.it/kroken/) · [pbrt-v4-scenes](https://github.com/mmp/pbrt-v4-scenes) | [CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0/) |
 | Watercolor *(environment map replaced)** | *Watercolor room interior scene** — Angelo Ferretti / Lucy Dreams | [Lucy Dreams shop](https://gum.co/urfLv) · [pbrt-v4-scenes](https://github.com/mmp/pbrt-v4-scenes/tree/master/watercolor) | [Lucy Dreams EULA](https://www.lucydreams.it/shop/eula-license/) (purchased 2026-10-12; no attribution required, credited voluntarily) |
+| Knitted Bears *(modified)* | *Teddy bears* — hectopod | [Sketchfab](https://sketchfab.com/3d-models/teddy-bears-e84b12b4ac20402aaf4d40f2219cd0e2) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) (background scene: Watercolor, see above) |
 | The Old View | *Mall From The Oldest View – Project Files and Assets** — Šime Bugarija | [CGTrader](https://www.cgtrader.com/3d-models/interior/other/mall-from-the-oldest-view-project-files-and-assets) | [CGTrader Royalty Free License](https://www.cgtrader.com/pages/terms-and-conditions) (purchased for US$9; no attribution required, credited voluntarily) |
 
 ### Fan-art notice (Hornet)
@@ -450,6 +481,17 @@ using its supplied cameras with a replaced environment map from
 required, credited voluntarily). The scene files
 themselves are not redistributed. The receipt is kept on file as proof of
 license.
+
+### Knitted Bears — CC BY 4.0 model in a purchased scene
+
+The bears are the
+[*Teddy bears*](https://sketchfab.com/3d-models/teddy-bears-e84b12b4ac20402aaf4d40f2219cd0e2)
+model by **hectopod**, licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+I modified it by adding knitted yarn fibres and materials and placing it in a
+new scene. The background is the Watercolor scene described above, used under
+the same purchased Lucy Dreams EULA, which permits modifying the scene for
+renderings. Only rendered images and editor screenshots are published; neither
+the bear model nor the scene files are redistributed.
 
 ### Bathroom — Fab Standard License
 
