@@ -227,7 +227,6 @@ const PROJECTS = [
     title: "The Old View",
     layout: "pairs",
     work: "Mall From The Oldest View",
-    tag: "left: Blender 5.1 · right: my path tracer",
     author: "Šime Bugarija",
     source: "CGTrader",
     sourceUrl:

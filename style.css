@@ -146,7 +146,7 @@ a:hover {
 /* Each shot grows by its aspect ratio (--ar, set on load), so the renders in a
    row share one height of roughly --row-h and wrap as the window narrows. */
 .project__images {
-  --row-h: 220px;
+  --row-h: 180px;
   display: flex;
   flex-wrap: wrap;
   gap: 0.6rem;
@@ -163,7 +163,7 @@ a:hover {
 }
 /* Studies carry a caption each, so give them a little more room. */
 .project__images--group {
-  --row-h: 260px;
+  --row-h: 220px;
   row-gap: 1.25rem;
 }
 /* Side-by-side comparison: one camera per row, captioned. */
@@ -177,7 +177,6 @@ a:hover {
   display: flex;
   flex-direction: column;
   gap: 0.1rem;
-  text-align: left;
 }
 .shot__cap--study strong {
   color: var(--fg-dim);
