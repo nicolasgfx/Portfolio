@@ -18,7 +18,7 @@ const PROJECTS = [
     title: "The editor",
     kind: "tool",
     blurb:
-      "I direct the renderer’s architecture and testing, with AI-assisted implementation. Its editor brings together the scene tree, layered materials, and a live render preview. All gallery images use this renderer except the labelled Blender comparisons.",
+      "My editor and spectral GPU path tracer. Every render here uses it, except the labelled Blender comparisons.",
     images: [
       { file: "images/00_editor/2_editor.png" },
       { file: "images/00_editor/4_editor.png" },
@@ -27,8 +27,8 @@ const PROJECTS = [
   {
     id: "poolhouse",
     title: "Poolhouse",
-    blurb:
-      "A villa scene I reworked with new geometry, materials, lighting, and staging, based on a Sketchfab model.",
+    work: "Modern luxury villa house building with pool",
+    tag: "heavily modified",
     author: "zigurat architecture studio",
     source: "Sketchfab",
     sourceUrl:
@@ -47,9 +47,8 @@ const PROJECTS = [
   {
     id: "watercolor",
     title: "Watercolor",
-    layout: "triples",
-    blurb:
-      "Daylight fills an attic painting studio, from the worktable to the gallery wall.",
+    work: "Watercolor room interior scene",
+    tag: "environment map: Poly Haven (CC0)",
     author: "Angelo Ferretti / Lucy Dreams",
     source: "Lucy Dreams shop",
     sourceUrl: "https://gum.co/urfLv",
@@ -58,7 +57,7 @@ const PROJECTS = [
     notes:
       'Scene "Watercolor room interior scene" by Angelo Ferretti, purchased from Lucy Dreams on 2026-10-12 under its EULA, which permits renderings made from the scene and modifications to it; attribution is not required and is given voluntarily. Rendered from the pbrt-v4 port of the scene (github.com/mmp/pbrt-v4-scenes) with its supplied cameras and a replaced environment map from Poly Haven (CC0). The scene files are not redistributed here.',
     images: [
-      { file: "images/01_watercolor/camera-1.png", caption: "Studio", wide: true },
+      { file: "images/01_watercolor/camera-1.png", caption: "Studio" },
       { file: "images/01_watercolor/camera-13.png", caption: "Worktable" },
       { file: "images/01_watercolor/camera-9.png", caption: "Easel and trolley" },
       { file: "images/01_watercolor/camera-10.png", caption: "Gallery wall" },
@@ -73,9 +72,8 @@ const PROJECTS = [
   {
     id: "knittedbears",
     title: "Knitted Bears",
-    layout: "pairs",
-    blurb:
-      "Two teddy bears covered in knitted yarn fibres, placed on the worktable of the Watercolor studio. The editor shots show the fibre geometry.",
+    work: "Teddy bears",
+    tag: "knitted fibres added; background: Watercolor",
     author: "hectopod",
     source: "Sketchfab",
     sourceUrl: "https://sketchfab.com/3d-models/teddy-bears-e84b12b4ac20402aaf4d40f2219cd0e2",
@@ -95,8 +93,8 @@ const PROJECTS = [
   {
     id: "kroken",
     title: "Kroken",
-    blurb:
-      "A chair and chaise longue beside a shelving wall, with close-ups of fabric, glass, and small objects.",
+    work: "Kroken",
+    tag: "rendered with the author’s permission",
     author: "Angelo Ferretti / Lucy Dreams",
     source: "lucydreams.it",
     sourceUrl: "https://www.lucydreams.it/kroken/",
@@ -120,8 +118,7 @@ const PROJECTS = [
   {
     id: "bistro",
     title: "Bistro",
-    blurb:
-      "The Amazon Lumberyard Bistro in warm evening light.",
+    work: "Amazon Lumberyard Bistro",
     author: "Amazon Lumberyard",
     source: "NVIDIA ORCA",
     sourceUrl: "https://developer.nvidia.com/orca/amazon-lumberyard-bistro",
@@ -139,8 +136,7 @@ const PROJECTS = [
   {
     id: "zeroday",
     title: "Zero-Day",
-    blurb:
-      "A neon-lit corridor from Beeple’s short film, showing how coloured light bounces through a scene.",
+    work: "Zero-Day",
     author: "Mike Winkelmann (Beeple)",
     source: "beeple-crap.com/resources",
     sourceUrl: "https://www.beeple-crap.com/resources",
@@ -156,8 +152,7 @@ const PROJECTS = [
   {
     id: "bathroom",
     title: "Bathroom",
-    blurb:
-      "Soft window light across reflective tiles and chrome fixtures.",
+    work: "Bathroom Scene 15",
     author: "PHI Archviz",
     source: "Fab",
     sourceUrl: "https://www.fab.com/listings/0a045566-e87c-4c54-927b-b40173523681",
@@ -170,8 +165,8 @@ const PROJECTS = [
   {
     id: "monster",
     title: "Monster Under the Bed",
-    blurb:
-      "A creature beneath a bed, used to study how light scatters inside a translucent material.",
+    work: "Monster Under the Bed",
+    tag: "concept art by Blake Stevenson",
     author: "Metin Seven",
     source: "Blender Demo Files",
     sourceUrl: "https://www.blender.org/download/demo-files/",
@@ -184,8 +179,7 @@ const PROJECTS = [
   {
     id: "classroom",
     title: "Classroom",
-    blurb:
-      "The Blender classroom scene, lit by daylight through the blinds.",
+    work: "Class room",
     author: "Christophe Seux",
     source: "Blender Demo Files",
     sourceUrl: "https://www.blender.org/download/demo-files/",
@@ -197,8 +191,7 @@ const PROJECTS = [
   {
     id: "transparentmachines",
     title: "Transparent Machines",
-    blurb:
-      "Glass gears and nested shells from Beeple’s Transparent Machines. Rays need many bounces to pass through the overlapping surfaces.",
+    work: "Transparent Machines",
     author: "Mike Winkelmann (Beeple)",
     source: "beeple-crap.com/films",
     sourceUrl: "https://www.beeple-crap.com/films",
@@ -214,8 +207,8 @@ const PROJECTS = [
   {
     id: "lion",
     title: "MaterialX Lion",
-    blurb:
-      "Cracked ceramic glaze over gold leaf, built with layered MaterialX materials. The close-up shows the metal beneath the glaze.",
+    work: "MaterialX Teapot and Lion",
+    tag: "© 2026 NVIDIA Corporation. All rights reserved.",
     author: "NVIDIA Corporation",
     source: "ASWF / DPEL",
     sourceUrl: "https://www.aswf.io/blog/materialxteapotlion/",
@@ -233,8 +226,8 @@ const PROJECTS = [
     id: "theoldview",
     title: "The Old View",
     layout: "pairs",
-    blurb:
-      "A replica of Valley View Mall, featured in Kane Pixels’ The Oldest View. Each pair uses the same scene and camera: Blender 5.1 on the left, my path tracer on the right, both rendered by me.",
+    work: "Mall From The Oldest View",
+    tag: "left: Blender 5.1 · right: my path tracer",
     author: "Šime Bugarija",
     source: "CGTrader",
     sourceUrl:
@@ -256,8 +249,8 @@ const PROJECTS = [
     id: "hornet",
     title: "Hornet — fan art",
     group: "studies",
-    blurb:
-      "A character study with warm light and a looping light trail, using a fan-made model.",
+    work: "Silksong || Hornet Fanart",
+    tag: "unofficial fan art",
     author: "dark_igorek",
     source: "Sketchfab",
     sourceUrl:
@@ -273,8 +266,8 @@ const PROJECTS = [
     id: "gelatinouscube",
     title: "Gelatinous Cube — fan art",
     group: "studies",
-    blurb:
-      "A skeleton suspended inside a translucent creature: a study in light bending, absorption, and scattering.",
+    work: "Gelatinous Cube",
+    tag: "unofficial fan art",
     author: "glenatron",
     source: "Sketchfab",
     sourceUrl:
@@ -290,7 +283,7 @@ const PROJECTS = [
     id: "staircase",
     title: "Staircase",
     group: "studies",
-    blurb: "A sunlit wooden staircase: soft shadows and bounced daylight.",
+    work: "The Wooden Staircase",
     author: "Wig42",
     source: "Blend Swap #14449",
     sourceUrl: "https://blendswap.com/blend/14449",
@@ -304,8 +297,7 @@ const PROJECTS = [
     id: "spaceship",
     title: "4060.b Spaceship",
     group: "studies",
-    blurb:
-      "A retro rocket with chrome surfaces and a glass canopy under studio lighting.",
+    work: "4060.b Spaceship",
     author: "thecali",
     source: "Blend Swap #13489",
     sourceUrl: "https://blendswap.com/blend/13489",
@@ -323,8 +315,6 @@ const PROJECTS = [
 const GROUPS = {
   studies: {
     title: "Studies",
-    blurb:
-      "Small studies in lighting, reflection, and translucent materials. Click an image for its description and credit.",
   },
 };
 
@@ -375,13 +365,19 @@ function creditLine(p) {
 }
 
 function creditLineShort(p) {
-  // Compact source · license · author shown under a project heading.
+  // One line under a project heading: “Work” (source link) — Author · License (link) · tag
   const frag = document.createDocumentFragment();
-  frag.append(el("a", { href: p.sourceUrl, target: "_blank", rel: "noopener", text: p.source }));
-  frag.append(document.createTextNode(" · "));
+  frag.append(el("a", { href: p.sourceUrl, target: "_blank", rel: "noopener", text: `“${p.work || p.title}”` }));
+  frag.append(document.createTextNode(` — ${p.author} · `));
   frag.append(el("a", { href: p.licenseUrl, target: "_blank", rel: "noopener", text: p.license }));
-  frag.append(document.createTextNode(` · ${p.author}`));
+  if (p.tag) frag.append(document.createTextNode(` · ${p.tag}`));
   return frag;
+}
+
+/* Small JPEG beside every render (images/x/thumbs/name.jpg) for grids and rows;
+ * the lightbox always loads the full-size PNG. */
+function thumbOf(file) {
+  return file.replace(/\/([^/]+)\.png$/, "/thumbs/$1.jpg");
 }
 
 /* ---------- overview grid ---------- */
@@ -392,7 +388,7 @@ function buildOverview() {
     const btn = el(
       "button",
       { class: "thumb", type: "button", "aria-label": `Open ${imgTitle(project, img)} in full size` },
-      [el("img", { src: img.file, alt: imgTitle(project, img), loading: "lazy", decoding: "async" })]
+      [el("img", { src: thumbOf(img.file), alt: imgTitle(project, img), loading: "lazy", decoding: "async" })]
     );
     btn.addEventListener("click", () => openLightbox(i));
     grid.append(btn);
@@ -401,25 +397,31 @@ function buildOverview() {
 
 /* ---------- per-project sections ---------- */
 
-/* Single column by default; `layout: "pairs"` puts two images per row (a
- * side-by-side comparison); `layout: "triples"` puts three portrait images per
- * row, with any `wide: true` image spanning the full row; grouped projects
- * share one section (see GROUPS). */
+/* Justified rows by default: each image's flex share is its aspect ratio (--ar,
+ * set on load), so a row of mixed portrait and landscape renders comes out at
+ * one common height. `layout: "pairs"` instead puts two images per row (a
+ * side-by-side comparison, captioned); grouped projects share one section (see
+ * GROUPS), each image keeping its own title and credit. */
 
 function shot(p, img, idx) {
+  const image = el("img", { src: thumbOf(img.file), alt: imgTitle(p, img), loading: "lazy", decoding: "async" });
   const btn = el(
     "button",
     { class: "shot__btn", type: "button", "aria-label": `Open ${imgTitle(p, img)} in full size` },
-    [el("img", { src: img.file, alt: imgTitle(p, img), loading: "lazy", decoding: "async" })]
+    [image]
   );
   btn.addEventListener("click", () => openLightbox(idx));
-  return el("figure", { class: "shot" }, [btn]);
+  const fig = el("figure", { class: "shot" }, [btn]);
+  image.addEventListener("load", () =>
+    fig.style.setProperty("--ar", image.naturalWidth / image.naturalHeight)
+  );
+  return fig;
 }
 
-function sectionHead(id, title, blurb) {
+function sectionHead(id, title, line) {
   const section = el("section", { class: "project", id: `project-${id}` });
   section.append(el("h2", { class: "project__title", text: title }));
-  if (blurb) section.append(el("p", { class: "project__blurb", text: blurb }));
+  if (line) section.append(el("p", { class: "project__credit" }, [line]));
   return section;
 }
 
@@ -430,21 +432,13 @@ function buildSections() {
   ACTIVE.forEach((p) => {
     if (p.group) {
       if (!groupGrids[p.group]) {
-        const g = GROUPS[p.group];
-        const section = sectionHead(p.group, g.title, g.blurb);
+        const section = sectionHead(p.group, GROUPS[p.group].title);
         groupGrids[p.group] = el("div", { class: "project__images project__images--group" });
         section.append(groupGrids[p.group]);
         wrap.append(section);
       }
       p.images.forEach((img) => {
         const fig = shot(p, img, flatIndex++);
-        fig.classList.add("shot--study");
-        // Each study's flex share is its aspect ratio, so a row of mixed
-        // landscape and square renders comes out at one common height.
-        const image = fig.querySelector("img");
-        image.addEventListener("load", () =>
-          fig.style.setProperty("--ar", image.naturalWidth / image.naturalHeight)
-        );
         fig.append(
           el("figcaption", { class: "shot__cap shot__cap--study" }, [
             el("strong", { text: imgTitle(p, img) }),
@@ -456,16 +450,16 @@ function buildSections() {
       return;
     }
 
-    const section = sectionHead(p.id, p.title, p.blurb);
-    if (!p.kind) section.append(el("p", { class: "project__credit" }, [creditLineShort(p)]));
+    const line = p.kind ? document.createTextNode(p.blurb) : creditLineShort(p);
+    const section = sectionHead(p.id, p.title, line);
 
     const images = el("div", {
       class: p.layout ? `project__images project__images--${p.layout}` : "project__images",
     });
     p.images.forEach((img) => {
       const fig = shot(p, img, flatIndex++);
-      if (img.wide) fig.classList.add("shot--wide");
-      if (img.caption) fig.append(el("figcaption", { class: "shot__cap", text: img.caption }));
+      if (p.layout === "pairs" && img.caption)
+        fig.append(el("figcaption", { class: "shot__cap", text: img.caption }));
       images.append(fig);
     });
     section.append(images);
@@ -523,13 +517,22 @@ function renderLightbox() {
   document.getElementById("lb-img").src = img.file;
   document.getElementById("lb-img").alt = `${imgTitle(project, img)} — full-size render`;
   document.getElementById("lb-title").textContent = imgTitle(project, img);
-  document.getElementById("lb-scene").textContent = project.blurb || "";
+  const scene = document.getElementById("lb-scene");
   const credit = document.getElementById("lb-credit");
+  scene.textContent = "";
   credit.textContent = "";
   if (project.kind === "tool") {
-    credit.textContent = "The project's own editor and path tracer; no third-party assets.";
+    scene.textContent = project.blurb;
   } else {
-    credit.append(creditLine(project));
+    scene.append(creditLineShort(project));
+    const link = el("a", { href: "#credits", text: "Full credit & license ↓" });
+    link.addEventListener("click", () => {
+      // Close first so the page can scroll to the credits instead of restoring
+      // the position the lightbox was opened from.
+      closeLightbox();
+      document.getElementById("credits").scrollIntoView();
+    });
+    credit.append(link);
   }
 }
 

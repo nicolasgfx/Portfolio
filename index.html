@@ -6,9 +6,8 @@
     <title>Nicolas Menzel — Spectral GPU Path Tracer</title>
     <meta
       name="description"
-      content="Nicolas Menzel’s rendering portfolio: selected images, a spectral GPU path tracer, and the design behind it."
+      content="Nicolas Menzel’s rendering portfolio: selected images from a spectral GPU path tracer."
     />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -16,13 +15,11 @@
       <p class="hero__eyebrow">Spectral GPU path tracing · OptiX 9 · CUDA · C++17</p>
       <h1 class="hero__name">Nicolas Menzel</h1>
       <p class="hero__tagline">
-        Selected renders from my spectral GPU path tracer, and a look at how it works.
+        Selected renders from my spectral GPU path tracer.
       </p>
       <nav class="hero__nav">
         <a href="#overview">Gallery</a>
         <a href="#project-editor">The editor</a>
-        <a href="#renderer">The renderer</a>
-        <a href="#architecture">Architecture</a>
         <a href="#credits">Credits &amp; licenses</a>
         <a href="mailto:drnicolasmenzel@gmail.com">Contact</a>
       </nav>
@@ -38,117 +35,6 @@
       </section>
 
       <div id="sections"></div>
-
-      <!-- Renderer overview and measurements. -->
-      <section id="renderer" class="renderer" aria-label="The renderer">
-        <h2 class="renderer__heading">The renderer</h2>
-        <p class="renderer__intro">A GPU path tracer that follows light through a scene to build an image. It tracks wavelengths, so effects such as glass dispersion and thin-film colour emerge from the light simulation.</p>
-        <div class="renderer__grid">
-          <article class="renderer__group">
-            <h3>Light and colour</h3>
-            <ul>
-              <li>Each path samples four wavelengths. This supports dispersion in glass, measured metal reflectance, and the shifting colours of thin films.</li>
-              <li>Light can scatter inside translucent materials and pass through overlapping glass objects. Specialised sampling helps find light through windows and refractive surfaces.</li>
-            </ul>
-          </article>
-          <article class="renderer__group">
-            <h3>Materials and sampling</h3>
-            <ul>
-              <li>Rough glass, brushed metal, and layered coatings share a material system. Layers account for how a coat changes the light reaching the surface beneath it.</li>
-              <li>A light hierarchy helps choose useful lights in complex scenes. Carefully distributed samples reduce noise; optional path guiding learns promising directions as rendering progresses.</li>
-            </ul>
-          </article>
-          <article class="renderer__group">
-            <h3>Running on the GPU</h3>
-            <ul>
-              <li>OptiX traces rays; CUDA kernels handle shading and image processing. The renderer groups similar work into stages, a design called wavefront rendering.</li>
-              <li>Instances share mesh data, and texture resolution adapts to the GPU memory budget. The display pipeline removes bright outliers, denoises, and applies bloom and tone mapping.</li>
-            </ul>
-          </article>
-          <article class="renderer__group">
-            <h3>Checking the results</h3>
-            <ul>
-              <li>Energy tests check that materials do not create extra light. One glass test exposed double-counted lighting: it returned 2.17 where the expected result was 1.0.</li>
-              <li>Statistical tests check the sampling routines. Before each change, I define what should stay identical and what should change; design decisions record the evidence and tradeoffs.</li>
-            </ul>
-          </article>
-        </div>
-        <article class="renderer__case">
-          <h3>Case study: retiring the megakernel</h3>
-          <p>The original renderer ran the whole light path in one large GPU program, or megakernel. A material edit meant 23.5 minutes of compilation, followed by 35.1 minutes to create the module on a cold start. That made small experiments expensive.</p>
-          <p>I chose to split the work into smaller wavefront stages, with performance and image checks set before the AI-assisted implementation began. The change cut build and startup times and improved rendering speed in the measured scenes.</p>
-          <div class="renderer__table-wrap">
-            <table aria-describedby="case-table-note">
-              <thead><tr><th scope="col">Measured</th><th scope="col">Megakernel</th><th scope="col">Wavefront</th></tr></thead>
-              <tbody>
-                <tr><th scope="row">Shading compilation</th><td>23.5 min</td><td>3–4 s per stage</td></tr>
-                <tr><th scope="row">Cold module creation</th><td>35.1 min</td><td>1.7 s for three main modules</td></tr>
-                <tr><th scope="row">Rendering speed</th><td>1× baseline</td><td>1.56–1.85× faster</td></tr>
-                <tr><th scope="row">Average image brightness</th><td>Reference</td><td>Within ±0.01% in 5 of 6 comparisons; +0.0323% in the sixth</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <p id="case-table-note" class="renderer__table-note">Build/startup measurements: 11 September 2026. Rendering: Kroken and Watercolor at 1920×1080, 128–512 samples per pixel, denoising off, both backends in the same binary, with single interleaved runs. These are scene-specific results. Subsurface scattering uses a separate 8.5 MB module that takes 138 s to create cold.</p>
-          <p>The main gain was a shorter feedback loop: material changes became practical to test one at a time. Brightness comparisons were backed by sampling and energy tests, including a deliberately broken build to check that the tests caught the error.</p>
-        </article>
-        <p class="renderer__meta">The renderer repository is private.
-          <a href="mailto:drnicolasmenzel@gmail.com">Source available on request.</a>
-        </p>
-      </section>
-
-      <section id="architecture" class="architecture" aria-label="Renderer architecture">
-        <h2 class="architecture__heading">Architecture</h2>
-        <p class="architecture__intro">Three views of the design: how a scene reaches the GPU, how edits update it, and how light becomes an image.</p>
-        <article class="arch-block">
-          <h3>From scene to image</h3>
-          <p>The editor and renderer share one scene model. Editor panels read from it, while the renderer receives a fixed snapshot so editing can continue during a render.</p>
-          <figure class="diagram" aria-label="From scene to image">
-<pre class="mermaid diagram__src">
-flowchart TD
-  FILE["Project files"] --&gt;|"load"| SCENE["Shared scene"]
-  SCENE --&gt;|"save"| FILE
-  SCENE --&gt; UI["Editor panels"]
-  UI --&gt;|"edits and undo"| SCENE
-  SCENE --&gt; SNAP["Render snapshot"]
-  SNAP --&gt; GPU["GPU renderer"]
-  GPU --&gt; VIEW["Live viewport or saved image"]
-</pre>
-          </figure>
-        </article>
-        <article class="arch-block">
-          <h3>Updating only what changed</h3>
-          <p>Edits update revision counters, which tell the renderer what needs refreshing. Camera and display settings have direct update paths. The GPU context and texture pool survive scene rebuilds.</p>
-          <figure class="diagram" aria-label="Updating only what changed">
-<pre class="mermaid diagram__src">
-flowchart TD
-  EDIT["Scene edit"] --&gt; REV["Record changed parts"]
-  REV --&gt; SNAP["Latest scene snapshot"]
-  SNAP --&gt; SYNC["Update GPU state"]
-  CAM["Camera movement"] --&gt; SYNC
-  LOOK["Display settings"] --&gt; SYNC
-  SYNC --&gt;|"reuse or rebuild as needed"| FRAME["Render next frame"]
-</pre>
-          </figure>
-        </article>
-        <article class="arch-block">
-          <h3>How a light path becomes a pixel</h3>
-          <p>Rays start at the camera. At each surface, the renderer evaluates the material, checks light visibility, and may continue the path with another bounce. This shows the main flow; glass and subsurface scattering add specialised steps.</p>
-          <figure class="diagram" aria-label="How a light path becomes a pixel">
-<pre class="mermaid diagram__src">
-flowchart TD
-  CAM["Start camera rays"] --&gt; TRACE["Trace rays · OptiX"]
-  TRACE --&gt;|"hit a surface"| SHADE["Evaluate material · CUDA"]
-  TRACE --&gt;|"miss"| SKY["Add environment light"]
-  SHADE --&gt; LIGHT["Check visibility and add direct light"]
-  SHADE --&gt;|"next bounce, if needed"| TRACE
-  LIGHT --&gt; SUM["Accumulate light for each pixel"]
-  SKY --&gt; SUM
-  SUM --&gt; RGB["Convert spectrum to image colour"]
-  RGB --&gt; OUT["Denoise and tone map for display"]
-</pre>
-          </figure>
-        </article>
-      </section>
 
       <section id="credits" class="credits" aria-label="Credits and licenses">
         <h2 class="credits__heading">Credits &amp; licenses</h2>
@@ -361,53 +247,5 @@ flowchart TD
 
     <script src="gallery.js"></script>
 
-    <!--
-      Mermaid is the only third-party dependency on this page, and it is confined
-      to the architecture diagrams. If the CDN is unreachable the figures fall
-      back to their own source text rather than collapsing to blank boxes.
-    -->
-    <script type="module">
-      const figures = document.querySelectorAll(".diagram");
-      try {
-        const { default: mermaid } = await import(
-          "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs"
-        );
-        mermaid.initialize({
-          startOnLoad: false,
-          theme: "base",
-          themeVariables: {
-            darkMode: true,
-            background: "#141416",
-            primaryColor: "#1c1c20",
-            primaryTextColor: "#ededf0",
-            primaryBorderColor: "#3a3a42",
-            secondaryColor: "#1c1c20",
-            tertiaryColor: "#141416",
-            lineColor: "#7a7a84",
-            textColor: "#ededf0",
-            clusterBkg: "#101012",
-            clusterBorder: "#2f2f36",
-            edgeLabelBackground: "#141416",
-            fontFamily:
-              'ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace',
-            fontSize: "14px",
-          },
-          flowchart: { useMaxWidth: true, curve: "basis", padding: 12 },
-        });
-        // Rendered one at a time so a single bad diagram cannot take the
-        // others down with it.
-        for (const fig of figures) {
-          const node = fig.querySelector(".mermaid");
-          try {
-            await mermaid.run({ nodes: [node] });
-            fig.classList.add("diagram--ready");
-          } catch (err) {
-            fig.classList.add("diagram--fallback");
-          }
-        }
-      } catch (err) {
-        figures.forEach((f) => f.classList.add("diagram--fallback"));
-      }
-    </script>
   </body>
 </html>
