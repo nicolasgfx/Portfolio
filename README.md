@@ -44,9 +44,7 @@ My editor and spectral GPU path tracer. Every render here uses it, except the la
 <a href="images/02_knitted_bears/1.png"><img src="images/02_knitted_bears/thumbs/1.jpg" height="160" alt="Knitted Bears"></a>
 <a href="images/02_knitted_bears/2.png"><img src="images/02_knitted_bears/thumbs/2.jpg" height="160" alt="Knitted Bears"></a>
 <a href="images/02_knitted_bears/3.png"><img src="images/02_knitted_bears/thumbs/3.jpg" height="160" alt="Knitted Bears — yarn close-up"></a>
-<a href="images/02_knitted_bears/4.png"><img src="images/02_knitted_bears/thumbs/4.jpg" height="160" alt="Knitted Bears"></a>
-<a href="images/02_knitted_bears/5_bears_editor1.png"><img src="images/02_knitted_bears/thumbs/5_bears_editor1.jpg" height="160" alt="Knitted Bears — editor"></a>
-<a href="images/02_knitted_bears/6_bears_editor2.png"><img src="images/02_knitted_bears/thumbs/6_bears_editor2.jpg" height="160" alt="Knitted Bears — editor"></a>
+<a href="images/02_knitted_bears/4_bears_editor2.png"><img src="images/02_knitted_bears/thumbs/4_bears_editor2.jpg" height="160" alt="Knitted Bears — editor"></a>
 
 ## Kroken
 
